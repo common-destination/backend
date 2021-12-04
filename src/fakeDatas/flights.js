@@ -100,9 +100,9 @@ const airportsTo = flights.map((airport) => {
 const airports = [...airportsFrom, ...airportsTo];
 console.log({ airports: [...new Set(airports)] });
 
-// const uniqueDestinations = flights.map((airport) => {
-//     return [airport.airportFrom,airport.airportTo];
-//   });
-//   console.log({ airports: [...new Set(uniqueDestinations)] });
+const uniqueDestinations = flights.map((airport) => {
+    return [airport.airportFrom,airport.airportTo];
+  });
+  console.log({ connections: [...new Set(uniqueDestinations)] });
 
 export default flights;
