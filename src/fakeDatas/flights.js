@@ -9,7 +9,7 @@ const flights = [
     companyName: 'jjj airlines',
   },
   {
-    airportFrom: 'moscow',
+    airportFrom: 'nalchik',
     airportTo: 'berlin',
     departure: '2022-01-22T14:56:59.301Z',
     arrive: '2022-01-22T14:56:59.301Z',
