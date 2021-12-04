@@ -7,9 +7,6 @@ import { flightRouter } from './routers/flightRouter.js';
 const app = express();
 const port = process.env.PORT;
 
-//TEST
-
-
 
 app.use(cors());
 app.use(express.json());
@@ -22,4 +19,3 @@ app.use('/', flightRouter, (req, res) => {
   });
 });
 app.listen(port, () => console.log(`http://localhost:${port}`));
-
