@@ -51,7 +51,7 @@ const flights = [
     arrive: '2022-01-22T14:56:59.301Z',
     countryFrom: 'germany',
     countryTo: 'italy',
-    companyName: 'jjj airlines',
+    companyName: 'the airlines',
   },
   {
     airportFrom: 'london',
