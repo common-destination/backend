@@ -89,6 +89,15 @@ const flights = [
     countryTo: 'spain',
     companyName: 'espanol airlines',
   },
+  {
+    airportFrom: 'milan',
+    airportTo: 'london',
+    departure: '2022-01-22T14:56:59.301Z',
+    arrive: '2022-01-22T14:56:59.301Z',
+    countryFrom: 'italy',
+    countryTo: 'england',
+    companyName: 'espanol airlines',
+  },
 ];
 
 const airportsFrom = flights.map((airport) => {
@@ -101,8 +110,8 @@ const airports = [...airportsFrom, ...airportsTo];
 console.log({ airports: [...new Set(airports)] });
 
 const uniqueDestinations = flights.map((airport) => {
-    return [airport.airportFrom,airport.airportTo];
-  });
-  console.log({ connections: [...new Set(uniqueDestinations)] });
+  return [airport.airportFrom, airport.airportTo];
+});
+console.log({ connections: [...new Set(uniqueDestinations)] });
 
 export default flights;
