@@ -27,7 +27,7 @@ const getGeoData = (strLocation1, strLocation2) => {
 };
 
 const getGeoDataTest = async () => {
-  // this array can also be an array of objects with more details like country, etc...
+  // this array can also be an array of objects with more details like country, etc..
   // const arrAirports = [
   //   'Turin Airport, Italy',
   //   'Milan Airport, Italy',
