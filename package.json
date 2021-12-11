@@ -17,7 +17,9 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
-    "mongoose": "^6.0.13"
+    "geolib": "^3.3.3",
+    "mongoose": "^6.0.13",
+    "node-open-geocoder": "^4.0.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
