@@ -1,0 +1,3 @@
+npm i node-open-geocoder to get the coordinates of the airports
+
+npm i geolib to get the distance between two coordinates
