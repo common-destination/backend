@@ -1,15 +1,11 @@
-const geoCoder = require("node-open-geocoder");
-// import pkg from "node-open-geocoder";
-const { getDistance } = require("geolib");
+import geoCoder from "node-open-geocoder";
+import { getDistance } from "geolib";
 
-
-
-// const { geocode } = pkg;
 const getGeoData = (airport1, airport2) => {
   return new Promise((resolve, reject) => {
-    geoCoder.geocode(airport1).end((err, res) => {
+    geoCoder(airport1).end((err, res) => {
       const coordAirport1 = { latitude: res[0].lat, longitude: res[0].lon };
-      geoCoder.geocode(airport2).end((err, res) => {
+      geoCoder(airport2).end((err, res) => {
         const coordAirport2 = { latitude: res[0].lat, longitude: res[0].lon };
 
         const dist = getDistance(coordAirport1, coordAirport2);
