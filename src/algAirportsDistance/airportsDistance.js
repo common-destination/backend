@@ -121,7 +121,9 @@ const getGeoDataTest = async () => {
   // var resultTime = this.randomTime();
   // console.log(resultTime);
 
-  console.log(flights);
+  return flights;
 };
 
 getGeoDataTest();
+
+export default getGeoDataTest;
