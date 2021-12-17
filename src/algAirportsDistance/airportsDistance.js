@@ -1,5 +1,5 @@
-import geoCoder from "node-open-geocoder";
-import { getDistance } from "geolib";
+import geoCoder from 'node-open-geocoder';
+import { getDistance } from 'geolib';
 
 // get distance between two addresses / geo points in meters
 const getGeoData = (strLocation1, strLocation2) => {
@@ -23,29 +23,42 @@ const getGeoData = (strLocation1, strLocation2) => {
   });
 };
 
-const getGeoDataTest = async () => {
+const getFlightsAPI = async () => {
   // this array can also be an array of objects with more details like country, etc...
 
   const arrAirports = [
-    "Turin Airport, Italy",
-    "Milan Airport, Italy",
-    "Berlin Airport, Germany",
-    "Moscow Airport, Russia",
-    "Rome Airport, Italy",
+    'Madrid Airport, Spain',
+    'Milan Airport, Italy',
+    'Berlin Airport, Germany',
+    'Paris Airport, France',
+    'Amsterdam Airport, Netherlands',
+    'Barcelona Airport, Spain',
+    'Rome Airport, Italy',
+    'Hamburg Airport, Germany',
+    'Frankfurt Airport, Germany',
+    'Athens Airport, Greece',
   ];
   const flights = [];
-  // function randomDate(start, end) {
-  //   return new Date(
-  //     start.getTime() + Math.random() * (end.getTime() - start.getTime())
-  //   );
-  // }
+  function randomDate(start, end) {
+    return new Date(start.getTime() + 3 * (end.getTime() - start.getTime()));
+  }
 
-  // console.log(randomDate(new Date(2022, 1, 1), new Date()));
+  console.log(randomDate(new Date(2022, 1, 1), new Date(2022, 2, 1)));
 
   function generateRandomDate() {
-    return new Date(+new Date() + Math.floor(Math.random() * 10000000000));
+    return new Date(+new Date() + Math.floor(Math.random() * 10));
   }
-  console.log(new generateRandomDate().toLocaleDateString("en-EN"));
+
+  //   // Calculate milliseconds in a year
+  // const minute = 1000 * 60;
+  // const hour = minute * 60;
+  // const day = hour * 24;
+  // const year = day * 365;
+
+  // // Divide Date.now() with a year
+  // let years = Math.round(Date.now() / year);
+
+  console.log(new generateRandomDate().toLocaleDateString('en-EN'));
   // outer loop
   for (let i = 0; i < arrAirports.length; i++) {
     // combine with every other airport
@@ -54,15 +67,19 @@ const getGeoDataTest = async () => {
         (await getGeoData(arrAirports[i], arrAirports[j])) / 1000
       );
 
-      const landingAndBoardingTime = 400;
-      const flightDurationInHours = (landingAndBoardingTime + distance) / 800;
+      const landingAndBoardingTime = 0.5;
+      const flightDurationInHours = distance / 800 + landingAndBoardingTime;
+
+      const getFLightPrice =
+        15 + Math.floor(Math.random() * (flightDurationInHours * 120));
+      console.log(getFLightPrice);
 
       function getFlightDuration() {
         const rhours = Math.floor(flightDurationInHours);
         const flightDurationInMinutes = (flightDurationInHours - rhours) * 60;
         const rminutes = Math.round(flightDurationInMinutes);
-        return `${rhours} ${rhours === 1 ? "hour" : "hours"} and ${rminutes} ${
-          rminutes === 1 ? "minute" : "minutes"
+        return `${rhours} ${rhours === 1 ? 'hour' : 'hours'} and ${rminutes} ${
+          rminutes === 1 ? 'minute' : 'minutes'
         }`;
       }
 
@@ -75,24 +92,28 @@ const getGeoDataTest = async () => {
 
       for (let x = 0; x < amountFlights; x++) {
         flights.push({
-          from: arrAirports[i].split(",")[0],
-          to: arrAirports[j].split(",")[0],
-          countryFrom: arrAirports[i].split(",")[1],
-          countryTo: arrAirports[j].split(",")[1],
+          from: arrAirports[i].split(',')[0],
+          to: arrAirports[j].split(',')[0],
+          countryFrom: arrAirports[i].split(',')[1],
+          countryTo: arrAirports[j].split(',')[1],
+          departure: generateRandomDate(),
+          arrive: randomDate(new Date(2022, 1, 1), new Date(2022, 1, 3)),
           distance: `${distance} km`,
+          price: getFLightPrice,
           flightDuration: getFlightDuration(),
           flightDurationInHours,
-          timestampsDeparture: generateRandomDate(),
         });
         flights.push({
-          from: arrAirports[j].split(",")[0],
-          to: arrAirports[i].split(",")[0],
-          countryFrom: arrAirports[j].split(",")[1],
-          countryTo: arrAirports[i].split(",")[1],
+          from: arrAirports[j].split(',')[0],
+          to: arrAirports[i].split(',')[0],
+          countryFrom: arrAirports[j].split(',')[1],
+          countryTo: arrAirports[i].split(',')[1],
+          departure: generateRandomDate(),
+          arrive: randomDate(new Date(2022, 1, 1), new Date(2022, 2, 1)),
           distance: `${distance} km`,
           flightDuration: getFlightDuration(),
           flightDurationInHours,
-          timestampsDeparture: generateRandomDate(),
+          price: getFLightPrice,
         });
       }
     }
@@ -122,8 +143,9 @@ const getGeoDataTest = async () => {
   // console.log(resultTime);
 
   return flights;
+  // console.log(flights);
 };
 
-getGeoDataTest();
+// getFlightsAPI();
 
-export default getGeoDataTest;
+export default getFlightsAPI;

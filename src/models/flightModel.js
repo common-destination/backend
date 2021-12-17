@@ -6,10 +6,12 @@ const flightsSchema = new mongoose.Schema(
     to: String,
     countryFrom: String,
     countryTo: String,
+    departure: Date,
+    arrive: Date,
     distance: String,
     flightDuration: String,
     flightDurationInHours: Number,
-    timestampsDeparture: Date,
+    price: String,
   },
   {
     versionKey: false,
