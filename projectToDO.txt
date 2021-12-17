@@ -1,5 +1,6 @@
 -30 days Flights 
--10 airports
+-10 airports => -BIG aiports fly to 5 - 9 aiports
+-10 airports => -small aiports fly to 1 - 4 aiports
 
 Exemple:
 
@@ -7,8 +8,6 @@ Exemple:
 -Amsterdam,Berlin,Rome fly to 7 aiports
 -Madrid,Hamburg,Athens fly to 5 airports
 -Milan, Barcelona fly to 3 aiports
-
--shit aiports fly to 1 aiports
 
 
 total Flights = 60 per day
