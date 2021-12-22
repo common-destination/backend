@@ -1,5 +1,5 @@
-import geoCoder from "node-open-geocoder";
-import { getDistance } from "geolib";
+import geoCoder from 'node-open-geocoder';
+import { getDistance } from 'geolib';
 
 // get distance between two addresses / geo points in meters
 const getGeoData = (strLocation1, strLocation2) => {
@@ -24,7 +24,7 @@ const getGeoData = (strLocation1, strLocation2) => {
 };
 
 function addDuration(date, m) {
-  date = new Date(date)
+  date = new Date(date);
   const newDate = date.setTime(date.getTime() + m * 1000 * 60);
   // console.log(newDate, date)
   return newDate;
@@ -34,9 +34,9 @@ const getFlightsAPI = async () => {
   // this array can also be an array of objects with more details like country, etc...
 
   const arrAirports = [
-    "Madrid Airport, Spain",
-    "Milan Airport, Italy",
-    "Berlin Airport, Germany",
+    'Madrid Airport, Spain',
+    'Milan Airport, Italy',
+    // 'Berlin Airport, Germany',
     // 'Paris Airport, France',
     // 'Amsterdam Airport, Netherlands',
     // 'Barcelona Airport, Spain',
@@ -65,7 +65,7 @@ const getFlightsAPI = async () => {
   // // Divide Date.now() with a year
   // let years = Math.round(Date.now() / year);
 
-  console.log(new generateRandomDate().toLocaleDateString("en-EN"));
+  console.log(new generateRandomDate().toLocaleDateString('en-EN'));
   // outer loop
   for (let i = 0; i < arrAirports.length; i++) {
     // combine with every other airport
@@ -75,7 +75,7 @@ const getFlightsAPI = async () => {
       );
 
       const landingAndBoardingTime = 0.5;
-      const flightDurationInHours = distance / 800 + landingAndBoardingTime;
+      let flightDurationInHours = distance / 800 + landingAndBoardingTime;
 
       const getFLightPrice =
         15 + Math.floor(Math.random() * (flightDurationInHours * 120));
@@ -85,8 +85,8 @@ const getFlightsAPI = async () => {
         const rhours = Math.floor(flightDurationInHours);
         const flightDurationInMinutes = (flightDurationInHours - rhours) * 60;
         const rminutes = Math.round(flightDurationInMinutes);
-        return `${rhours} ${rhours === 1 ? "hour" : "hours"} and ${rminutes} ${
-          rminutes === 1 ? "minute" : "minutes"
+        return `${rhours} ${rhours === 1 ? 'hour' : 'hours'} and ${rminutes} ${
+          rminutes === 1 ? 'minute' : 'minutes'
         }`;
       }
 
@@ -95,16 +95,19 @@ const getFlightsAPI = async () => {
 
       // next for loop for a bunch of flights between these two airports
       // TODO: generate some random start date...
-      const amountFlights = 1;
+      const amountFlights = 10;
 
       for (let x = 0; x < amountFlights; x++) {
-        const departureDate = generateRandomDate()
-        const ArrivalDate = addDuration(departureDate)
+        let departureDate = generateRandomDate();
+
+       
+        x === 0 ? departureDate += 0 : (departureDate += 86400000);
+
         flights.push({
-          from: arrAirports[i].split(",")[0],
-          to: arrAirports[j].split(",")[0],
-          countryFrom: arrAirports[i].split(",")[1],
-          countryTo: arrAirports[j].split(",")[1],
+          from: arrAirports[i].split(',')[0],
+          to: arrAirports[j].split(',')[0],
+          countryFrom: arrAirports[i].split(',')[1],
+          countryTo: arrAirports[j].split(',')[1],
           departure: departureDate,
           arrive: addDuration(departureDate, flightDurationInHours * 60),
           distance: `${distance} km`,
@@ -113,15 +116,16 @@ const getFlightsAPI = async () => {
           flightDurationInHours,
         });
         flights.push({
-          from: arrAirports[j].split(",")[0],
-          to: arrAirports[i].split(",")[0],
-          countryFrom: arrAirports[j].split(",")[1],
-          countryTo: arrAirports[i].split(",")[1],
+          from: arrAirports[j].split(',')[0],
+          to: arrAirports[i].split(',')[0],
+          countryFrom: arrAirports[j].split(',')[1],
+          countryTo: arrAirports[i].split(',')[1],
           departure: generateRandomDate(),
           arrive: addDuration(departureDate, flightDurationInHours * 60),
           distance: `${distance} km`,
           flightDuration: getFlightDuration(),
           flightDurationInHours,
+
           price: getFLightPrice,
         });
       }
