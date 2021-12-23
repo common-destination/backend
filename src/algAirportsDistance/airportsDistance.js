@@ -43,7 +43,7 @@ const getFlightsAPI = async () => {
     // 'Barcelona Airport, Spain',              // 52
     // 'Istanbul Airport, Turkey',              // 52
     // 'Moscow Airport, Russia',                // 49
-    // 'Munich Airport, Germany',               // 47 => it does not work ?????
+    // 'Freising Airport, Germany',             // 47 => it's Munich
     // 'Rome Airport, Italy',                   // 43
     // 'Dublin Airport, Ireland',               // 32
     // 'Vienna Airport, Austria',               // 31
