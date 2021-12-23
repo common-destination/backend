@@ -11,6 +11,8 @@ const flightsSchema = new mongoose.Schema(
     distance: String,
     flightDuration: String,
     flightDurationInHours: Number,
+    day: String,
+    month: String,
     price: String,
   },
   {

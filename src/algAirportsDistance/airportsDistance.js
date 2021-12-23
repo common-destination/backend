@@ -1,5 +1,6 @@
 import geoCoder from 'node-open-geocoder';
 import { getDistance } from 'geolib';
+import moment from 'moment';
 
 // get distance between two addresses / geo points in meters
 const getGeoData = (strLocation1, strLocation2) => {
@@ -46,15 +47,43 @@ const getFlightsAPI = async () => {
     // 'Athens Airport, Greece',
   ];
   const flights = [];
-  function randomDate(start, end) {
-    return new Date(start.getTime() + 3 * (end.getTime() - start.getTime()));
-  }
+  // function randomDate(start, end) {
+  //   return new Date(start.getTime() + 3 * (end.getTime() - start.getTime()));
+  // }
 
-  console.log(randomDate(new Date(2022, 1, 1), new Date(2022, 2, 1)));
+  // console.log(randomDate(new Date(2022, 1, 1), new Date(2022, 2, 1)));
 
-  function generateRandomDate() {
-    return new Date(+new Date() + Math.floor(Math.random() * 10));
-  }
+  const dayOfWeek = (dailydate) => {
+    let dayInNum = dailydate.isoWeekday();
+    if (dayInNum === 1) return 'Monday';
+    if (dayInNum === 2) return 'Tuesday';
+    if (dayInNum === 3) return 'Wednesday';
+    if (dayInNum === 4) return 'Thurday';
+    if (dayInNum === 5) return 'Friday';
+    if (dayInNum === 6) return 'Saturday';
+    if (dayInNum === 7) return 'Sunday';
+  };
+
+  const Month = (dailydate) => {
+    let monthInNum = moment(dailydate).format('M');
+    if (monthInNum === '1') return 'January';
+    if (monthInNum === '2') return 'February';
+    if (monthInNum === '3') return 'March';
+    if (monthInNum === '4') return 'April';
+    if (monthInNum === '5') return 'May';
+    if (monthInNum === '6') return 'June';
+    if (monthInNum === '7') return 'July';
+    if (monthInNum === '8') return 'August';
+    if (monthInNum === '9') return 'September';
+    if (monthInNum === '10') return 'October';
+    if (monthInNum === '11') return 'November';
+    if (monthInNum === '12') return 'December';
+
+  };
+
+  // function generateRandomDate() {
+  //   return new Date(+new Date() + Math.floor(Math.random() * 10));
+  // }
 
   //   // Calculate milliseconds in a year
   // const minute = 1000 * 60;
@@ -65,7 +94,7 @@ const getFlightsAPI = async () => {
   // // Divide Date.now() with a year
   // let years = Math.round(Date.now() / year);
 
-  console.log(new generateRandomDate().toLocaleDateString('en-EN'));
+  // console.log(new generateRandomDate().toLocaleDateString('en-EN'));
   // outer loop
   for (let i = 0; i < arrAirports.length; i++) {
     // combine with every other airport
@@ -96,12 +125,13 @@ const getFlightsAPI = async () => {
       // next for loop for a bunch of flights between these two airports
       // TODO: generate some random start date...
       const amountFlights = 10;
+      //ITERATION Y DAYS TO ADD 1 DAY EVRY TIME
 
       for (let x = 0; x < amountFlights; x++) {
-        let departureDate = generateRandomDate();
-
-       
-        x === 0 ? departureDate += 0 : (departureDate += 86400000);
+        let departureDate = moment().add(x, 'days');
+        let departureDate2 = moment()
+          .add(x, 'days')
+          .add(flightDurationInHours + 1, 'hours');
 
         flights.push({
           from: arrAirports[i].split(',')[0],
@@ -111,54 +141,31 @@ const getFlightsAPI = async () => {
           departure: departureDate,
           arrive: addDuration(departureDate, flightDurationInHours * 60),
           distance: `${distance} km`,
-          price: getFLightPrice,
           flightDuration: getFlightDuration(),
           flightDurationInHours,
+          day: dayOfWeek(departureDate),
+          month: Month(departureDate),
+          price: getFLightPrice,
         });
         flights.push({
           from: arrAirports[j].split(',')[0],
           to: arrAirports[i].split(',')[0],
           countryFrom: arrAirports[j].split(',')[1],
           countryTo: arrAirports[i].split(',')[1],
-          departure: generateRandomDate(),
-          arrive: addDuration(departureDate, flightDurationInHours * 60),
+          departure: departureDate2, // https://momentjscom.readthedocs.io/en/latest/moment/03-manipulating/01-add/   add hours?
+          arrive: addDuration(departureDate2, flightDurationInHours * 60),
           distance: `${distance} km`,
           flightDuration: getFlightDuration(),
           flightDurationInHours,
-
+          day: dayOfWeek(departureDate2),
+          month: Month(departureDate2),
           price: getFLightPrice,
         });
       }
     }
   }
 
-  // departure: '2022-01-22T14:00',
-  // arrive: '2022-01-22T15:30',
-
-  // randomTime = () => {
-  //   hrs = Math.round(Math.random() * 24);
-  //   mins = Math.round(Math.random() * 60);
-  //   const hFormat = hrs < 10 ? '0' : '';
-  //   var mFormat = mins < 10 ? '0' : '';
-  //   var amPm = hrs < 12 ? 'AM' : 'PM';
-  //   var is12 = hrs % 12 === 0;
-
-  //   return amPm === 'AM' && !is12
-  //     ? String(hFormat + hrs + ':' + mFormat + mins + ' ' + amPm)
-  //     : 'AM' && is12
-  //     ? String(12 + ':' + mFormat + mins + ' ' + amPm)
-  //     : is12
-  //     ? String(hFormat + hrs + ':' + mFormat + mins + ' ' + amPm)
-  //     : String(hFormat + (hrs - 12) + ':' + mFormat + mins + ' ' + amPm);
-  // };
-
-  // var resultTime = this.randomTime();
-  // console.log(resultTime);
-
   return flights;
-  // console.log(flights);
 };
-
-// getFlightsAPI();
 
 export default getFlightsAPI;
