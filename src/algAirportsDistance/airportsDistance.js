@@ -34,17 +34,37 @@ function addDuration(date, m) {
 const getFlightsAPI = async () => {
   // this array can also be an array of objects with more details like country, etc...
 
-  const arrAirports = [
-    'Madrid Airport, Spain',
-    'Milan Airport, Italy',
-    // 'Berlin Airport, Germany',
-    // 'Paris Airport, France',
-    // 'Amsterdam Airport, Netherlands',
-    // 'Barcelona Airport, Spain',
-    // 'Rome Airport, Italy',
-    // 'Hamburg Airport, Germany',
-    // 'Frankfurt Airport, Germany',
-    // 'Athens Airport, Greece',
+  const arrAirports = [                         // Passengers in million
+    'London Airport, UK',                    // 80
+    'Paris Airport, France',                 // 76
+    // 'Amsterdam Airport, Netherlands',        // 71
+    // 'Frankfurt Airport, Germany',            // 70
+    // 'Madrid Airport, Spain',                 // 61
+    // 'Barcelona Airport, Spain',              // 52
+    // 'Istanbul Airport, Turkey',              // 52
+    // 'Moscow Airport, Russia',                // 49
+    // 'Munich Airport, Germany',               // 47 => it does not work ?????
+    // 'Rome Airport, Italy',                   // 43
+    // 'Dublin Airport, Ireland',               // 32
+    // 'Vienna Airport, Austria',               // 31
+    // 'Zurich Airport, Switzerland',           // 31
+    // 'Lisbon Airport, Portugal',              // 31
+    // 'Copenhagen Airport, Denmark',           // 30
+    // 'Palma de Mallorca Airport, Spain',      // 29
+    // 'Milan Airport, Italy',                  // 28
+    // 'Oslo Airport, Norway',                  // 28
+    // 'Brussels Airport, Belgium',             // 26
+    // 'Stockholm Airport, Sweden',             // 25
+    // 'Athens Airport, Greece',                // 25
+    // 'Dusseldorf Airport, Germany',           // 25
+    // 'Berlin Airport, Germany',               // 24    
+    // 'Helsinki Airport, Finland',             // 21  
+    // 'Saint Petersburg Airport, Russia',      // 19    
+    // 'Warsaw Airport, Poland',                // 18
+    // 'Prague Airport, Czech Republic',        // 17
+    // 'Hamburg Airport, Germany',              // 17
+    // 'Budapest Airport, Hungary',             // 16
+    // 'Stuttgart Airport, Germany',            // 12
   ];
   const flights = [];
   // function randomDate(start, end) {
