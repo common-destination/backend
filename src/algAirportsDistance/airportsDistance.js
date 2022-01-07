@@ -98,7 +98,6 @@ const getFlightsAPI = async () => {
     if (monthInNum === '10') return 'October';
     if (monthInNum === '11') return 'November';
     if (monthInNum === '12') return 'December';
-
   };
 
   // function generateRandomDate() {
@@ -119,73 +118,75 @@ const getFlightsAPI = async () => {
   for (let i = 0; i < arrAirports.length; i++) {
     // combine with every other airport
     for (let j = i + 1; j < arrAirports.length; j++) {
-      const distance = Math.round(
-        (await getGeoData(arrAirports[i], arrAirports[j])) / 1000
-      );
+    
+        const distance = Math.round(
+          (await getGeoData(arrAirports[i], arrAirports[j])) / 1000
+        );
 
-      const landingAndBoardingTime = 0.5;
-      let flightDurationInHours = distance / 800 + landingAndBoardingTime;
+        const landingAndBoardingTime = 0.5;
+        let flightDurationInHours = distance / 800 + landingAndBoardingTime;
 
-      const getFLightPrice =
-        15 + Math.floor(Math.random() * (flightDurationInHours * 120));
-      console.log(getFLightPrice);
+        const getFLightPrice =
+          15 + Math.floor(Math.random() * (flightDurationInHours * 120));
+        // console.log(getFLightPrice);
 
-      function getFlightDuration() {
-        const rhours = Math.floor(flightDurationInHours);
-        const flightDurationInMinutes = (flightDurationInHours - rhours) * 60;
-        const rminutes = Math.round(flightDurationInMinutes);
-        return `${rhours} ${rhours === 1 ? 'hour' : 'hours'} and ${rminutes} ${
-          rminutes === 1 ? 'minute' : 'minutes'
-        }`;
-      }
+        function getFlightDuration() {
+          const rhours = Math.floor(flightDurationInHours);
+          const flightDurationInMinutes = (flightDurationInHours - rhours) * 60;
+          const rminutes = Math.round(flightDurationInMinutes);
+          return `${rhours} ${
+            rhours === 1 ? 'hour' : 'hours'
+          } and ${rminutes} ${rminutes === 1 ? 'minute' : 'minutes'}`;
+        }
 
-      // console.log( `Hin: ${arrAirports[i]} - ${arrAirports[j]} - ${Math.round(distance/1000)}` )
-      // console.log( `Zurueck: ${arrAirports[j]} - ${arrAirports[i]} - ${Math.round(distance/1000)}` )
+        // console.log( `Hin: ${arrAirports[i]} - ${arrAirports[j]} - ${Math.round(distance/1000)}` )
+        // console.log( `Zurueck: ${arrAirports[j]} - ${arrAirports[i]} - ${Math.round(distance/1000)}` )
 
-      // next for loop for a bunch of flights between these two airports
-      // TODO: generate some random start date...
-      const amountFlights = 10;
-      //ITERATION Y DAYS TO ADD 1 DAY EVRY TIME
+        // next for loop for a bunch of flights between these two airports
+        // TODO: generate some random start date...
+        const amountFlights = 1;
+        //ITERATION Y DAYS TO ADD 1 DAY EVRY TIME
 
-      for (let x = 0; x < amountFlights; x++) {
-        let departureDate = moment().add(x, 'days');
-        let departureDate2 = moment()
-          .add(x, 'days')
-          .add(flightDurationInHours + 1, 'hours');
+        for (let x = 0; x < amountFlights; x++) {
+          let departureDate = moment().add(x, 'days');
+          let departureDate2 = moment()
+            .add(x, 'days')
+            .add(flightDurationInHours + 1, 'hours');
 
-        flights.push({
-          from: arrAirports[i].split(',')[0],
-          to: arrAirports[j].split(',')[0],
-          countryFrom: arrAirports[i].split(',')[1],
-          countryTo: arrAirports[j].split(',')[1],
-          departure: departureDate,
-          arrive: addDuration(departureDate, flightDurationInHours * 60),
-          distance: `${distance} km`,
-          flightDuration: getFlightDuration(),
-          flightDurationInHours,
-          day: dayOfWeek(departureDate),
-          month: Month(departureDate),
-          price: getFLightPrice,
-        });
-        flights.push({
-          from: arrAirports[j].split(',')[0],
-          to: arrAirports[i].split(',')[0],
-          countryFrom: arrAirports[j].split(',')[1],
-          countryTo: arrAirports[i].split(',')[1],
-          departure: departureDate2, // https://momentjscom.readthedocs.io/en/latest/moment/03-manipulating/01-add/   add hours?
-          arrive: addDuration(departureDate2, flightDurationInHours * 60),
-          distance: `${distance} km`,
-          flightDuration: getFlightDuration(),
-          flightDurationInHours,
-          day: dayOfWeek(departureDate2),
-          month: Month(departureDate2),
-          price: getFLightPrice,
-        });
+          flights.push({
+            from: arrAirports[i].split(',')[0],
+            to: arrAirports[j].split(',')[0],
+            countryFrom: arrAirports[i].split(',')[1],
+            countryTo: arrAirports[j].split(',')[1],
+            departure: departureDate,
+            arrive: addDuration(departureDate, flightDurationInHours * 60),
+            distance: `${distance} km`,
+            flightDuration: getFlightDuration(),
+            flightDurationInHours,
+            day: dayOfWeek(departureDate),
+            month: Month(departureDate),
+            price: getFLightPrice,
+          });
+          flights.push({
+            from: arrAirports[j].split(',')[0],
+            to: arrAirports[i].split(',')[0],
+            countryFrom: arrAirports[j].split(',')[1],
+            countryTo: arrAirports[i].split(',')[1],
+            departure: departureDate2, // https://momentjscom.readthedocs.io/en/latest/moment/03-manipulating/01-add/   add hours?
+            arrive: addDuration(departureDate2, flightDurationInHours * 60),
+            distance: `${distance} km`,
+            flightDuration: getFlightDuration(),
+            flightDurationInHours,
+            day: dayOfWeek(departureDate2),
+            month: Month(departureDate2),
+            price: getFLightPrice,
+          });
+        }
       }
     }
   }
 
   return flights;
-};
+
 
 export default getFlightsAPI;
