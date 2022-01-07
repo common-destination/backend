@@ -1,8 +1,6 @@
 import './config.js';
 import mongoose from 'mongoose';
 
-
-
 // URINNEN
 // SENSITIVE DATA => never store stuff like this in code
 // connection strings, passwords, secrets

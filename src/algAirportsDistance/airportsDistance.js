@@ -58,161 +58,155 @@ const getFlightsAPI = async () => {
       passengersInMillionPerYear: 70,
     },
     {
-      name: 'Sydney Airport',
-      country: 'Australia',
-      range: 6,
-      passengersInMillionPerYear: 61,
+      name: 'Barcelona Airport',
+      country: 'Spain',
+      range: 5,
+      passengersInMillionPerYear: 52,
     },
-    // {
-    //   name: 'Barcelona Airport',
-    //   country: 'Spain',
-    //   range: 5,
-    //   passengersInMillionPerYear: 52,
-    // },
-    // {
-    //   name: 'Istanbul Airport',
-    //   country: 'Turkey',
-    //   range: 5,
-    //   passengersInMillionPerYear: 52,
-    // },
-    // {
-    //   name: 'Moscow Airport',
-    //   country: 'Russia',
-    //   range: 5,
-    //   passengersInMillionPerYear: 49,
-    // },
-    // {
-    //   name: 'Freising Airport',
-    //   country: 'Germany',
-    //   range: 5,
-    //   passengersInMillionPerYear: 47,
-    // },
-    // {
-    //   name: 'Rome Airport',
-    //   country: 'Italy',
-    //   passengersInMillionPerYear: 43,
-    //   range: 4,
-    // },
-    // {
-    //   name: 'Dublin Airport',
-    //   country: 'Ireland',
-    //   passengersInMillionPerYear: 32,
-    //   range: 3,
-    // },
-    // {
-    //   name: 'Vienna Airport',
-    //   country: 'Austria',
-    //   passengersInMillionPerYear: 31,
-    //   range: 3,
-    // },
-    // {
-    //   name: 'Zurich Airport',
-    //   country: 'Switzerland',
-    //   passengersInMillionPerYear: 31,
-    //   range: 3,
-    // },
-    // {
-    //   name: 'Lisbon Airport',
-    //   country: 'Portugal',
-    //   passengersInMillionPerYear: 31,
-    //   range: 3,
-    // },
-    // {
-    //   name: 'Copenhagen Airport',
-    //   country: 'Denmark',
-    //   passengersInMillionPerYear: 30,
-    //   range: 3,
-    // },
-    // {
-    //   name: 'Palma de Mallorca Airport',
-    //   country: 'Spain',
-    //   range: 3,
-    //   passengersInMillionPerYear: 29,
-    // },
-    // {
-    //   name: 'Milan Airport',
-    //   country: 'Italy',
-    //   range: 3,
-    //   passengersInMillionPerYear: 28,
-    // },
-    // {
-    //   name: 'Oslo Airport',
-    //   country: 'Norway',
-    //   range: 3,
-    //   passengersInMillionPerYear: 28,
-    // },
-    // {
-    //   name: 'Brussels Airport',
-    //   country: 'Belgium',
-    //   range: 3,
-    //   passengersInMillionPerYear: 26,
-    // },
-    // {
-    //   name: 'Stockholm Airport',
-    //   country: 'Sweden',
-    //   range: 2,
-    //   passengersInMillionPerYear: 25,
-    // },
-    // {
-    //   name: 'Athens Airport',
-    //   country: 'Greece',
-    //   range: 2,
-    //   passengersInMillionPerYear: 25,
-    // },
-    // {
-    //   name: 'Dusseldorf Airport',
-    //   country: 'Germany',
-    //   range: 2,
-    //   passengersInMillionPerYear: 25,
-    // },
-    // {
-    //   name: 'Berlin Airport',
-    //   country: 'Germany',
-    //   range: 2,
-    //   passengersInMillionPerYear: 24,
-    // },
-    // {
-    //   name: 'Helsinki Airport',
-    //   country: 'Finland',
-    //   range: 2,
-    //   passengersInMillionPerYear: 21,
-    // },
-    // {
-    //   name: 'Saint Petersburg Airport',
-    //   country: 'Russia',
-    //   range: 2,
-    //   passengersInMillionPerYear: 19,
-    // },
-    // {
-    //   name: 'Warsaw Airport',
-    //   country: 'Poland',
-    //   range: 2,
-    //   passengersInMillionPerYear: 18,
-    // },
-    // {
-    //   name: 'Prague Airport',
-    //   country: 'Czech Republic',
-    //   range: 2,
-    //   passengersInMillionPerYear: 17,
-    // },
-    // {
-    //   name: 'Hamburg Airport',
-    //   country: 'Germany',
-    //   range: 2,
-    //   passengersInMillionPerYear: 17,
-    // },
-    // {
-    //   name: 'Budapest Airport',
-    //   country: 'Hungary',
-    //   range: 1,
-    //   passengersInMillionPerYear: 16,
-    // },
-    // {
-    //   name: 'Stuttgart Airport',
-    //   country: 'Germany',
-    //   range: 1,
-    //   passengersInMillionPerYear: 12,
-    // },
+    {
+      name: 'Istanbul Airport',
+      country: 'Turkey',
+      range: 5,
+      passengersInMillionPerYear: 52,
+    },
+    {
+      name: 'Moscow Airport',
+      country: 'Russia',
+      range: 5,
+      passengersInMillionPerYear: 49,
+    },
+    {
+      name: 'Freising Airport',
+      country: 'Germany',
+      range: 5,
+      passengersInMillionPerYear: 47,
+    },
+    {
+      name: 'Rome Airport',
+      country: 'Italy',
+      passengersInMillionPerYear: 43,
+      range: 4,
+    },
+    {
+      name: 'Dublin Airport',
+      country: 'Ireland',
+      passengersInMillionPerYear: 32,
+      range: 3,
+    },
+    {
+      name: 'Vienna Airport',
+      country: 'Austria',
+      passengersInMillionPerYear: 31,
+      range: 3,
+    },
+    {
+      name: 'Zurich Airport',
+      country: 'Switzerland',
+      passengersInMillionPerYear: 31,
+      range: 3,
+    },
+    {
+      name: 'Lisbon Airport',
+      country: 'Portugal',
+      passengersInMillionPerYear: 31,
+      range: 3,
+    },
+    {
+      name: 'Copenhagen Airport',
+      country: 'Denmark',
+      passengersInMillionPerYear: 30,
+      range: 3,
+    },
+    {
+      name: 'Palma de Mallorca Airport',
+      country: 'Spain',
+      range: 3,
+      passengersInMillionPerYear: 29,
+    },
+    {
+      name: 'Milan Airport',
+      country: 'Italy',
+      range: 3,
+      passengersInMillionPerYear: 28,
+    },
+    {
+      name: 'Oslo Airport',
+      country: 'Norway',
+      range: 3,
+      passengersInMillionPerYear: 28,
+    },
+    {
+      name: 'Brussels Airport',
+      country: 'Belgium',
+      range: 3,
+      passengersInMillionPerYear: 26,
+    },
+    {
+      name: 'Stockholm Airport',
+      country: 'Sweden',
+      range: 2,
+      passengersInMillionPerYear: 25,
+    },
+    {
+      name: 'Athens Airport',
+      country: 'Greece',
+      range: 2,
+      passengersInMillionPerYear: 25,
+    },
+    {
+      name: 'Dusseldorf Airport',
+      country: 'Germany',
+      range: 2,
+      passengersInMillionPerYear: 25,
+    },
+    {
+      name: 'Berlin Airport',
+      country: 'Germany',
+      range: 2,
+      passengersInMillionPerYear: 24,
+    },
+    {
+      name: 'Helsinki Airport',
+      country: 'Finland',
+      range: 2,
+      passengersInMillionPerYear: 21,
+    },
+    {
+      name: 'Saint Petersburg Airport',
+      country: 'Russia',
+      range: 2,
+      passengersInMillionPerYear: 19,
+    },
+    {
+      name: 'Warsaw Airport',
+      country: 'Poland',
+      range: 2,
+      passengersInMillionPerYear: 18,
+    },
+    {
+      name: 'Prague Airport',
+      country: 'Czech Republic',
+      range: 2,
+      passengersInMillionPerYear: 17,
+    },
+    {
+      name: 'Hamburg Airport',
+      country: 'Germany',
+      range: 2,
+      passengersInMillionPerYear: 17,
+    },
+    {
+      name: 'Budapest Airport',
+      country: 'Hungary',
+      range: 1,
+      passengersInMillionPerYear: 16,
+    },
+    {
+      name: 'Stuttgart Airport',
+      country: 'Germany',
+      range: 1,
+      passengersInMillionPerYear: 12,
+    },
   ];
   let flights = [];
   // function randomDate(start, end) {
@@ -221,27 +215,50 @@ const getFlightsAPI = async () => {
 
   // console.log(randomDate(new Date(2022, 1, 1), new Date(2022, 2, 1)));
 
-  // const filteredFlights = () => {
-  //   switch (airports.range) {
+  // const flightsConditions = (fromRange, toRange) => {
+  //   switch (fromRange) {
   //     case 1:
-  //     return airports.range >= 8;  //flights only to airport with range 8
+  //       return toRange >= 8; //flights only to airport with range 8
   //     case 2:
-  //     return airports.range >= 7;  //flights only to airport with range 7,8
+  //       return toRange >= 7; //flights only to airport with range 7,8
   //     case 3:
-  //     return airports.range >= 6;  //flights only to airport with range 6,7,8
+  //       return toRange >= 6; //flights only to airport with range 6,7,8
   //     case 4:
-  //     return airports.range >= 5;  //flights only to airport with range 5,6,7,8
+  //       return toRange >= 5; //flights only to airport with range 5,6,7,8
   //     case 5:
-  //     return airports.range >= 4;  //flights only to airport with range 4,5,6,7,8
+  //       return toRange >= 4; //flights only to airport with range 4,5,6,7,8
   //     case 6:
-  //     return airports.range >= 3;  //flights only to airport with range 3,4,5,6,7,8
+  //       return toRange >= 3; //flights only to airport with range 3,4,5,6,7,8
   //     case 7:
-  //     return airports.range >= 2;  //flights only to airport with range 2,3,4,5,6,7,8
+  //       return toRange >= 2; //flights only to airport with range 2,3,4,5,6,7,8
   //     case 8:
-  //     return airports.range >= 1;  //flights only to airport with range 1,2,3,4,5,6,7,8
-  //     }
+  //       return toRange >= 1; //flights only to airport with range 1,2,3,4,5,6,7,8
   //   }
   // };
+
+
+  const flightsConditions = (fromRange, toRange) => {
+    switch (fromRange) {
+      case 1:
+        return toRange >= 8; //flights only to airport with range 8
+      case 2:
+        return toRange >= 7; //flights only to airport with range 7,8
+      case 3:
+        return toRange >= 6; //flights only to airport with range 6,7,8
+      case 4:
+        return toRange >= 5; //flights only to airport with range 5,6,7,8
+      case 5:
+        return toRange >= 4; //flights only to airport with range 4,5,6,7,8
+      case 6:
+        return toRange >= 3; //flights only to airport with range 3,4,5,6,7,8
+      case 7:
+        return toRange >= 2; //flights only to airport with range 2,3,4,5,6,7,8
+      case 8:
+        return toRange >= 1; //flights only to airport with range 1,2,3,4,5,6,7,8
+    }
+  };
+
+
 
   const dayOfWeek = (dailydate) => {
     let dayInNum = dailydate.isoWeekday();
@@ -273,7 +290,12 @@ const getFlightsAPI = async () => {
   // outer loop
   for (let i = 0; i < airports.length; i++) {
     // combine with every other airport
+    console.log(i);
+    console.log(airports.length);
     for (let j = i + 1; j < airports.length; j++) {
+      if (!flightsConditions(airports[i].range, airports[j].range)) {
+        continue;
+      }
       const distance = Math.round(
         (await getGeoData(
           `${airports[i].name}, ${airports[i].country}`,
@@ -301,9 +323,6 @@ const getFlightsAPI = async () => {
 
       for (let x = 0; x < amountFlights; x++) {
         let departureDate = moment().add(x, 'days');
-        // console.log(departureDate.toString().slice(0, -12));
-        // console.log(typeof departureDate.toString());
-        // departureDate.toString().slice(0,-8)
         let departureDate2 = moment()
           .add(x, 'days')
           .add(flightDurationInHours + 1, 'hours');
@@ -332,7 +351,7 @@ const getFlightsAPI = async () => {
           to: airports[i].name,
           countryFrom: airports[j].country,
           countryTo: airports[i].country,
-          departure: departureDate2.toString().slice(0, -12), 
+          departure: departureDate2.toString().slice(0, -12),
           arrive: new Date(
             addDuration(departureDate2, flightDurationInHours * 60)
           )
@@ -357,10 +376,5 @@ const getFlightsAPI = async () => {
 //     element.from !== 'London Airport' && element.to !== 'Paris Airport'
 // );
 // return filteredFlights.sort((a, b) => a.departure - b.departure);
-
-// return flights.filter(
-//   (element) =>
-//     element.from !== 'London Airport' && element.to !== 'Paris Airport'
-// );
 
 export default getFlightsAPI;
