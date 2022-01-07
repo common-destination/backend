@@ -215,50 +215,9 @@ const getFlightsAPI = async () => {
 
   // console.log(randomDate(new Date(2022, 1, 1), new Date(2022, 2, 1)));
 
-  // const flightsConditions = (fromRange, toRange) => {
-  //   switch (fromRange) {
-  //     case 1:
-  //       return toRange >= 8; //flights only to airport with range 8
-  //     case 2:
-  //       return toRange >= 7; //flights only to airport with range 7,8
-  //     case 3:
-  //       return toRange >= 6; //flights only to airport with range 6,7,8
-  //     case 4:
-  //       return toRange >= 5; //flights only to airport with range 5,6,7,8
-  //     case 5:
-  //       return toRange >= 4; //flights only to airport with range 4,5,6,7,8
-  //     case 6:
-  //       return toRange >= 3; //flights only to airport with range 3,4,5,6,7,8
-  //     case 7:
-  //       return toRange >= 2; //flights only to airport with range 2,3,4,5,6,7,8
-  //     case 8:
-  //       return toRange >= 1; //flights only to airport with range 1,2,3,4,5,6,7,8
-  //   }
-  // };
-
-
   const flightsConditions = (fromRange, toRange) => {
-    switch (fromRange) {
-      case 1:
-        return toRange >= 8; //flights only to airport with range 8
-      case 2:
-        return toRange >= 7; //flights only to airport with range 7,8
-      case 3:
-        return toRange >= 6; //flights only to airport with range 6,7,8
-      case 4:
-        return toRange >= 5; //flights only to airport with range 5,6,7,8
-      case 5:
-        return toRange >= 4; //flights only to airport with range 4,5,6,7,8
-      case 6:
-        return toRange >= 3; //flights only to airport with range 3,4,5,6,7,8
-      case 7:
-        return toRange >= 2; //flights only to airport with range 2,3,4,5,6,7,8
-      case 8:
-        return toRange >= 1; //flights only to airport with range 1,2,3,4,5,6,7,8
-    }
+    return toRange + fromRange >= 9; //flights only to airport with range 8
   };
-
-
 
   const dayOfWeek = (dailydate) => {
     let dayInNum = dailydate.isoWeekday();
@@ -290,8 +249,6 @@ const getFlightsAPI = async () => {
   // outer loop
   for (let i = 0; i < airports.length; i++) {
     // combine with every other airport
-    console.log(i);
-    console.log(airports.length);
     for (let j = i + 1; j < airports.length; j++) {
       if (!flightsConditions(airports[i].range, airports[j].range)) {
         continue;
@@ -302,7 +259,6 @@ const getFlightsAPI = async () => {
           `${airports[j].name}, ${airports[j].country}`
         )) / 1000
       );
-
       const landingAndBoardingTime = 0.5;
       let flightDurationInHours = distance / 800 + landingAndBoardingTime;
 
