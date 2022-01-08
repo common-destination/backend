@@ -8,7 +8,7 @@ import mongoose from 'mongoose';
 // we need dotenv.config() to be executred BEFOE!
 // const mongoConnectionString = "mongodb://localhost/common_destination";
 const mongoConnectionString = 'mongodb://localhost/common_destination';
-
+// const mongoConnectionString = 'mongodb+srv://common-destination:common-destination@cluster0.gr68s.mongodb.net';
 console.log({ mongoConnectionString});
 
 mongoose

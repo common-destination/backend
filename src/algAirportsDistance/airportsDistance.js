@@ -81,8 +81,8 @@ const getFlightsAPI = async () => {
       }
       const distance = Math.round(
         (await getGeoData(
-          `${airports[i].name}, ${airports[i].country}`,
-          `${airports[j].name}, ${airports[j].country}`
+          `${airports[i].name} Airport, ${airports[i].country}`,
+          `${airports[j].name} Airport, ${airports[j].country}`
         )) / 1000
       );
       const landingAndBoardingTime = 0.5;
