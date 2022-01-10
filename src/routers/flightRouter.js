@@ -9,5 +9,9 @@ flightRouter.get('/', async (_req, res) => {
   const flights = await flightController.readAllFlights();
   res.json(flights);
 });
+flightRouter.get('/date', async (_req, res) => {
+  const flights = await flightController.readAllFlightsSortDate();
+  res.json(flights);
+});
 
 export { flightRouter };

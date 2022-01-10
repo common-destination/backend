@@ -94,7 +94,7 @@ const getFlightsAPI = async () => {
         }`;
       }
 
-      const amountFlights = 1;
+      const amountFlights = 30;
       //ITERATION Y DAYS TO ADD 1 DAY EVRY TIME
 
       for (let x = 0; x < amountFlights; x++) {

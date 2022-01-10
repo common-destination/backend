@@ -1,0 +1,112 @@
+const gast1 = { airport: 'a', dateIn: 21, dateBack: 23, maxPrice: 200 };
+const gast2 = { airport: 'b', dateIn: 21, dateBack: 23, maxPrice: 100 };
+const gast3 = { airport: 'c', dateIn: 21, dateBack: 23, maxPrice: 200 };
+
+const passengers = [
+  { airport: 'a', dateIn: 21, dateBack: 23, maxPrice: 200 },
+  { airport: 'b', dateIn: 21, dateBack: 23, maxPrice: 100 },
+  { airport: 'c', dateIn: 21, dateBack: 23, maxPrice: 200 },
+];
+const airports = ['rome', 'berlin', 'moscow', 'paris'];
+
+const flights = [
+  { airportFrom: 'a', airportTo: 'berlin', dateIn: 21, dateBack: 23 },
+  { airportFrom: 'a', airportTo: 'paris', dateIn: 21, dateBack: 23 },
+  { airportFrom: 'a', airportTo: 'berlin', dateIn: 23, dateBack: 25 },
+  { airportFrom: 'a', airportTo: 'moscow', dateIn: 21, dateBack: 24 },
+  { airportFrom: 'a', airportTo: 'berlin', dateIn: 22, dateBack: 23 },
+  { airportFrom: 'b', airportTo: 'berlin', dateIn: 21, dateBack: 23 },
+  { airportFrom: 'b', airportTo: 'paris', dateIn: 21, dateBack: 23 },
+  { airportFrom: 'b', airportTo: 'berlin', dateIn: 22, dateBack: 23 },
+  { airportFrom: 'b', airportTo: 'berlin', dateIn: 22, dateBack: 23 },
+  { airportFrom: 'c', airportTo: 'berlin', dateIn: 21, dateBack: 23 },
+  { airportFrom: 'c', airportTo: 'rome', dateIn: 21, dateBack: 23 },
+  { airportFrom: 'c', airportTo: 'rome', dateIn: 22, dateBack: 23 },
+  { airportFrom: 'c', airportTo: 'paris', dateIn: 21, dateBack: 24 },
+];
+
+
+// const filteredFlights = (passenger) => {
+    //   flights
+    //     .filter((element) => {
+    //       return (
+    //         element.airportFrom === passenger.airport &&
+    //         element.dateIn === passenger.dateIn &&
+    //         element.dateBack === passenger.dateBack
+    //       );
+    //     })
+    //     .map((flight) => {
+    //       return flight.airportTo;
+    //     });
+    // };
+
+const filteredFlightsGast1 = flights
+  .filter((element) => {
+    return (
+      element.airportFrom === passengers[1].airport &&
+      element.dateIn === passengers[1].dateIn &&
+      element.dateBack === passengers[1].dateBack
+    );
+  })
+  .map((flight) => {
+    return flight.airportTo;
+  });
+
+const filteredFlightsGast2 = flights
+  .filter((element) => {
+    return (
+      element.airportFrom === passengers[2].airport &&
+      element.dateIn === passengers[2].dateIn &&
+      element.dateBack === passengers[2].dateBack
+    );
+  })
+  .map((flight) => {
+    return flight.airportTo;
+  });
+
+const filteredFlightsGast3 = flights
+  .filter((element) => {
+    return (
+      element.airportFrom === passengers[2].airport &&
+      element.dateIn === passengers[2].dateIn &&
+      element.dateBack === passengers[2].dateBack
+    );
+  })
+  .map((flight) => {
+    return flight.airportTo;
+  });
+
+const allFilteredFlights = [
+  filteredFlightsGast1,
+  filteredFlightsGast2,
+  filteredFlightsGast3,
+];
+
+const findCommonDestination = () => {
+  const obj = allFilteredFlights.reduce((acc, flights) => {
+    //   console.log(flights);
+
+    for (const flight of flights) {
+      if (acc[flight]) {
+        acc[flight]++;
+      } else {
+        acc[flight] = 1;
+      }
+    }
+    return acc;
+  }, {});
+  let result = [];
+  Object.entries(obj).forEach((m) => {
+    if (m[1] === passengers.length) {
+      result.push(m[0]);
+    }
+  });
+  return result;
+  //   console.log(Object.entries(obj));
+};
+
+// console.log(filteredFlightsGast1);
+// console.log(filteredFlightsGast2);
+// console.log(filteredFlightsGast3);
+
+console.log(findCommonDestination());
