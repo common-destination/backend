@@ -1,7 +1,7 @@
 import geoCoder from 'node-open-geocoder';
 import { getDistance } from 'geolib';
 import moment from 'moment';
-import {airports} from '../data/aiports.js'
+import {airports} from '../data/airports.js'
 
 // get distance between two addresses / geo points in meters
 const getGeoData = (strLocation1, strLocation2) => {
