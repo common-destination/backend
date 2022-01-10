@@ -1,13 +1,8 @@
-const gast1 = { airport: 'a', dateIn: 21, dateBack: 23, maxPrice: 200 };
-const gast2 = { airport: 'b', dateIn: 21, dateBack: 23, maxPrice: 100 };
-const gast3 = { airport: 'c', dateIn: 21, dateBack: 23, maxPrice: 200 };
-
-const passengers = [
+let passengers = [
   { airport: 'a', dateIn: 21, dateBack: 23, maxPrice: 200 },
   { airport: 'b', dateIn: 21, dateBack: 23, maxPrice: 100 },
   { airport: 'c', dateIn: 21, dateBack: 23, maxPrice: 200 },
 ];
-const airports = ['rome', 'berlin', 'moscow', 'paris'];
 
 const flights = [
   { airportFrom: 'a', airportTo: 'berlin', dateIn: 21, dateBack: 23 },
@@ -22,68 +17,68 @@ const flights = [
   { airportFrom: 'c', airportTo: 'berlin', dateIn: 21, dateBack: 23 },
   { airportFrom: 'c', airportTo: 'rome', dateIn: 21, dateBack: 23 },
   { airportFrom: 'c', airportTo: 'rome', dateIn: 22, dateBack: 23 },
-  { airportFrom: 'c', airportTo: 'paris', dateIn: 21, dateBack: 24 },
+  { airportFrom: 'c', airportTo: 'paris', dateIn: 21, dateBack: 23 },
 ];
 
-
-// const filteredFlights = (passenger) => {
-    //   flights
-    //     .filter((element) => {
-    //       return (
-    //         element.airportFrom === passenger.airport &&
-    //         element.dateIn === passenger.dateIn &&
-    //         element.dateBack === passenger.dateBack
-    //       );
-    //     })
-    //     .map((flight) => {
-    //       return flight.airportTo;
-    //     });
-    // };
-
-const filteredFlightsGast1 = flights
-  .filter((element) => {
-    return (
-      element.airportFrom === passengers[1].airport &&
-      element.dateIn === passengers[1].dateIn &&
-      element.dateBack === passengers[1].dateBack
-    );
-  })
-  .map((flight) => {
-    return flight.airportTo;
+const filteredFlights = () => {
+  let result = [];
+  passengers.map((passenger) => {
+    flights
+      .filter((element) => {
+        return (
+          element.airportFrom === passenger.airport &&
+          element.dateIn === passenger.dateIn &&
+          element.dateBack === passenger.dateBack
+        );
+      })
+      .map((flight) => {
+        result.push([flight.airportTo]);
+      });
   });
 
-const filteredFlightsGast2 = flights
-  .filter((element) => {
-    return (
-      element.airportFrom === passengers[2].airport &&
-      element.dateIn === passengers[2].dateIn &&
-      element.dateBack === passengers[2].dateBack
-    );
-  })
-  .map((flight) => {
-    return flight.airportTo;
-  });
+  return result;
+};
 
-const filteredFlightsGast3 = flights
-  .filter((element) => {
-    return (
-      element.airportFrom === passengers[2].airport &&
-      element.dateIn === passengers[2].dateIn &&
-      element.dateBack === passengers[2].dateBack
-    );
-  })
-  .map((flight) => {
-    return flight.airportTo;
-  });
+// console.log(filteredFlights());
 
-const allFilteredFlights = [
-  filteredFlightsGast1,
-  filteredFlightsGast2,
-  filteredFlightsGast3,
-];
+// const filteredFlightsGast1 = flights
+//   .filter((element) => {
+//     return (
+//       element.airportFrom === passengers[1].airport &&
+//       element.dateIn === passengers[1].dateIn &&
+//       element.dateBack === passengers[1].dateBack
+//     );
+//   })
+//   .map((flight) => {
+//     return flight.airportTo;
+//   });
+
+// const filteredFlightsGast2 = flights
+//   .filter((element) => {
+//     return (
+//       element.airportFrom === passengers[2].airport &&
+//       element.dateIn === passengers[2].dateIn &&
+//       element.dateBack === passengers[2].dateBack
+//     );
+//   })
+//   .map((flight) => {
+//     return flight.airportTo;
+//   });
+
+// const filteredFlightsGast3 = flights
+//   .filter((element) => {
+//     return (
+//       element.airportFrom === passengers[2].airport &&
+//       element.dateIn === passengers[2].dateIn &&
+//       element.dateBack === passengers[2].dateBack
+//     );
+//   })
+//   .map((flight) => {
+//     return flight.airportTo;
+//   });
 
 const findCommonDestination = () => {
-  const obj = allFilteredFlights.reduce((acc, flights) => {
+  const obj = filteredFlights().reduce((acc, flights) => {
     //   console.log(flights);
 
     for (const flight of flights) {
