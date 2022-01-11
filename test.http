@@ -39,3 +39,14 @@ content-type: application/json
     "password2": "12345678",
     "email": "test9@mail.com"
 }
+
+
+
+### user login
+POST {{url}}/users/login
+content-type: application/json
+
+{
+    "username": "TEST9",
+    "password": "12345678"
+}

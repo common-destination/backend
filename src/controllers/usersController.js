@@ -16,10 +16,10 @@ export const readAllUsers = async () => {
 //   return await UsersModel.find(id);
 // };
 
-// export const readOneUserWithUserName = async (userName) => {
-//   const userArray = await UsersModel.find({ userName });
-//   return userArray.length === 0 ? null : userArray[0];
-// };
+export const readOneUserWithUserName = async (username) => {
+  const userArray = await UsersModel.find({ username });
+  return userArray.length === 0 ? null : userArray[0];
+};
 
 // export const updateUser = async (id, updateFields) => {
 //   return await UsersModel.findByIdAndUpdate(id, updateFields, {

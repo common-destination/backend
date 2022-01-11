@@ -10,6 +10,23 @@ const myPlaintextPassword = "password";
 // mongoose.connect("mongodb://localhost:27017/test");
 const usersRouter = express.Router();
 
+usersRouter.use(
+  session({
+    name: "sessId",
+    secret: process.env.SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+      httpOnly: true, // httpOnly => cookie can just be written from API and not by Javascript
+      maxAge: 60 * 1000 * 30, // 30 minutes of inactivity
+      // sameSite: "none", // allow cookies transfered from OTHER origin
+      // secure: true, // allow cookies to be set just via HTTPS
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+      secure: process.env.NODE_ENV === "production",
+    },
+  })
+);
+
 // CREATE
 // usersRouter.post("/create", async (req, res) => {
 //   const userObj = req.body;
@@ -74,26 +91,28 @@ usersRouter.post("/signup", async (req, res) => {
 //   }
 // });
 
-// usersRouter.post("/login", async (req, res) => {
-//   console.log(req.body);
-//   const username = req.body.username;
-//   const password = req.body.password;
-//   console.log(login);
-//   let user = await usersController.createUser({ username });
-//   if (!user) {
-//     user = await usersController.createUser({ username: "anonymousUser" });
-//   } else {
-//     bcrypt.compare(password, user.hash).then((passwordIsOk) => {
-//       if (passwordIsOk) {
-//         req.session.user = user;
-//         req.session.save();
-//         res.json(user);
-//       } else {
-//         res.sendStatus(403);
-//       }
-//     });
-//   }
-// });
+usersRouter.post("/login", async (req, res) => {
+  console.log(req.body);
+  const username = req.body.username;
+  const password = req.body.password;
+  console.log(username);
+  let user = await usersController.readOneUserWithUserName({ username });
+  if (!user) {
+    user = await usersController.readOneUserWithUserName({
+      username: "anonymousUser",
+    });
+  } else {
+    bcrypt.compare(password, user.hash).then((passwordIsOk) => {
+      if (passwordIsOk) {
+        req.session.user = user;
+        req.session.save();
+        res.json(user);
+      } else {
+        res.sendStatus(403);
+      }
+    });
+  }
+});
 
 // READ ALL
 usersRouter.get("/", async (_req, res) => {
