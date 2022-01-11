@@ -4,6 +4,10 @@ import UsersModel from "../models/usersModel.js";
 //   return await UsersModel.create(userObj);
 // };
 
+export const createUser = async (frontendUser) => {
+  return await UsersModel.create(frontendUser);
+};
+
 export const readAllUsers = async () => {
   return await UsersModel.find({});
 };

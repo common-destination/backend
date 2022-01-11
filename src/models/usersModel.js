@@ -1,14 +1,22 @@
 import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema(
+  // {
+  //   firstName: { type: String },
+  //   lastName: { type: String },
+  //   login: { type: String },
+  //   email: { type: String},
+  //   accessGroups: { type: String },
+  //   hash: { type: String },
+  // },
+
   {
-    firstName: { type: String },
-    lastName: { type: String },
-    login: { type: String },
-    email: { type: String},
-    accessGroups: { type: String },
+    username: { type: String },
+    email: { type: String },
     hash: { type: String },
+    accessGroups: { type: String },
   },
+
   {
     timestamps: true,
     versionKey: false,
@@ -16,6 +24,6 @@ const UserSchema = new mongoose.Schema(
   }
 );
 
-const UserModel = mongoose.model("User", UserSchema);
+const UsersModel = mongoose.model("User", UserSchema);
 
-export default UserModel;
+export default UsersModel;

@@ -1,3 +1,4 @@
+import session from "express-session";
 import bcrypt from "bcrypt";
 import express from "express";
 // import mongoose from "mongoose";
@@ -12,6 +13,7 @@ const usersRouter = express.Router();
 // CREATE
 // usersRouter.post("/create", async (req, res) => {
 //   const userObj = req.body;
+//   console.log(userObj);
 //   if (userObj.password1 !== userObj.password2) {
 //     res.status(500).send({ error: "the two passwords are diffent" });
 //   } else {
@@ -22,14 +24,40 @@ const usersRouter = express.Router();
 //           hash,
 //           email: userObj.email,
 //         };
-//         const result = await usersController.createUser(dbUser);
+//         const user = await usersController.createUser(dbUser);
 //         res.json({
-//           result,
+//           user,
 //         });
 //       });
 //     });
 //   }
 // });
+
+usersRouter.post("/signup", async (req, res) => {
+  const frontendUser = req.body;
+  console.log(frontendUser);
+  if (
+    frontendUser.username.trim() === "" ||
+    frontendUser.password1.trim() === "" ||
+    frontendUser.password1 !== frontendUser.password2
+  ) {
+    // res.sendStatus(403);
+    res.status(500).send({ error: "the two passwords are different" });
+  } else {
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hash = await bcrypt.hash(frontendUser.password1, salt);
+    const backendUser = {
+      username: frontendUser.username,
+      email: frontendUser.email,
+      hash,
+      accessGroups: "loggedInUsers",
+    };
+    const dbuser = await usersController.createUser(backendUser);
+    res.json({
+      userAdded: dbuser,
+    });
+  }
+});
 
 // // LOGIN
 // usersRouter.post("/login", async (req, res) => {
@@ -43,6 +71,27 @@ const usersRouter = express.Router();
 //     res.send(`User logged in: ${JSON.stringify(user)}`);
 //   } else {
 //     res.status(500).send("bad login");
+//   }
+// });
+
+// usersRouter.post("/login", async (req, res) => {
+//   console.log(req.body);
+//   const username = req.body.username;
+//   const password = req.body.password;
+//   console.log(login);
+//   let user = await usersController.createUser({ username });
+//   if (!user) {
+//     user = await usersController.createUser({ username: "anonymousUser" });
+//   } else {
+//     bcrypt.compare(password, user.hash).then((passwordIsOk) => {
+//       if (passwordIsOk) {
+//         req.session.user = user;
+//         req.session.save();
+//         res.json(user);
+//       } else {
+//         res.sendStatus(403);
+//       }
+//     });
 //   }
 // });
 
