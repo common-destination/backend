@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon src/server.js",
-    "startSeed": "node src/seed.js",
+    "seed": "node src/seed.js",
     "backend": "npm start",
     "frontend": "cd ../frontend && npm start",
     "dev": "concurrently \"npm run backend\" \"npm run frontend\""
@@ -20,7 +20,10 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
-    "mongoose": "^6.0.13"
+    "geolib": "^3.3.3",
+    "moment": "^2.29.1",
+    "mongoose": "^6.0.13",
+    "node-open-geocoder": "^4.0.1"
   },
   "devDependencies": {
     "concurrently": "^6.4.0",
