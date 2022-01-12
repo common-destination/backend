@@ -14,6 +14,7 @@ const flightsSchema = new mongoose.Schema(
     day: String,
     month: String,
     price: Number,
+
   },
   {
     versionKey: false,
