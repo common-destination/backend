@@ -114,6 +114,14 @@ usersRouter.post("/login", async (req, res) => {
   }
 });
 
+
+// LOGOUT
+usersRouter.get("/logout", async (req, res) => {
+  req.session.destroy();
+  const user = await usersController.logoutUser({ login: "anonymousUser" });
+  res.json(user);
+});
+
 // READ ALL
 usersRouter.get("/", async (_req, res) => {
   const users = await usersController.readAllUsers();

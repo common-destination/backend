@@ -50,3 +50,18 @@ content-type: application/json
     "username": "NewDB",
     "password": "12345678"
 }
+
+
+### LOGIN user false
+POST {{url}}/users/login
+content-type: application/json
+ 
+{
+    "userName": "g00g",
+    "password": "12345678"
+}
+
+
+### user logout
+GET {{url}}/users/logout
+content-type: application/json

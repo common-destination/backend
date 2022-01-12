@@ -1,9 +1,5 @@
 import UsersModel from "../models/usersModel.js";
 
-// export const createUser = async (userObj) => {
-//   return await UsersModel.create(userObj);
-// };
-
 export const createUser = async (frontendUser) => {
   return await UsersModel.create(frontendUser);
 };
@@ -19,6 +15,10 @@ export const readAllUsers = async () => {
 export const loginUser = async (username) => {
   const userArray = await UsersModel.find(username);
   return userArray.length === 0 ? null : userArray[0];
+};
+
+export const logoutUser = async (login) => {
+  return await UsersModel.findOne({ login });
 };
 
 // export const updateUser = async (id, updateFields) => {
