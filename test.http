@@ -34,7 +34,7 @@ POST {{url}}/users/signup
 content-type: application/json
  
 {
-    "username": "TEST9",
+    "username": "TEST93",
     "password1": "1234564",
     "password2": "12345678",
     "email": "test9@mail.com"
