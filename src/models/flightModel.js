@@ -13,7 +13,7 @@ const flightsSchema = new mongoose.Schema(
     flightDurationInHours: Number,
     day: String,
     month: String,
-    price: String,
+    price: Number,
   },
   {
     versionKey: false,
