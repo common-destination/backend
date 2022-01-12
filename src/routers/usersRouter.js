@@ -96,9 +96,9 @@ usersRouter.post("/login", async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   console.log(username);
-  let user = await usersController.readOneUserWithUserName({ username });
+  let user = await usersController.loginUser({ username });
   if (!user) {
-    user = await usersController.readOneUserWithUserName({
+    user = await usersController.loginUser({
       username: "anonymousUser",
     });
   } else {

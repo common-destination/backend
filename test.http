@@ -23,7 +23,7 @@ POST {{url}}/users/signup
 content-type: application/json
  
 {
-    "username": "TEST9",
+    "username": "NewDB",
     "password1": "12345678",
     "password2": "12345678",
     "email": "test9@mail.com"
@@ -47,6 +47,6 @@ POST {{url}}/users/login
 content-type: application/json
 
 {
-    "username": "TEST9",
+    "username": "NewDB",
     "password": "12345678"
 }

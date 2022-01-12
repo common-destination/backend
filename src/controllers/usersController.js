@@ -16,8 +16,8 @@ export const readAllUsers = async () => {
 //   return await UsersModel.find(id);
 // };
 
-export const readOneUserWithUserName = async (username) => {
-  const userArray = await UsersModel.find({ username });
+export const loginUser = async (username) => {
+  const userArray = await UsersModel.find(username);
   return userArray.length === 0 ? null : userArray[0];
 };
 
