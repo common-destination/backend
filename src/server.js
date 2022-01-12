@@ -2,7 +2,7 @@ import "./config.js";
 import "./db-connect.js";
 import express from "express";
 import cors from "cors";
-import { flightRouter } from "./routers/flightRouter.js";
+import { flightsRouter } from "./routers/flightsRouter.js";
 import { usersRouter } from "./routers/usersRouter.js";
 
 const app = express();
@@ -18,7 +18,7 @@ app.use("/users", usersRouter, (req, res) => {
   });
 });
 
-app.use("/", flightRouter, (req, res) => {
+app.use("/flights", flightsRouter, (req, res) => {
   res.status(404).send({
     message: "404 page not found",
     url: req.originalUrl,

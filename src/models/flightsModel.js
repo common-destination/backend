@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const flightsSchema = new mongoose.Schema(
+const flightSchema = new mongoose.Schema(
   {
     from: String,
     to: String,
@@ -22,6 +22,6 @@ const flightsSchema = new mongoose.Schema(
   }
 );
 
-const FlightsModel = mongoose.model('flight', flightsSchema, 'flights');
+const FlightsModel = mongoose.model('flight', flightSchema, 'flights');
 
 export default FlightsModel;
