@@ -10,7 +10,7 @@ POST {{url}}/users/create
 content-type: application/json
  
 {
-    "userNńame": "333",
+    "username": "333",
     "password1": "12345678",
     "password2": "12345678",
     "email": "test@mail.com"
