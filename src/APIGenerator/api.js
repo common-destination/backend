@@ -85,6 +85,7 @@ const getFlightsAPI = async () => {
       let flightDurationInHours = distance / 800 + landingAndBoardingTime;
       const getFLightPrice =
         15 + Math.floor(Math.random() * (flightDurationInHours * 120));
+        
       function getFlightDuration() {
         const rhours = Math.floor(flightDurationInHours);
         const flightDurationInMinutes = (flightDurationInHours - rhours) * 60;
@@ -94,7 +95,7 @@ const getFlightsAPI = async () => {
         }`;
       }
 
-      const amountFlights = 30;
+      const amountFlights = 1;
       //ITERATION Y DAYS TO ADD 1 DAY EVRY TIME
 
       for (let x = 0; x < amountFlights; x++) {

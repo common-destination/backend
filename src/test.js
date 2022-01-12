@@ -29,7 +29,7 @@ const flights = [
   {
     airportFrom: 'hamburg',
     airportTo: 'berlin',
-    dateIn: 21,
+    dateIn: 23,
     dateBack: 23,
     price: 150,
   },
@@ -140,7 +140,6 @@ const filteredFlights = () => {
 
 const findCommonDestination = () => {
   const obj = filteredFlights().reduce((acc, flight) => {
-    // console.log(flight);
     if (acc[flight.airportTo]) {
       acc[flight.airportTo]++;
     } else {
@@ -164,7 +163,6 @@ const findCommonDestination = () => {
     const passengersOnFlights = filteredPassengersOnFlights.map(
       (flight) => flight.id
     );
-    // console.log(passengersOnFlights);
     let includeInResult = true;
     for (const passenger of passengers) {
       if (!passengersOnFlights.includes(passenger.id)) {
@@ -176,7 +174,6 @@ const findCommonDestination = () => {
     }
   });
   return result;
-  // console.log(Object.entries(obj));
 };
 
 console.log(findCommonDestination());
