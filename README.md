@@ -1,15 +1,17 @@
 # backend
 ## controller
 ### sort
-- readAllSortedFlightsPerDepartureDate
+- readAllSortedFlightsPerPrice              XXXX
 
-- readAllSortedFlightsPerArrivalDate
+- readAllSortedFlightsPerDeparture          done
 
-- readAllSortedFlightsPerFromCity
+- readAllSortedFlightsPerArrival            done   
 
-- readAllSortedFlightsPerToCity
+- readAllSortedFlightsPerFlightDuration     done
 
-- readAllSortedFlightsPerPrice
+- readAllSortedFlightsPerFrom               done
+
+- readAllSortedFlightsPerTo                 done
 ### filter
 - readAllFilteredFlightsPerDepartureDate
 
