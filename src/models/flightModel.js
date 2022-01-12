@@ -2,18 +2,12 @@ import mongoose from 'mongoose';
 
 const flightsSchema = new mongoose.Schema(
   {
-    from: String,
-    to: String,
-    countryFrom: String,
-    countryTo: String,
-    departure: String,
-    arrive: String,
-    distance: String,
-    flightDuration: String,
-    flightDurationInHours: Number,
-    day: String,
-    month: String,
-    price: String,
+    airportFrom: String,
+    airportTo: String,
+    companyName: String,
+    country: String,
+    departure: Date,
+    arrive: Date,
   },
   {
     versionKey: false,
