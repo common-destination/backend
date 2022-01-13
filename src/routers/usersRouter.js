@@ -1,6 +1,5 @@
 import bcrypt from "bcrypt";
 import express from "express";
-// import mongoose from "mongoose";
 import * as usersController from "../controllers/usersController.js";
 
 const saltRounds = 8;
