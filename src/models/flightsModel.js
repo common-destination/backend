@@ -1,3 +1,4 @@
+
 import mongoose from 'mongoose';
 
 const flightSchema = new mongoose.Schema(
@@ -7,7 +8,7 @@ const flightSchema = new mongoose.Schema(
     countryFrom: String,
     countryTo: String,
     departure: String,
-    arrive: String,
+    arrival: String,
     distance: String,
     flightDuration: String,
     flightDurationInHours: Number,

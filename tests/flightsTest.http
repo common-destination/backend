@@ -1,0 +1,9 @@
+@url= http://localhost:7033/flights
+
+### READ ALL
+GET {{url}}
+content-type: application/json
+
+### SORTED PER PRICE
+GET {{url}}/price
+content-type: application/json
