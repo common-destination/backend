@@ -1,4 +1,3 @@
-import session from "express-session";
 import bcrypt from "bcrypt";
 import express from "express";
 // import mongoose from "mongoose";
@@ -10,22 +9,7 @@ const saltRounds = 8;
 // mongoose.connect("mongodb://localhost:27017/test");
 const usersRouter = express.Router();
 
-usersRouter.use(
-  session({
-    name: "sessId",
-    secret: process.env.SESSION_SECRET,
-    resave: true,
-    saveUninitialized: true,
-    cookie: {
-      httpOnly: true, // httpOnly => cookie can just be written from API and not by Javascript
-      maxAge: 60 * 1000 * 30, // 30 minutes of inactivity
-      // sameSite: "none", // allow cookies transfered from OTHER origin
-      // secure: true, // allow cookies to be set just via HTTPS
-      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-      secure: process.env.NODE_ENV === "production",
-    },
-  })
-);
+
 
 const userIsInGroup = (user, accessGroup) => {
   const accessGroupArray = user.accessGroups.split(",").map((m) => m.trim());

@@ -61,7 +61,7 @@ POST {{url}}/users/login
 content-type: application/json
 
 {
-   "username": "test1",
+   "username": "ccc",
    "password": "12345678"
 }
 
