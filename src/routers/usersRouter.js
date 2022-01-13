@@ -5,7 +5,7 @@ import express from "express";
 import * as usersController from "../controllers/usersController.js";
 
 const saltRounds = 8;
-const myPlaintextPassword = "password";
+// const myPlaintextPassword = "password";
 
 // mongoose.connect("mongodb://localhost:27017/test");
 const usersRouter = express.Router();
@@ -26,6 +26,34 @@ usersRouter.use(
     },
   })
 );
+
+
+// READ ALL
+usersRouter.get("/", async (_req, res) => {
+  const users = await usersController.readAllUsers();
+  res.json(users);
+});
+
+// READ ONE
+usersRouter.get("/:id", async (req, res) => {
+  const id = req.params.id;
+  console.log(req.params.id);
+  res.json({
+    user: await usersController.readOneUser(id),
+  });
+});
+
+
+
+// UPDATE
+// usersRouter.patch("/update/:id", async (req, res) => {
+//   const id = req.params.id;
+//   const updateFields = req.body;
+//   const result = await usersController.updateUser(id, updateFields);
+//   res.json({
+//     result,
+//   });
+// });
 
 // CREATE
 // usersRouter.post("/create", async (req, res) => {
@@ -113,7 +141,6 @@ usersRouter.post("/login", async (req, res) => {
     });
   }
 });
-
 
 // LOGOUT
 usersRouter.get("/logout", async (req, res) => {

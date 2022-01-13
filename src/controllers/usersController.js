@@ -8,9 +8,9 @@ export const readAllUsers = async () => {
   return await UsersModel.find({});
 };
 
-// export const readOneUser = async (id) => {
-//   return await UsersModel.find(id);
-// };
+export const readOneUser = async (id) => {
+  return await UsersModel.findById(id);
+};
 
 export const loginUser = async (username) => {
   const userArray = await UsersModel.find(username);

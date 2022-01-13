@@ -5,6 +5,11 @@ GET {{url}}/users
 content-type: application/json
 
 
+### Read user data
+GET {{url}}/users/61dd8a6d1e1e8fd4dbfac2df
+content-type: application/json
+
+
 ### CREATE user with same password
 POST {{url}}/users/create
 content-type: application/json
