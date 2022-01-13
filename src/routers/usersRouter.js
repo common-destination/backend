@@ -27,9 +27,10 @@ usersRouter.use(
   })
 );
 
-
-
-
+const userIsInGroup = (user, accessGroup) => {
+  const accessGroupArray = user.accessGroups.split(",").map((m) => m.trim());
+  return accessGroupArray.includes(accessGroup);
+};
 
 // UPDATE
 // usersRouter.patch("/update/:id", async (req, res) => {
@@ -63,6 +64,8 @@ usersRouter.use(
 //     });
 //   }
 // });
+
+
 
 usersRouter.post("/signup", async (req, res) => {
   const frontendUser = req.body;
@@ -109,7 +112,7 @@ usersRouter.post("/login", async (req, res) => {
   console.log(req.body);
   const username = req.body.username;
   const password = req.body.password;
-  console.log(username);
+  // console.log(username);
   let user = await usersController.loginUser({ username });
   if (!user) {
     user = await usersController.loginUser({
@@ -135,35 +138,15 @@ usersRouter.get("/logout", async (req, res) => {
   res.json(user);
 });
 
-
 // CURRENT USER
 usersRouter.get("/currentuser", async (req, res) => {
   let user = req.session.user;
-  console.log(req.session.user);
+  // console.log(req.session.user);
   if (!user) {
     user = await usersController.currentUser({ login: "anonymousUser" });
   }
   res.json(user);
 });
-
-
-// UPDATE
-// usersRouter.patch("/update/:id", async (req, res) => {
-//   const id = req.params.id;
-//   const updateFields = req.body;
-//   const result = await usersController.updateUser(id, updateFields);
-//   res.json({
-//     result,
-//   });
-// });
-// // DELETE
-// usersRouter.delete("/delete/:id", async (req, res) => {
-//   const id = req.params.id;
-//   const result = await usersController.deleteUser(id);
-//   res.json({
-//     result,
-//   });
-// });
 
 // READ ALL
 usersRouter.get("/", async (_req, res) => {
@@ -172,12 +155,46 @@ usersRouter.get("/", async (_req, res) => {
 });
 
 // READ ONE
-usersRouter.get("/:id", async (req, res) => {
+// usersRouter.get("/:id", async (req, res) => {
+//   const id = req.params.id;
+//   // console.log(req.params.id);
+//   res.json({
+//     user: await usersController.readOneUser(id),
+//   });
+// });
+
+// UPDATE
+usersRouter.patch("/:id", async (req, res) => {
   const id = req.params.id;
-  // console.log(req.params.id);
+  console.log(id);
+  const updateFields = req.body;
+  console.log(req.body);
+  const result = await usersController.updateUser(id, updateFields);
   res.json({
-    user: await usersController.readOneUser(id),
+    result,
   });
+});
+
+// DELETE
+usersRouter.delete("/delete/:id", async (req, res) => {
+  const id = req.params.id;
+  const result = await usersController.deleteUser(id);
+  res.json({
+    result,
+  });
+});
+
+usersRouter.delete("/deleteuser/:id", async (req, res) => {
+  const id = req.params.id;
+  console.log(id)
+  let user = req.session.user;
+  console.log(user)
+  if (!userIsInGroup(user, "admins")) {
+    res.sendStatus(403);
+  } else {
+    const user = await usersController.deleteUserbyAdmins(id);
+    res.json( user );
+  }
 });
 
 export { usersRouter };

@@ -25,12 +25,16 @@ export const currentUser = async (login) => {
   return await UsersModel.findOne( login );
 };
 
-// export const updateUser = async (id, updateFields) => {
-//   return await UsersModel.findByIdAndUpdate(id, updateFields, {
-//     new: true,
-//   });
-// };
+export const updateUser = async (id, updateFields) => {
+  return await UsersModel.findByIdAndUpdate(id, updateFields, {
+    new: true,
+  });
+};
 
 export const deleteUser = async (id) => {
+  return await UsersModel.findByIdAndRemove(id);
+};
+
+export const deleteUserbyAdmins = async (id) => {
   return await UsersModel.findByIdAndRemove(id);
 };
