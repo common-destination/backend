@@ -8,22 +8,10 @@ const saltRounds = 8;
 // mongoose.connect("mongodb://localhost:27017/test");
 const usersRouter = express.Router();
 
-
-
 const userIsInGroup = (user, accessGroup) => {
   const accessGroupArray = user.accessGroups.split(",").map((m) => m.trim());
   return accessGroupArray.includes(accessGroup);
 };
-
-// UPDATE
-// usersRouter.patch("/update/:id", async (req, res) => {
-//   const id = req.params.id;
-//   const updateFields = req.body;
-//   const result = await usersController.updateUser(id, updateFields);
-//   res.json({
-//     result,
-//   });
-// });
 
 // CREATE
 // usersRouter.post("/create", async (req, res) => {
@@ -47,8 +35,6 @@ const userIsInGroup = (user, accessGroup) => {
 //     });
 //   }
 // });
-
-
 
 usersRouter.post("/signup", async (req, res) => {
   const frontendUser = req.body;
@@ -92,7 +78,7 @@ usersRouter.post("/signup", async (req, res) => {
 // });
 
 usersRouter.post("/login", async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   const username = req.body.username;
   const password = req.body.password;
   // console.log(username);
@@ -147,16 +133,45 @@ usersRouter.get("/", async (_req, res) => {
 // });
 
 // UPDATE
+// usersRouter.patch("/:id", async (req, res) => {
+//   const id = req.params.id;
+//   console.log(id);
+//   const updateFields = req.body;
+//   console.log(req.body);
+//   const result = await usersController.updateUser(id, updateFields);
+//   res.json({
+//     result,
+//   });
+// });
+
 usersRouter.patch("/:id", async (req, res) => {
   const id = req.params.id;
   console.log(id);
   const updateFields = req.body;
-  console.log(req.body);
-  const result = await usersController.updateUser(id, updateFields);
-  res.json({
-    result,
-  });
+  console.log(updateFields);
+  if (
+    updateFields.username.trim() === "" ||
+    updateFields.password1.trim() === "" ||
+    updateFields.password1 !== updateFields.password2
+  ) {
+    // res.sendStatus(403);
+    res.status(500).send({ error: "the two passwords are different" });
+  } else {
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hash = await bcrypt.hash(updateFields.password1, salt);
+    // const backendUser = {
+    //   username: updateFields.username,
+    //   email: updateFields.email,
+    //   hash,
+    //   accessGroups: "loggedInUsers",
+    // };
+    const result = await usersController.updateUser(id, updateFields);
+    res.json({
+      result,
+    });
+  }
 });
+
 
 // DELETE
 usersRouter.delete("/delete/:id", async (req, res) => {
@@ -169,14 +184,14 @@ usersRouter.delete("/delete/:id", async (req, res) => {
 
 usersRouter.delete("/deleteuser/:id", async (req, res) => {
   const id = req.params.id;
-  console.log(id)
+  console.log(id);
   let user = req.session.user;
-  console.log(user)
+  console.log(user);
   if (!userIsInGroup(user, "admins")) {
     res.sendStatus(403);
   } else {
     const user = await usersController.deleteUserbyAdmins(id);
-    res.json( user );
+    res.json(user);
   }
 });
 
