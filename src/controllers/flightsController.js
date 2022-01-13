@@ -5,27 +5,27 @@ export const readAllFlights = async () => {
 };
 
 // ALL SORTED FLIGHTS
-export const readAllSortedFlightsPerPrice = async () => {
+export const getFlightsSortedByPrice = async () => {
   return await FlightsModel.find({}).sort({ price: 1 });
 };
 
-export const readAllSortedFlightsPerDeparture = async () => {
+export const readAllSortedFlightsByDeparture = async () => {
   return await FlightsModel.find({}).sort({ departure: 1 });
 };
 
-export const readAllSortedFlightsPerArrival = async () => {
-  return await FlightsModel.find({}).sort({ arrive: 1 });
+export const readAllSortedFlightsByArrival = async () => {
+  return await FlightsModel.find({}).sort({ arrival: 1 });
 };
 
-export const readAllSortedFlightsPerFlightDuration = async () => {
+export const readAllSortedFlightsByFlightDuration = async () => {
   return await FlightsModel.find({}).sort({ flightDurationInHours: 1 });
 };
 
-export const readAllSortedFlightsPerFlightFrom = async () => {
+export const readAllSortedFlightsByFlightFrom = async () => {
   return await FlightsModel.find({}).sort({ from: 1 });
 };
 
-export const readAllSortedFlightsPerFlightTo = async () => {
+export const readAllSortedFlightsByFlightTo = async () => {
   return await FlightsModel.find({}).sort({ to: 1 });
 };
 

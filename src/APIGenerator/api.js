@@ -109,7 +109,7 @@ const getFlightsAPI = async () => {
           countryFrom: airports[i].country,
           countryTo: airports[j].country,
           departure: departureDate.toString().slice(0, -12),
-          arrive: new Date(
+          arrival: new Date(
             addDuration(departureDate, flightDurationInHours * 60)
           )
             .toString()
@@ -128,7 +128,7 @@ const getFlightsAPI = async () => {
           countryFrom: airports[j].country,
           countryTo: airports[i].country,
           departure: departureDate2.toString().slice(0, -12),
-          arrive: new Date(
+          arrival: new Date(
             addDuration(departureDate2, flightDurationInHours * 60)
           )
             .toString()
