@@ -28,20 +28,6 @@ usersRouter.use(
 );
 
 
-// READ ALL
-usersRouter.get("/", async (_req, res) => {
-  const users = await usersController.readAllUsers();
-  res.json(users);
-});
-
-// READ ONE
-usersRouter.get("/:id", async (req, res) => {
-  const id = req.params.id;
-  console.log(req.params.id);
-  res.json({
-    user: await usersController.readOneUser(id),
-  });
-});
 
 
 
@@ -149,18 +135,18 @@ usersRouter.get("/logout", async (req, res) => {
   res.json(user);
 });
 
-// READ ALL
-usersRouter.get("/", async (_req, res) => {
-  const users = await usersController.readAllUsers();
-  res.json(users);
+
+// CURRENT USER
+usersRouter.get("/currentuser", async (req, res) => {
+  let user = req.session.user;
+  console.log(req.session.user);
+  if (!user) {
+    user = await usersController.currentUser({ login: "anonymousUser" });
+  }
+  res.json(user);
 });
-// READ ONE
-// usersRouter.get("/:id", async (req, res) => {
-//   const id = req.params.id;
-//   res.json({
-//     users: await usersController.readOneUser(id),
-//   });
-// });
+
+
 // UPDATE
 // usersRouter.patch("/update/:id", async (req, res) => {
 //   const id = req.params.id;
@@ -178,4 +164,20 @@ usersRouter.get("/", async (_req, res) => {
 //     result,
 //   });
 // });
+
+// READ ALL
+usersRouter.get("/", async (_req, res) => {
+  const users = await usersController.readAllUsers();
+  res.json(users);
+});
+
+// READ ONE
+usersRouter.get("/:id", async (req, res) => {
+  const id = req.params.id;
+  // console.log(req.params.id);
+  res.json({
+    user: await usersController.readOneUser(id),
+  });
+});
+
 export { usersRouter };

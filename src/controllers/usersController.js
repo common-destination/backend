@@ -18,7 +18,11 @@ export const loginUser = async (username) => {
 };
 
 export const logoutUser = async (login) => {
-  return await UsersModel.findOne({ login });
+  return await UsersModel.findOne( login );
+};
+
+export const currentUser = async (login) => {
+  return await UsersModel.findOne( login );
 };
 
 // export const updateUser = async (id, updateFields) => {

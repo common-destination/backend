@@ -67,6 +67,11 @@ content-type: application/json
 }
 
 
+### READ currentUser
+GET {{url}}/users/currentuser
+content-type: application/json
+
+
 ### user logout
 GET {{url}}/users/logout
 content-type: application/json
