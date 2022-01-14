@@ -6,7 +6,7 @@ import FlightsModel from "./models/flightsModel.js";
 import getFlightsAPI from "./APIGenerator/api.js"
 
 // clear dummy data
-// await FlightsModel.deleteMany({})
+await FlightsModel.deleteMany({})
 
 // SEED flights first
 const flightsDb = await FlightsModel.create(await getFlightsAPI());
