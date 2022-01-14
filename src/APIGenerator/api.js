@@ -1,6 +1,7 @@
 import geoCoder from "node-open-geocoder";
 import { getDistance } from "geolib";
 import moment from "moment";
+import momentRandom from "moment-random";
 import { airports } from "../data/airports.js";
 
 // get distance between two addresses / geo points in meters
@@ -102,53 +103,65 @@ const getFlightsAPI = async () => {
 
       const amountFlights = 8;
       //ITERATION Y DAYS TO ADD 1 DAY EVRY TIME
+      let tomorrowDate = moment("2022-01-16 05:00:00");
 
       for (let x = 0; x < amountFlights; x++) {
-        let departureDate = moment().add(x, "days");
-        let departureDate2 = moment()
+        let departureDate1 = tomorrowDate
+          .add(x, "days")
+          .add(Math.floor(Math.random(0 + 15)), "hours");
+        // let departureRandomDate = momentRandom(
+        //   moment.utc(`${departureDate.format("YYYY-MM-DD")} 20:00`),
+        //   moment.utc(`${departureDate.format("YYYY-MM-DD")} 05:00`)
+        // ).format("YYYY-MM-DD HH:mm");
+
+        let departureDate2 = moment("2022-01-16 05:00:00")
           .add(x, "days")
           .add(flightDurationInHours + 1, "hours");
         if (
           !flightsConditions(
             airports[i].range,
             airports[j].range,
-            departureDate.isoWeekday()
+            departureDate1.isoWeekday()
           )
         ) {
           continue;
         }
+        console.log({ departureDate1 });
+        console.log({ departureDate2 });
+        const arrival = (departureDate) => {
+          return new Date(
+            addDuration(departureDate, flightDurationInHours * 60)
+          )
+            .toString()
+            .split("G")[0]
+            .slice(0, -4);
+        };
+        //first flight
 
         flights.push({
           from: airports[i].name,
           to: airports[j].name,
           countryFrom: airports[i].country,
           countryTo: airports[j].country,
-          departure: departureDate.toString().slice(0, -12),
-          arrival: new Date(
-            addDuration(departureDate, flightDurationInHours * 60)
-          )
-            .toString()
-            .split("G")[0]
-            .slice(0, -4),
+          departure: departureDate1.format("YYYY-MM-DD HH:mm"),
+          arrival: arrival(departureDate1),
           distance: `${distance} km`,
           flightDuration: getFlightDuration(),
           flightDurationInHours,
-          day: dayOfWeek(departureDate),
-          month: Month(departureDate),
+          day: dayOfWeek(departureDate1),
+          month: Month(departureDate1),
           price: getFLightPrice,
         });
+
+        //second flight
+
         flights.push({
           from: airports[j].name,
           to: airports[i].name,
           countryFrom: airports[j].country,
           countryTo: airports[i].country,
-          departure: departureDate2.toString().slice(0, -12),
-          arrival: new Date(
-            addDuration(departureDate2, flightDurationInHours * 60)
-          )
-            .toString()
-            .split("G")[0]
-            .slice(0, -4),
+          departure: departureDate2.format("YYYY-MM-DD HH:mm"),
+          arrival: arrival(departureDate2),
           distance: `${distance} km`,
           flightDuration: getFlightDuration(),
           flightDurationInHours,

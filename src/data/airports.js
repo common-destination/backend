@@ -1,34 +1,34 @@
 export let airports = [
-  // {
-  //   name: 'London',
-  //   country: 'UK',
-  //   passengersInMillionPerYear: 80,
-  // },
   {
-    name: 'Paris',
-    country: 'France',
-    passengersInMillionPerYear: 76,
+    name: 'London',
+    country: 'UK',
+    passengersInMillionPerYear: 80,
   },
+  // {
+  //   name: 'Paris',
+  //   country: 'France',
+  //   passengersInMillionPerYear: 76,
+  // },
   // {
   //   name: 'Amsterdam',
   //   country: 'Netherlands',
   //   passengersInMillionPerYear: 71,
   // },
-  {
-    name: 'Frankfurt',
-    country: 'Germany',
-    passengersInMillionPerYear: 70,
-  },
+  // {
+  //   name: 'Frankfurt',
+  //   country: 'Germany',
+  //   passengersInMillionPerYear: 70,
+  // },
   // {
   //   name: 'Barcelona',
   //   country: 'Spain',
   //   passengersInMillionPerYear: 52,
   // },
-  {
-    name: 'Istanbul',
-    country: 'Turkey',
-    passengersInMillionPerYear: 52,
-  },
+  // {
+  //   name: 'Istanbul',
+  //   country: 'Turkey',
+  //   passengersInMillionPerYear: 52,
+  // },
   // {
   //   name: 'Moscow',
   //   country: 'Russia',
@@ -49,26 +49,26 @@ export let airports = [
   //   country: 'Ireland',
   //   passengersInMillionPerYear: 32,
   // },
-  // // {
-  // //   name: 'Vienna',
-  // //   country: 'Austria',
-  // //   passengersInMillionPerYear: 31,
-  // // },
-  // // {
-  // //   name: 'Zurich',
-  // //   country: 'Switzerland',
-  // //   passengersInMillionPerYear: 31,
-  // // },
-  // // {
-  // //   name: 'Lisbon',
-  // //   country: 'Portugal',
-  // //   passengersInMillionPerYear: 31,
-  // // },
-  // // {
-  // //   name: 'Copenhagen',
-  // //   country: 'Denmark',
-  // //   passengersInMillionPerYear: 30,
-  // // },
+  // {
+  //   name: 'Vienna',
+  //   country: 'Austria',
+  //   passengersInMillionPerYear: 31,
+  // },
+  // {
+  //   name: 'Zurich',
+  //   country: 'Switzerland',
+  //   passengersInMillionPerYear: 31,
+  // },
+  // {
+  //   name: 'Lisbon',
+  //   country: 'Portugal',
+  //   passengersInMillionPerYear: 31,
+  // },
+  // {
+  //   name: 'Copenhagen',
+  //   country: 'Denmark',
+  //   passengersInMillionPerYear: 30,
+  // },
   // {
   //   name: 'Palma de Mallorca',
   //   country: 'Spain',
@@ -109,11 +109,11 @@ export let airports = [
   //   country: 'Germany',
   //   passengersInMillionPerYear: 24,
   // },
-  {
-    name: 'Helsinki',
-    country: 'Finland',
-    passengersInMillionPerYear: 21,
-  },
+  // {
+  //   name: 'Helsinki',
+  //   country: 'Finland',
+  //   passengersInMillionPerYear: 21,
+  // },
   // {
   //   name: 'Saint Petersburg',
   //   country: 'Russia',
