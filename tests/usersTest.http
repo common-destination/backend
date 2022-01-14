@@ -5,6 +5,11 @@ GET {{url}}/users
 content-type: application/json
 
 
+### Read user data
+GET {{url}}/users/61dd8a6d1e1e8fd4dbfac2df
+content-type: application/json
+
+
 ### CREATE user with same password
 POST {{url}}/users/create
 content-type: application/json
@@ -23,10 +28,10 @@ POST {{url}}/users/signup
 content-type: application/json
  
 {
-    "username": "NewDB",
+    "username": "test1",
     "password1": "12345678",
     "password2": "12345678",
-    "email": "test9@mail.com"
+    "email": "test1@mail.com"
 }
 
 ### CREATE user with different password
@@ -42,7 +47,7 @@ content-type: application/json
 
 
 
-### user login
+### user login admin
 POST {{url}}/users/login
 content-type: application/json
 
@@ -50,6 +55,16 @@ content-type: application/json
     "username": "NewDB",
     "password": "12345678"
 }
+
+### user login
+POST {{url}}/users/login
+content-type: application/json
+
+{
+   "username": "ccc1",
+   "password": "12345678"
+}
+
 
 
 ### LOGIN user false
@@ -62,6 +77,41 @@ content-type: application/json
 }
 
 
+### READ currentUser
+GET {{url}}/users/currentuser
+content-type: application/json
+
+
 ### user logout
 GET {{url}}/users/logout
 content-type: application/json
+
+
+### UPDATE user
+PATCH {{url}}/users/61e02bdddcd606ce54046043
+content-type: application/json
+
+
+{
+    "username": "ccc1",
+    "email": "ccc1@example.com",
+    "password1": "12345678",
+    "password2": "12345678"
+    
+}
+
+
+### DELETE user
+DELETE {{url}}/users/delete/61dd8d151f279290509ca4f3
+content-type: application/json
+
+
+### DELETE user by admins
+DELETE {{url}}/users/deleteuser/61e0151be04dee618462c932
+content-type: application/json
+
+
+### DELETE user by user
+DELETE {{url}}/users/deleteuser/61dd8a6d1e1e8fd4dbfac2df
+content-type: application/json
+
