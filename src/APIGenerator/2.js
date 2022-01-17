@@ -27,6 +27,11 @@ const getGeoData = (strLocation1, strLocation2) => {
 const getFlightsAPI = async () => {
   let flights = [];
 
+  // function addDuration(date, m) {
+  //   date = new Date(date);
+  //   const newDate = date.setTime(date.getTime() + m * 1000 * 60);
+  //   return newDate;
+  // }
 
   const flightsConditions = (fromRange, toRange, day, season) => {
     if (
@@ -87,9 +92,6 @@ const getFlightsAPI = async () => {
     if (monthInNum === "12") return 35;
   };
 
-  let departureDate2 = (arriveFirstFlight, addHour) =>
-    arriveFirstFlight.add(addHour, "hours");
-
   // outer loop
   for (let i = 0; i < airports.length; i++) {
     // combine with every other airport
@@ -105,7 +107,9 @@ const getFlightsAPI = async () => {
       let flightDurationInHours = distance / 800 + landingAndBoardingTime;
 
       const arrival = (departureDate) => {
-        return departureDate.add(flightDurationInHours, "hours");
+        return departureDate
+          .add(flightDurationInHours, "hours")
+          // .format("YYYY-MM-DD HH:mm");
       };
 
       const getFLightPrice = (percentage) => {
@@ -126,7 +130,7 @@ const getFlightsAPI = async () => {
       }
 
       // HOW MANY DAYS OF FLIGHTS
-      const amountFlights = 90;
+      const amountFlights = 10;
 
       //ITERATION X DAYS TO ADD 1 DAY EVRY TIME
       // let tomorrowDate = moment("2022-01-16 05:00:00");
@@ -135,6 +139,13 @@ const getFlightsAPI = async () => {
         const departureDate1 = moment("2022-01-16 05:00:00")
           .add(x, "days")
           .add(Math.round(Math.random() * (0 + 15)), "hours");
+
+        let arrival1 = arrival(departureDate1);
+
+        let departureDate2 = arrival1.add(1, "hours");
+
+        let arrival2 = arrival(departureDate2);
+
 
         if (
           !flightsConditions(
@@ -155,7 +166,7 @@ const getFlightsAPI = async () => {
           countryFrom: airports[i].country,
           countryTo: airports[j].country,
           departure: departureDate1.format("YYYY-MM-DD HH:mm"),
-          arrival: arrival(departureDate1).format("YYYY-MM-DD HH:mm"),
+          arrival: arrival(departureDate1),
           day: dayOfWeek(departureDate1),
           month: Month(departureDate1),
           distance: `${distance} km`,
@@ -171,20 +182,14 @@ const getFlightsAPI = async () => {
           to: airports[i].name,
           countryFrom: airports[j].country,
           countryTo: airports[i].country,
-          departure: departureDate2(departureDate1, 1).format(
-            "YYYY-MM-DD HH:mm"
-          ),
-          arrival: arrival(departureDate2(departureDate1, 0)).format(
-            "YYYY-MM-DD HH:mm"
-          ),
-          day: dayOfWeek(departureDate2(arrival(departureDate1))),
-          month: Month(departureDate2(arrival(departureDate1))),
+          departure: departureDate2.format("YYYY-MM-DD HH:mm"),
+          arrival: arrival2.format("YYYY-MM-DD HH:mm"),
+          day: dayOfWeek(departureDate2),
+          month: Month(departureDate2),
           distance: `${distance} km`,
           flightDuration: getFlightDuration(),
           flightDurationInHours,
-          price: getFLightPrice(
-            purchasingSeason(departureDate2(arrival(departureDate1)))
-          ),
+          price: getFLightPrice(purchasingSeason(departureDate2)),
         });
       }
     }
