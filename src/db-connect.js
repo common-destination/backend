@@ -8,6 +8,7 @@ import mongoose from "mongoose";
 // we need dotenv.config() to be executred BEFOE!
 // const mongoConnectionString = "mongodb://localhost/common_destination";
 const mongoConnectionString = process.env.MONGO_ATLAS;
+// const mongoConnectionString = "mongodb+srv://common-destination:common-destination-prg@cluster0.gr68s.mongodb.net/common-destination-db";
 
 mongoose
   .connect(mongoConnectionString, {
