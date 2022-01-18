@@ -1,6 +1,6 @@
 import moment from "moment";
 
-export const flightsConditions = (fromRange, toRange, day, season) => {
+const flightsConditions = (fromRange, toRange, day, season) => {
   if (
     season === "May" ||
     season === "June" ||
@@ -8,15 +8,14 @@ export const flightsConditions = (fromRange, toRange, day, season) => {
     season === "August" ||
     season === "September"
   ) {
-    return day + 0.5;
+    day += 0.6;
+    // add value to day to have more flights in these seasons
   }
 
-  return (
-    toRange + fromRange >= 9 && day >= Math.round(Math.random() * (0 + 10))
-  );
+  return toRange + fromRange >= 9 && day >= Math.random() * (0 + 10);
 };
 
-export const dayOfWeek = (dailydate) => {
+const dayOfWeek = (dailydate) => {
   let dayInNum = dailydate.isoWeekday();
   if (dayInNum === 1) return "Monday";
   if (dayInNum === 2) return "Tuesday";
@@ -27,7 +26,7 @@ export const dayOfWeek = (dailydate) => {
   if (dayInNum === 7) return "Sunday";
 };
 
-export const Month = (dailydate) => {
+const Month = (dailydate) => {
   let monthInNum = moment(dailydate).format("M");
   if (monthInNum === "1") return "January";
   if (monthInNum === "2") return "February";
@@ -43,7 +42,7 @@ export const Month = (dailydate) => {
   if (monthInNum === "12") return "December";
 };
 
-export const purchasingSeason = (dailydate) => {
+const purchasingSeason = (dailydate) => {
   let monthInNum = moment(dailydate).format("M");
   if (monthInNum === "1") return 0;
   if (monthInNum === "2") return 0;
@@ -59,27 +58,26 @@ export const purchasingSeason = (dailydate) => {
   if (monthInNum === "12") return 35;
 };
 
-
-export const getFlightDuration = (flightDuration) => {
+const flightDurationString = (flightDuration) => {
   const hours = Math.floor(flightDuration);
   const flightDurationInMinutes = (flightDuration - hours) * 60;
   const minutes = Math.round(flightDurationInMinutes);
   return `${hours} ${hours === 1 ? "hour" : "hours"} and ${minutes} ${
     minutes === 1 ? "minute" : "minutes"
   }`;
-}
-
-
-export const departureDate2 = (arriveFirstFlight, addHour) => {
-  return arriveFirstFlight.add(addHour, "hours");
 };
 
-export const arrival = (departureDate, howManyHours) => {
-  return departureDate.add(howManyHours, "hours");
-};
-
-export const getFLightPrice = (percentage, flightDurationInHours) => {
+const getFLightPrice = (percentage, flightDurationInHours) => {
   const normalPrice =
     15 + Math.floor(Math.random() * (flightDurationInHours * 120));
   return (normalPrice / 100) * percentage + normalPrice;
+};
+
+export {
+  flightsConditions,
+  dayOfWeek,
+  Month,
+  purchasingSeason,
+  flightDurationString,
+  getFLightPrice,
 };

@@ -10,7 +10,7 @@ import getFlightsAPI from "./APIGenerator/api.js"
 
 // SEED flights first
 const flightsDb = await FlightsModel.create(await getFlightsAPI());
-
+console.log(flightsDb.length);
 console.log(flightsDb);
 
 mongoose.connection.close(); // close connection and quit script
