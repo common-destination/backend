@@ -88,7 +88,9 @@ usersRouter.post("/login", async (req, res) => {
       username: "anonymousUser",
     });
   } else {
+    // console.log(passwordIsOk);
     bcrypt.compare(password, user.hash).then((passwordIsOk) => {
+      // console.log("22", passwordIsOk);
       if (passwordIsOk) {
         req.session.user = user;
         req.session.save();
@@ -144,34 +146,102 @@ usersRouter.get("/", async (_req, res) => {
 //   });
 // });
 
-usersRouter.patch("/:id", async (req, res) => {
-  const id = req.params.id;
-  console.log(id);
-  const updateFields = req.body;
-  console.log(updateFields);
-  if (
-    updateFields.username.trim() === "" ||
-    updateFields.password1.trim() === "" ||
-    updateFields.password1 !== updateFields.password2
-  ) {
-    // res.sendStatus(403);
-    res.status(500).send({ error: "the two passwords are different" });
-  } else {
-    const salt = await bcrypt.genSalt(saltRounds);
-    const hash = await bcrypt.hash(updateFields.password1, salt);
-    // const backendUser = {
-    //   username: updateFields.username,
-    //   email: updateFields.email,
-    //   hash,
-    //   accessGroups: "loggedInUsers",
-    // };
-    const result = await usersController.updateUser(id, updateFields);
-    res.json({
-      result,
-    });
-  }
+// usersRouter.patch("/:id", async (req, res) => {
+//   const id = req.params.id;
+//   console.log(id);
+//   const updateFields = req.body;
+//   console.log(updateFields);
+//   if (
+//     updateFields.username.trim() === "" ||
+//     updateFields.password.trim() === "" ||
+//     bcrypt.compare(password, user.hash).then((!passwordIsOk) ))
+//  {
+//     // res.sendStatus(403);
+//     res.status(500).send({ error: "the two passwords are different" });
+//   } else {
+//     const salt = await bcrypt.genSalt(saltRounds);
+//     const hash = await bcrypt.hash(updateFields.passwordNew, salt);
+//     const backendUser = {
+//       username: updateFields.username,
+//       email: updateFields.email,
+//       hash,
+//       accessGroups: "loggedInUsers",
+//     };
+//     const result = await usersController.updateUser(id, updateFields);
+//     res.json({
+//       result,
+//     });
+//   }
+// });
+
+// READ User by username
+usersRouter.get("/update/:username", async (req, res) => {
+  const username = req.params.username;
+  console.log(username);
+  const user = await usersController.userByUsername(username);
+  res.json(user);
 });
 
+// usersRouter.patch("/update/:username", async (req, res) => {
+//   const username = req.params.username;
+//   const user = await usersController.userByUsername(username);
+//   console.log(user);
+//   const updateFields = req.body;
+//   console.log(updateFields.password);
+//   console.log("333", updateFields);
+//   if (
+//     updateFields.username.trim() === "" ||
+//     updateFields.password.trim() === "" ||
+//     bcrypt.compare(updateFields.password, user.hash).then(passwordIsOk)
+//   ) {
+//     // res.sendStatus(403);
+//     res.status(500).send({ error: "please try again" });
+//   } else {
+//     const salt = await bcrypt.genSalt(saltRounds);
+//     const hash = await bcrypt.hash(updateFields.passwordNew, salt);
+//     const updateUser = {
+//       username: updateFields.username,
+//       email: updateFields.email,
+//       hash,
+//       accessGroups: "loggedInUsers",
+//     };
+//     const dbuser = await usersController.updateUser(updateUser);
+//     res.json({
+//       userAdded: dbuser,
+//     });
+//   }
+// });
+
+usersRouter.patch("/update/:username", async (req, res) => {
+  const username = req.params.username;
+
+  const user = await usersController.userByUsername(username);
+  console.log(user);
+  const updateFields = req.body;
+  console.log(updateFields.password);
+  console.log("333", updateFields);
+  const salt = await bcrypt.genSalt(saltRounds);
+  const hash = await bcrypt.hash(updateFields.passwordNew, salt);
+
+  const updateUser = {
+    _id: user.id,
+    username: updateFields.username,
+    email: updateFields.email,
+    hash,
+    accessGroups: "loggedInUsers",
+  };
+  console.log("update", updateUser);
+  const dbuser = await usersController.updateUser(user.id, updateUser);
+  const passwordIsOk = await bcrypt.compare(updateFields.password, user.hash);
+  console.log(passwordIsOk);
+  if (passwordIsOk && updateFields.username.trim() !== "") {
+    res.json({
+      userAdded: dbuser,
+    });
+  } else {
+    res.status(500).send("error");
+  }
+});
 
 // DELETE
 usersRouter.delete("/delete/:id", async (req, res) => {

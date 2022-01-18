@@ -15,10 +15,10 @@ POST {{url}}/users/create
 content-type: application/json
  
 {
-    "username": "333",
+    "username": "test1",
     "password1": "12345678",
     "password2": "12345678",
-    "email": "test@mail.com"
+    "email": "test1@mail.com"
 }
 
 
@@ -61,8 +61,8 @@ POST {{url}}/users/login
 content-type: application/json
 
 {
-   "username": "ccc1",
-   "password": "12345678"
+   "username": "test2",
+   "password": "pier"
 }
 
 
@@ -76,6 +76,16 @@ content-type: application/json
     "password": "12345678"
 }
 
+### LOGIN user false
+POST {{url}}/users/login
+content-type: application/json
+ 
+{
+    "userName": "ccc8",
+    "password": "pier"
+}
+
+
 
 ### READ currentUser
 GET {{url}}/users/currentuser
@@ -86,18 +96,20 @@ content-type: application/json
 GET {{url}}/users/logout
 content-type: application/json
 
-
 ### UPDATE user
-PATCH {{url}}/users/61e02bdddcd606ce54046043
+GET {{url}}/users/update/ccc4
 content-type: application/json
 
 
-{
-    "username": "ccc1",
-    "email": "ccc1@example.com",
-    "password1": "12345678",
-    "password2": "12345678"
-    
+
+### UPDATE user
+PATCH {{url}}/users/update/test7
+content-type: application/json
+
+{  
+    "username": "test7",
+    "password":"pier",
+    "passwordNew": "pier"  
 }
 
 
