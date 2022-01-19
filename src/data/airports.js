@@ -134,11 +134,11 @@ export let airports = [
   //   country: 'Germany',
   //   passengersInMillionPerYear: 17,
   // },
-  // {
-  //   name: 'Budapest',
-  //   country: 'Hungary',
-  //   passengersInMillionPerYear: 16,
-  // },
+  {
+    name: 'Budapest',
+    country: 'Hungary',
+    passengersInMillionPerYear: 16,
+  },
   {
     name: 'Stuttgart',
     country: 'Germany',

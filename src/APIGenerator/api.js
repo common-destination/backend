@@ -1,6 +1,7 @@
 import geoCoder from "node-open-geocoder";
 import { getDistance } from "geolib";
 import moment from "moment";
+import momentRandom from "moment-random";
 import { airports } from "../data/airports.js";
 import {
   flightsConditions,
@@ -51,15 +52,19 @@ const getFlightsAPI = async () => {
         distance / averageFlightSpeed + landingAndBoardingTime;
 
       // HOW MANY DAYS OF FLIGHTS
-      const amountFlights = 186;
+      const amountFlights = 365;
 
       //ITERATION X DAYS TO ADD 1 DAY EVRY TIME
-      const tomorrowDate = moment("2022-01-19 05:00:00");
 
       for (let x = 0; x < amountFlights; x++) {
-        const departureDate1 = tomorrowDate
-          .add(x, "days")
-          .add(Math.round(Math.random() * (0 + 15)), "hours");
+        const tomorrowDate = momentRandom(
+          moment(`2023-01-20 18:30:00`),
+          moment(`2022-01-20 05:00:00`)
+        );
+
+        const departureDate1 = tomorrowDate;
+        // const departureDate1 = tomorrowDate.add(1, "days");
+        // .add(Math.round(Math.random() * (0 + 360)), "minutes");
 
         const departureDate2 = departureDate1
           .clone()
@@ -87,6 +92,7 @@ const getFlightsAPI = async () => {
         //first flight
 
         flights.push({
+          flight: "1",
           from: airports[i].name,
           to: airports[j].name,
           countryFrom: airports[i].country,
@@ -107,6 +113,7 @@ const getFlightsAPI = async () => {
         //second flight
 
         flights.push({
+          flight: "2",
           from: airports[j].name,
           to: airports[i].name,
           countryFrom: airports[j].country,

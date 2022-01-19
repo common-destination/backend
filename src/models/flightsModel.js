@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 
 const flightSchema = new mongoose.Schema(
   {
+    flight: String,
     from: String,
     to: String,
     countryFrom: String,
