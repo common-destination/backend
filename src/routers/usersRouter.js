@@ -11,34 +11,52 @@ const userIsInGroup = (user, accessGroup) => {
   return accessGroupArray.includes(accessGroup);
 };
 
-// CREATE
+
+// CREATE/SIGNUP
 usersRouter.post("/signup", async (req, res) => {
+  const users = await usersController.readAllUsers();
+  // console.log(users);
   const frontendUser = req.body;
-  console.log(frontendUser);
-  if (
-    frontendUser.username.trim() === "" ||
-    frontendUser.password1.trim() === "" ||
-    frontendUser.password1 !== frontendUser.password2
-  ) {
-    // res.sendStatus(403);
-    res.status(500).send({ error: "the two passwords are different" });
-  } else {
-    const salt = await bcrypt.genSalt(saltRounds);
-    const hash = await bcrypt.hash(frontendUser.password1, salt);
-    const backendUser = {
-      username: frontendUser.username,
-      email: frontendUser.email,
-      hash,
-      accessGroups: "loggedInUsers",
-    };
-    const dbuser = await usersController.createUser(backendUser);
-    res.json({
-      userAdded: dbuser,
-    });
-  }
+  frontendUser.username.trim() === "" ||
+  frontendUser.password1.trim() === "" ||
+  frontendUser.password1 !== frontendUser.password2
+    ? // res.sendStatus(403);
+      res.status(500).send({ error: "the two passwords are different" })
+    : bcrypt.genSalt(saltRounds, async (err, salt) => {
+        bcrypt.hash(frontendUser.password1, salt, async (err, hash) => {
+          const backendUser = {
+            username: frontendUser.username,
+            email: frontendUser.email,
+            hash,
+            accessGroups: "loggedInUsers",
+          };
+
+          const isNewUser = users.find(
+            (element) =>
+              element.username === backendUser.username ||
+              element.email === backendUser.email
+          );
+
+          console.log(isNewUser);
+          if (isNewUser === undefined) {
+            const savedDBUser = await usersController.createUser(backendUser);
+            res.json({
+              savedDBUser,
+            });
+            let user = await usersController.loginUser( {username: backendUser.username });
+            req.session.user = user;
+            req.session.save();
+            // res.json(user);
+          } else {
+            res.sendStatus(403);
+          }
+        });
+      });
 });
 
-// // LOGIN
+
+
+// LOGIN
 usersRouter.post("/login", async (req, res) => {
   // console.log(req.body);
   const username = req.body.username;

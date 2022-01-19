@@ -34,6 +34,17 @@ content-type: application/json
 }
 
 
+### CREATE/SIGNUP user with same password
+POST {{url}}/users/signup
+content-type: application/json
+ 
+{
+    "username": "LastTest2",
+    "password1": "12345678",
+    "password2": "12345678",
+    "email": "lasttest2@gmail.com"
+}
+
 ### CREATE/SIGNUP user with different password (error)
 POST {{url}}/users/signup
 content-type: application/json
@@ -100,12 +111,12 @@ content-type: application/json
 
 
 ### DELETE user by user
-DELETE {{url}}/users/deleteuser/61dd8a6d1e1e8fd4dbfac2df
+DELETE {{url}}/users/deleteuser/61e82bdb61c83cecfdefdc85
 content-type: application/json
 
 
 ### DELETE user by admins
-DELETE {{url}}/users/deleteuser/61e0151be04dee618462c932
+DELETE {{url}}/users/deleteuser/61e82bdb61c83cecfdefdc85
 content-type: application/json
 
 
