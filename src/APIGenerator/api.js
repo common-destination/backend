@@ -52,7 +52,7 @@ const getFlightsAPI = async () => {
         distance / averageFlightSpeed + landingAndBoardingTime;
 
       // HOW MANY DAYS OF FLIGHTS
-      const amountFlights = 365;
+      const amountFlights = 10;
 
       //ITERATION X DAYS TO ADD 1 DAY EVRY TIME
 
@@ -78,16 +78,16 @@ const getFlightsAPI = async () => {
           .clone()
           .add(flightDurationInHours, "hours");
 
-        if (
-          !flightsConditions(
-            airports[i].range,
-            airports[j].range,
-            departureDate1.isoWeekday(),
-            Month(departureDate1)
-          )
-        ) {
-          continue;
-        }
+        // if (
+        //   !flightsConditions(
+        //     airports[i].range,
+        //     airports[j].range,
+        //     departureDate1.isoWeekday(),
+        //     Month(departureDate1)
+        //   )
+        // ) {
+        //   continue;
+        // }
 
         //first flight
 
