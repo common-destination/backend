@@ -1,23 +1,116 @@
 let passengers = [
-  { airport: 'a', dateIn: 21, dateBack: 23, maxPrice: 200 },
-  { airport: 'b', dateIn: 21, dateBack: 23, maxPrice: 100 },
-  { airport: 'c', dateIn: 21, dateBack: 23, maxPrice: 200 },
+  {
+    id: 'passenger1',
+    airport: 'hamburg',
+    dateIn: 21,
+    dateBack: 23,
+    maxPrice: 200,
+    minimumJourney: 1,
+  },
+  {
+    id: 'passenger2',
+    airport: 'frankfurt',
+    dateIn: 21,
+    dateBack: 23,
+    maxPrice: 100,
+    minimumJourney: 2,
+  },
+  {
+    id: 'passenger3',
+    airport: 'london',
+    dateIn: 21,
+    dateBack: 23,
+    maxPrice: 200,
+    minimumJourney: 2,
+  },
 ];
 
 const flights = [
-  { airportFrom: 'a', airportTo: 'berlin', dateIn: 21, dateBack: 23 },
-  { airportFrom: 'a', airportTo: 'paris', dateIn: 21, dateBack: 23 },
-  { airportFrom: 'a', airportTo: 'berlin', dateIn: 23, dateBack: 25 },
-  { airportFrom: 'a', airportTo: 'moscow', dateIn: 21, dateBack: 24 },
-  { airportFrom: 'a', airportTo: 'berlin', dateIn: 22, dateBack: 23 },
-  { airportFrom: 'b', airportTo: 'berlin', dateIn: 21, dateBack: 23 },
-  { airportFrom: 'b', airportTo: 'paris', dateIn: 21, dateBack: 23 },
-  { airportFrom: 'b', airportTo: 'berlin', dateIn: 22, dateBack: 23 },
-  { airportFrom: 'b', airportTo: 'berlin', dateIn: 22, dateBack: 23 },
-  { airportFrom: 'c', airportTo: 'berlin', dateIn: 21, dateBack: 23 },
-  { airportFrom: 'c', airportTo: 'rome', dateIn: 21, dateBack: 23 },
-  { airportFrom: 'c', airportTo: 'rome', dateIn: 22, dateBack: 23 },
-  { airportFrom: 'c', airportTo: 'paris', dateIn: 21, dateBack: 23 },
+  {
+    airportFrom: 'hamburg',
+    airportTo: 'berlin',
+    dateIn: 23,
+    dateBack: 23,
+    price: 150,
+  },
+  {
+    airportFrom: 'hamburg',
+    airportTo: 'moscow',
+    dateIn: 22,
+    dateBack: 23,
+    price: 150,
+  },
+  {
+    airportFrom: 'hamburg',
+    airportTo: 'paris',
+    dateIn: 21,
+    dateBack: 22,
+    price: 350,
+  },
+  {
+    airportFrom: 'hamburg',
+    airportTo: 'berlin',
+    dateIn: 22,
+    dateBack: 23,
+    price: 50,
+  },
+  {
+    airportFrom: 'frankfurt',
+    airportTo: 'berlin',
+    dateIn: 21,
+    dateBack: 23,
+    price: 50,
+  },
+  {
+    airportFrom: 'frankfurt',
+    airportTo: 'paris',
+    dateIn: 21,
+    dateBack: 23,
+    price: 850,
+  },
+  {
+    airportFrom: 'frankfurt',
+    airportTo: 'moscow',
+    dateIn: 21,
+    dateBack: 23,
+    price: 5,
+  },
+  {
+    airportFrom: 'london',
+    airportTo: 'berlin',
+    dateIn: 21,
+    dateBack: 23,
+    price: 35,
+  },
+
+  {
+    airportFrom: 'london',
+    airportTo: 'rome',
+    dateIn: 21,
+    dateBack: 23,
+    price: 66,
+  },
+  {
+    airportFrom: 'london',
+    airportTo: 'rome',
+    dateIn: 21,
+    dateBack: 23,
+    price: 66,
+  },
+  {
+    airportFrom: 'london',
+    airportTo: 'rome',
+    dateIn: 21,
+    dateBack: 23,
+    price: 66,
+  },
+  {
+    airportFrom: 'london',
+    airportTo: 'moscow',
+    dateIn: 21,
+    dateBack: 23,
+    price: 12,
+  },
 ];
 
 const filteredFlights = () => {
@@ -27,12 +120,16 @@ const filteredFlights = () => {
       .filter((element) => {
         return (
           element.airportFrom === passenger.airport &&
-          element.dateIn === passenger.dateIn &&
-          element.dateBack === passenger.dateBack
+          element.dateIn >= passenger.dateIn &&
+          element.dateBack <= passenger.dateBack &&
+          element.dateBack - element.dateIn <= passenger.minimumJourney &&
+          element.price <= passenger.maxPrice
         );
       })
       .map((flight) => {
-        result.push([flight.airportTo]);
+        flight.totalJourney = flight.dateBack - flight.dateIn;
+        flight.id = passenger.id;
+        result.push(flight);
       });
   });
 
@@ -41,67 +138,42 @@ const filteredFlights = () => {
 
 // console.log(filteredFlights());
 
-// const filteredFlightsGast1 = flights
-//   .filter((element) => {
-//     return (
-//       element.airportFrom === passengers[1].airport &&
-//       element.dateIn === passengers[1].dateIn &&
-//       element.dateBack === passengers[1].dateBack
-//     );
-//   })
-//   .map((flight) => {
-//     return flight.airportTo;
-//   });
-
-// const filteredFlightsGast2 = flights
-//   .filter((element) => {
-//     return (
-//       element.airportFrom === passengers[2].airport &&
-//       element.dateIn === passengers[2].dateIn &&
-//       element.dateBack === passengers[2].dateBack
-//     );
-//   })
-//   .map((flight) => {
-//     return flight.airportTo;
-//   });
-
-// const filteredFlightsGast3 = flights
-//   .filter((element) => {
-//     return (
-//       element.airportFrom === passengers[2].airport &&
-//       element.dateIn === passengers[2].dateIn &&
-//       element.dateBack === passengers[2].dateBack
-//     );
-//   })
-//   .map((flight) => {
-//     return flight.airportTo;
-//   });
-
 const findCommonDestination = () => {
-  const obj = filteredFlights().reduce((acc, flights) => {
-    //   console.log(flights);
-
-    for (const flight of flights) {
-      if (acc[flight]) {
-        acc[flight]++;
-      } else {
-        acc[flight] = 1;
-      }
+  const obj = filteredFlights().reduce((acc, flight) => {
+    if (acc[flight.airportTo]) {
+      acc[flight.airportTo]++;
+    } else {
+      acc[flight.airportTo] = 1;
     }
     return acc;
   }, {});
-  let result = [];
+
+  const result = {};
+  let besteAirports = [];
+  console.log(obj);
   Object.entries(obj).forEach((m) => {
     if (m[1] === passengers.length) {
-      result.push(m[0]);
+      besteAirports.push(m[0]);
+    }
+  });
+  besteAirports.forEach((airport) => {
+    const filteredPassengersOnFlights = filteredFlights().filter(
+      (flight) => flight.airportTo === airport
+    );
+    const passengersOnFlights = filteredPassengersOnFlights.map(
+      (flight) => flight.id
+    );
+    let includeInResult = true;
+    for (const passenger of passengers) {
+      if (!passengersOnFlights.includes(passenger.id)) {
+        includeInResult = false;
+      }
+    }
+    if (includeInResult) {
+      result[airport] = filteredPassengersOnFlights;
     }
   });
   return result;
-  //   console.log(Object.entries(obj));
 };
-
-// console.log(filteredFlightsGast1);
-// console.log(filteredFlightsGast2);
-// console.log(filteredFlightsGast3);
 
 console.log(findCommonDestination());

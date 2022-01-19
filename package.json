@@ -22,6 +22,7 @@
     "express-session": "^1.17.2",
     "geolib": "^3.3.3",
     "moment": "^2.29.1",
+    "moment-random": "^1.1.0",
     "mongoose": "^6.0.13",
     "node-open-geocoder": "^4.0.1"
   },

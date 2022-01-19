@@ -34,11 +34,11 @@ export const readOneUserWithUsername = async (username) => {
  ;
 };
 
-// export const updateUser = async (id, updateFields) => {
-//   return await UsersModel.findByIdAndUpdate(id, updateFields, {
-//     new: true,
-//   });
-// };
+export const updateUser = async (id, updateFields) => {
+  return await UsersModel.findByIdAndUpdate(id, updateFields, {
+    new: true,
+  });
+};
 
 export const updateUser = async (id, updateUser) => {
   return await UsersModel.findByIdAndUpdate(id, updateUser, {
