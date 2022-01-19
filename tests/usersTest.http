@@ -15,15 +15,14 @@ POST {{url}}/users/create
 content-type: application/json
  
 {
-    "username": "test1",
+    "username": "test",
     "password1": "12345678",
     "password2": "12345678",
-    "email": "test1@mail.com"
+    "email": "test@mail.com"
 }
 
 
-
-### CREATE user with same password
+### CREATE/SIGNUP user with same password
 POST {{url}}/users/signup
 content-type: application/json
  
@@ -34,7 +33,8 @@ content-type: application/json
     "email": "test1@mail.com"
 }
 
-### CREATE user with different password
+
+### CREATE/SIGNUP user with different password (error)
 POST {{url}}/users/signup
 content-type: application/json
  
@@ -47,7 +47,7 @@ content-type: application/json
 
 
 
-### user login admin
+### user login (admin)
 POST {{url}}/users/login
 content-type: application/json
 
@@ -56,7 +56,8 @@ content-type: application/json
     "password": "12345678"
 }
 
-### user login
+
+### user login 
 POST {{url}}/users/login
 content-type: application/json
 
@@ -67,7 +68,7 @@ content-type: application/json
 
 
 
-### LOGIN user false
+### LOGIN user false (error)
 POST {{url}}/users/login
 content-type: application/json
  
@@ -75,16 +76,6 @@ content-type: application/json
     "userName": "g00g",
     "password": "12345678"
 }
-
-### LOGIN user false
-POST {{url}}/users/login
-content-type: application/json
- 
-{
-    "userName": "ccc8",
-    "password": "pier"
-}
-
 
 
 ### READ currentUser
@@ -95,11 +86,6 @@ content-type: application/json
 ### user logout
 GET {{url}}/users/logout
 content-type: application/json
-
-### UPDATE user
-GET {{url}}/users/update/ccc4
-content-type: application/json
-
 
 
 ### UPDATE user
@@ -113,8 +99,8 @@ content-type: application/json
 }
 
 
-### DELETE user
-DELETE {{url}}/users/delete/61dd8d151f279290509ca4f3
+### DELETE user by user
+DELETE {{url}}/users/deleteuser/61dd8a6d1e1e8fd4dbfac2df
 content-type: application/json
 
 
@@ -123,7 +109,4 @@ DELETE {{url}}/users/deleteuser/61e0151be04dee618462c932
 content-type: application/json
 
 
-### DELETE user by user
-DELETE {{url}}/users/deleteuser/61dd8a6d1e1e8fd4dbfac2df
-content-type: application/json
 
