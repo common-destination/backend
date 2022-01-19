@@ -3,9 +3,7 @@ import express from "express";
 import * as usersController from "../controllers/usersController.js";
 
 const saltRounds = 8;
-// const myPlaintextPassword = "password";
 
-// mongoose.connect("mongodb://localhost:27017/test");
 const usersRouter = express.Router();
 
 const userIsInGroup = (user, accessGroup) => {
@@ -13,70 +11,52 @@ const userIsInGroup = (user, accessGroup) => {
   return accessGroupArray.includes(accessGroup);
 };
 
-// CREATE
-// usersRouter.post("/create", async (req, res) => {
-//   const userObj = req.body;
-//   console.log(userObj);
-//   if (userObj.password1 !== userObj.password2) {
-//     res.status(500).send({ error: "the two passwords are diffent" });
-//   } else {
-//     bcrypt.genSalt(saltRounds, function (err, salt) {
-//       bcrypt.hash(myPlaintextPassword, salt, async (err, hash) => {
-//         const dbUser = {
-//           userName: userObj.userName,
-//           hash,
-//           email: userObj.email,
-//         };
-//         const user = await usersController.createUser(dbUser);
-//         res.json({
-//           user,
-//         });
-//       });
-//     });
-//   }
-// });
 
+// CREATE/SIGNUP
 usersRouter.post("/signup", async (req, res) => {
+  const users = await usersController.readAllUsers();
+  // console.log(users);
   const frontendUser = req.body;
-  console.log(frontendUser);
-  if (
-    frontendUser.username.trim() === "" ||
-    frontendUser.password1.trim() === "" ||
-    frontendUser.password1 !== frontendUser.password2
-  ) {
-    // res.sendStatus(403);
-    res.status(500).send({ error: "the two passwords are different" });
-  } else {
-    const salt = await bcrypt.genSalt(saltRounds);
-    const hash = await bcrypt.hash(frontendUser.password1, salt);
-    const backendUser = {
-      username: frontendUser.username,
-      email: frontendUser.email,
-      hash,
-      accessGroups: "loggedInUsers",
-    };
-    const dbuser = await usersController.createUser(backendUser);
-    res.json({
-      userAdded: dbuser,
-    });
-  }
+  frontendUser.username.trim() === "" ||
+  frontendUser.password1.trim() === "" ||
+  frontendUser.password1 !== frontendUser.password2
+    ? // res.sendStatus(403);
+      res.status(500).send({ error: "the two passwords are different" })
+    : bcrypt.genSalt(saltRounds, async (err, salt) => {
+        bcrypt.hash(frontendUser.password1, salt, async (err, hash) => {
+          const backendUser = {
+            username: frontendUser.username,
+            email: frontendUser.email,
+            hash,
+            accessGroups: "loggedInUsers",
+          };
+
+          const isNewUser = users.find(
+            (element) =>
+              element.username === backendUser.username ||
+              element.email === backendUser.email
+          );
+
+          console.log(isNewUser);
+          if (isNewUser === undefined) {
+            const savedDBUser = await usersController.createUser(backendUser);
+            res.json({
+              savedDBUser,
+            });
+            let user = await usersController.loginUser( {username: backendUser.username });
+            req.session.user = user;
+            req.session.save();
+            // res.json(user);
+          } else {
+            res.sendStatus(403);
+          }
+        });
+      });
 });
 
-// // LOGIN
-// usersRouter.post("/login", async (req, res) => {
-//   const userName = req.body.userName;
-//   const password = req.body.password;
-//   const user = await usersController.readOneUserWithUserName(userName);
-//   console.log(user);
-//   if (user) {
-//     req.session.user = user;
-//     req.session.save();
-//     res.send(`User logged in: ${JSON.stringify(user)}`);
-//   } else {
-//     res.status(500).send("bad login");
-//   }
-// });
 
+
+// LOGIN
 usersRouter.post("/login", async (req, res) => {
   // console.log(req.body);
   const username = req.body.username;
@@ -89,6 +69,7 @@ usersRouter.post("/login", async (req, res) => {
     });
   } else {
     bcrypt.compare(password, user.hash).then((passwordIsOk) => {
+      // console.log("22", passwordIsOk);
       if (passwordIsOk) {
         req.session.user = user;
         req.session.save();
@@ -123,7 +104,7 @@ usersRouter.get("/", async (_req, res) => {
   res.json(users);
 });
 
-// READ ONE
+// READ ONE by ID
 // usersRouter.get("/:id", async (req, res) => {
 //   const id = req.params.id;
 //   // console.log(req.params.id);
@@ -132,48 +113,47 @@ usersRouter.get("/", async (_req, res) => {
 //   });
 // });
 
-// UPDATE
-// usersRouter.patch("/:id", async (req, res) => {
-//   const id = req.params.id;
-//   console.log(id);
-//   const updateFields = req.body;
-//   console.log(req.body);
-//   const result = await usersController.updateUser(id, updateFields);
-//   res.json({
-//     result,
-//   });
-// });
+// READ User by username
+usersRouter.get("/update/:username", async (req, res) => {
+  const username = req.params.username;
+  console.log(username);
+  const user = await usersController.userByUsername(username);
+  res.json(user);
+});
 
-usersRouter.patch("/:id", async (req, res) => {
-  const id = req.params.id;
-  console.log(id);
+// UPDATE
+usersRouter.patch("/update/:username", async (req, res) => {
+  const username = req.params.username;
+
+  const user = await usersController.userByUsername(username);
+  console.log(user);
   const updateFields = req.body;
-  console.log(updateFields);
-  if (
-    updateFields.username.trim() === "" ||
-    updateFields.password1.trim() === "" ||
-    updateFields.password1 !== updateFields.password2
-  ) {
-    // res.sendStatus(403);
-    res.status(500).send({ error: "the two passwords are different" });
-  } else {
-    const salt = await bcrypt.genSalt(saltRounds);
-    const hash = await bcrypt.hash(updateFields.password1, salt);
-    // const backendUser = {
-    //   username: updateFields.username,
-    //   email: updateFields.email,
-    //   hash,
-    //   accessGroups: "loggedInUsers",
-    // };
-    const result = await usersController.updateUser(id, updateFields);
+  console.log(updateFields.password);
+  console.log("333", updateFields);
+  const salt = await bcrypt.genSalt(saltRounds);
+  const hash = await bcrypt.hash(updateFields.passwordNew, salt);
+
+  const updateUser = {
+    _id: user.id,
+    username: updateFields.username,
+    email: updateFields.email,
+    hash,
+    accessGroups: "loggedInUsers",
+  };
+  console.log("update", updateUser);
+  const dbuser = await usersController.updateUser(user.id, updateUser);
+  const passwordIsOk = await bcrypt.compare(updateFields.password, user.hash);
+  console.log(passwordIsOk);
+  if (passwordIsOk && updateFields.username.trim() !== "") {
     res.json({
-      result,
+      userAdded: dbuser,
     });
+  } else {
+    res.status(500).send("error");
   }
 });
 
-
-// DELETE
+// DELETE without permission
 usersRouter.delete("/delete/:id", async (req, res) => {
   const id = req.params.id;
   const result = await usersController.deleteUser(id);
@@ -182,6 +162,7 @@ usersRouter.delete("/delete/:id", async (req, res) => {
   });
 });
 
+// DELETE with permission (admin)
 usersRouter.delete("/deleteuser/:id", async (req, res) => {
   const id = req.params.id;
   console.log(id);
@@ -196,3 +177,4 @@ usersRouter.delete("/deleteuser/:id", async (req, res) => {
 });
 
 export { usersRouter };
+

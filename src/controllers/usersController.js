@@ -18,11 +18,20 @@ export const loginUser = async (username) => {
 };
 
 export const logoutUser = async (login) => {
-  return await UsersModel.findOne( login );
+  return await UsersModel.findOne(login);
 };
 
 export const currentUser = async (login) => {
-  return await UsersModel.findOne( login );
+  return await UsersModel.findOne(login);
+};
+
+export const userByUsername = async (username) => {
+  return await UsersModel.findOne({ username: username });
+};
+
+export const readOneUserWithUsername = async (username) => {
+  return await UsersModel.find({ username });
+ ;
 };
 
 export const updateUser = async (id, updateFields) => {
@@ -31,6 +40,11 @@ export const updateUser = async (id, updateFields) => {
   });
 };
 
+export const updateUser = async (id, updateUser) => {
+  return await UsersModel.findByIdAndUpdate(id, updateUser, {
+    new: true,
+  });
+};
 export const deleteUser = async (id) => {
   return await UsersModel.findByIdAndRemove(id);
 };
