@@ -10,8 +10,13 @@ import { usersRouter } from "./routers/usersRouter.js";
 const app = express();
 const port = process.env.PORT;
 
-app.use(cors());
 app.use(express.json());
+app.use(
+  cors({
+    origin: process.env.ORIGIN_URL || "http://localhost:3000",
+    credentials: true, // accept incoming cookies
+  })
+);
 
 app.use(
   session({
