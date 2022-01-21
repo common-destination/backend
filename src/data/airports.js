@@ -146,8 +146,6 @@ export let airports = [
   },
 ];
 
-
 airports.map((airport) => {
   airport.range = Math.round(airport.passengersInMillionPerYear / 10);
-  // console.log(airport.range);
 });
