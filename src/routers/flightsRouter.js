@@ -1,6 +1,7 @@
 import "../config.js";
 import express from "express";
 import * as flightsController from "../controllers/flightsController.js";
+import { airports } from "../data/airports.js";
 const flightsRouter = express.Router();
 
 // DEPARTURE AIRPORT
@@ -60,7 +61,6 @@ flightsRouter.get("/departure/:airport/:date/:start/:end", async (req, res) => {
       elem.departure.slice(-5) <= end
   );
   res.json(filteredByDepartureHour);
-  console.log(filteredByDepartureHour);
 });
 
 // ARRIVAL => AIRPORT FROM => START => END
@@ -78,7 +78,6 @@ flightsRouter.get("/arrival/:airport/:date/:start/:end", async (req, res) => {
       elem.arrival.slice(-5) <= end
   );
   res.json(filteredByDepartureHour);
-  console.log(filteredByDepartureHour);
 });
 
 // ARRIVAL DATE
@@ -103,7 +102,6 @@ flightsRouter.get("/flight-distance", async (req, res) => {
 
 // FLIGHT DURATION
 flightsRouter.get("/flight-duration", async (req, res) => {
-  const duration = req.params.flightDurationInHours;
   const flights = await flightsController.getAllFlights();
   const sortedByDuration = flights
     .filter((elem) => elem.flightDurationInHours)
@@ -119,6 +117,39 @@ flightsRouter.get("/max-price/:price", async (req, res) => {
     .filter((elem) => elem.price <= price)
     .sort((min, max) => min.price - max.price);
   res.json(filteredByMaxPrice);
+});
+
+// GET ALL UNIQUE AIRPORTS AND UNIQUE COUNTRIES
+// flightsRouter.get("/airports", async (_req, res) => {
+//   const getAllAirports = airports.map((airport) => airport.name);
+//   const getAllCountries = airports.map((airport) => airport.country);
+//   const getUniqueDepartures = [
+//     ...new Set(getAllAirports),
+//     ...new Set(getAllCountries),
+//   ];
+//   res.json(getUniqueDepartures);
+//   console.log(getUniqueDepartures);
+//   console.log(getUniqueDepartures.length);
+// });
+
+// GET ALL UNIQUE AIRPORTS
+flightsRouter.get("/airports", async (_req, res) => {
+  const getSortedAirports = airports.sort((a, b) =>
+    a.name.localeCompare(b.name)
+  );
+  const getAllAirports = getSortedAirports.map((airport) => airport.name);
+  const getUniqueAirports = [...new Set(getAllAirports)];
+  res.json(getUniqueAirports);
+});
+
+// GET ALL UNIQUE COUNTRIES
+flightsRouter.get("/countries", async (_req, res) => {
+  const getSortedCountries = airports.sort((a, b) =>
+    a.country.localeCompare(b.country)
+  );
+  const getAllCountries = getSortedCountries.map((country) => country.country);
+  const getUniqueCountries = [...new Set(getAllCountries)];
+  res.json(getUniqueCountries);
 });
 
 // GET ALL FLIGHTS

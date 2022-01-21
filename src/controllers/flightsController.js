@@ -5,6 +5,11 @@ export const getAllFlights = async () => {
   return await FlightsModel.find({});
 };
 
+// GET ALL AIRPORTS
+export const getAllAirports = async () => {
+  return await FlightsModel.find({});
+};
+
 // DEPARTURE AIRPORT
 export const getFilteredByDepartureAirport = async (airport) => {
   return await FlightsModel.find({ from: airport });
