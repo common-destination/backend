@@ -1,32 +1,26 @@
-import FlightsModel from '../models/flightsModel.js';
+import FlightsModel from "../models/flightsModel.js";
 
-export const readAllFlights = async () => {
+// GET ALL FLIGHTS
+export const getAllFlights = async () => {
   return await FlightsModel.find({});
 };
 
-// ALL SORTED FLIGHTS
-export const getFlightsSortedByPrice = async () => {
-  return await FlightsModel.find({}).sort({ price: 1 });
+// DEPARTURE AIRPORT
+export const getFilteredByDepartureAirport = async (airport) => {
+  return await FlightsModel.find({ from: airport });
 };
 
-export const readAllSortedFlightsByDeparture = async () => {
-  return await FlightsModel.find({}).sort({ departure: 1 });
+// ARRIVAL AIRPORT
+export const getFilteredByArrivalAirport = async (airport) => {
+  return await FlightsModel.find({ to: airport });
 };
 
-export const readAllSortedFlightsByArrival = async () => {
-  return await FlightsModel.find({}).sort({ arrival: 1 });
+// DEPARTURE COUNTRIES
+export const getFilteredByDepartureCountry = async (country) => {
+  return await FlightsModel.find({ countryFrom: country });
 };
 
-export const readAllSortedFlightsByFlightDuration = async () => {
-  return await FlightsModel.find({}).sort({ flightDurationInHours: 1 });
+// ARRIVAL COUNTRIES
+export const getFilteredByArrivalCountry = async (country) => {
+  return await FlightsModel.find({ countryTo: country });
 };
-
-export const readAllSortedFlightsByFlightFrom = async () => {
-  return await FlightsModel.find({}).sort({ from: 1 });
-};
-
-export const readAllSortedFlightsByFlightTo = async () => {
-  return await FlightsModel.find({}).sort({ to: 1 });
-};
-
-// ALL FILTERED FLIGHTS
