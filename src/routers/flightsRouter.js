@@ -152,6 +152,17 @@ flightsRouter.get("/countries", async (_req, res) => {
   res.json(getUniqueCountries);
 });
 
+flightsRouter.get("/ascending-departuredate", async (_req, res) => {
+  const getSorteDate = await flightsController.getSortByDeparturedate(1);
+  res.json(getSorteDate);
+});
+
+flightsRouter.get("/descending-departuredate", async (_req, res) => {
+  const getSorteDate = await flightsController.getSortByDeparturedate(-1);
+  res.json(getSorteDate);
+});
+
+
 // GET ALL FLIGHTS
 flightsRouter.get("/", async (_req, res) => {
   const flights = await flightsController.getAllFlights();

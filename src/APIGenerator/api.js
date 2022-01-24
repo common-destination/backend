@@ -35,6 +35,8 @@ const getGeoData = (strLocation1, strLocation2) => {
 
 const getFlightsAPI = async () => {
   let flights = [];
+  const minDate = moment().add(1, "days").format("YYYY-MM-DD");
+  const maxDate = moment().add(1, "years").format("YYYY-MM-DD");
 
   for (let i = 0; i < airports.length; i++) {
     // combine with every other airport
@@ -57,13 +59,13 @@ const getFlightsAPI = async () => {
       //ITERATION X DAYS TO ADD 1 DAY EVRY TIME
 
       for (let x = 0; x < amountFlights; x++) {
-        const tomorrowDate = momentRandom(
-          moment(`2023-01-20 18:30:00`),
-          moment(`2022-01-20 05:00:00`)
+        const randomDate = momentRandom(
+          moment(`${maxDate} 18:30:00`),
+          moment(`${minDate} 05:00:00`)
         );
 
-        const departureDate1 = tomorrowDate;
-        // const departureDate1 = tomorrowDate.add(1, "days");
+        const departureDate1 = randomDate;
+        // const departureDate1 = randomDate.add(1, "days");
         // .add(Math.round(Math.random() * (0 + 360)), "minutes");
 
         const departureDate2 = departureDate1

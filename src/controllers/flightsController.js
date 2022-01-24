@@ -29,3 +29,9 @@ export const getFilteredByDepartureCountry = async (country) => {
 export const getFilteredByArrivalCountry = async (country) => {
   return await FlightsModel.find({ countryTo: country });
 };
+
+//SORT BY DEPARTURE-DATE
+
+export const getSortByDeparturedate = async (num) => {
+  return await FlightsModel.find({}).sort({ departure: num });
+};
