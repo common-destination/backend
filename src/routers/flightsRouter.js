@@ -46,18 +46,18 @@ flightsRouter.get("/departure-date/:departure", async (req, res) => {
 });
 
 // DEPARTURE => AIRPORT FROM => START => END
-flightsRouter.get("/departure/:airport/:date/:start/:end", async (req, res) => {
+flightsRouter.get("/departure/:airport/:start/:end", async (req, res) => {
   const airport = req.params.airport;
-  const date = req.params.date;
+  // const date = req.params.date;
   const start = req.params.start;
   const end = req.params.end;
   const flights = await flightsController.getAllFlights();
   const filteredByDepartureHour = flights.filter(
     (elem) =>
       elem.from === airport &&
-      elem.arrival.slice(0, -6) === date &&
-      elem.departure.slice(-5) >= start &&
-      elem.departure.slice(-5) <= end
+      // elem.arrival.slice(0, -6) === date &&
+      elem.departure.slice(0, -6) >= start &&
+      elem.departure.slice(0, -6) <= end
   );
   res.json(filteredByDepartureHour);
 });
