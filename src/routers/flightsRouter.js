@@ -7,23 +7,22 @@ const flightsRouter = express.Router();
 // DEPARTURE AIRPORT
 flightsRouter.get("/departure-airport/:airport", async (req, res) => {
   const airport = req.params.airport;
-  const flights = await flightsController.getFilteredByDepartureAirport(
-    airport
-  );
+  const flights = await flightsController.filterByProperty("from", airport);
   res.json(flights);
 });
 
 // ARRIVAL AIRPORT
 flightsRouter.get("/arrival-airport/:airport", async (req, res) => {
   const airport = req.params.airport;
-  const flights = await flightsController.getFilteredByArrivalAirport(airport);
+  const flights = await flightsController.filterByProperty("to", airport);
   res.json(flights);
 });
 
 // DEPARTURE COUNTRY
 flightsRouter.get("/departure-country/:country", async (req, res) => {
   const country = req.params.country;
-  const flights = await flightsController.getFilteredByDepartureCountry(
+  const flights = await flightsController.filterByProperty(
+    "countryFrom",
     country
   );
   res.json(flights);
@@ -32,7 +31,7 @@ flightsRouter.get("/departure-country/:country", async (req, res) => {
 // ARRIVAL COUNTRY
 flightsRouter.get("/arrival-country/:country", async (req, res) => {
   const country = req.params.country;
-  const flights = await flightsController.getFilteredByArrivalCountry(country);
+  const flights = await flightsController.filterByProperty("countryTo", country);
   res.json(flights);
 });
 
@@ -152,16 +151,17 @@ flightsRouter.get("/countries", async (_req, res) => {
   res.json(getUniqueCountries);
 });
 
+// SORT BY DEPARTURE DATE
+
 flightsRouter.get("/ascending-departuredate", async (_req, res) => {
-  const getSorteDate = await flightsController.getSortByDeparturedate(1);
+  const getSorteDate = await flightsController.sortByProperty("departure", 1);
   res.json(getSorteDate);
 });
 
 flightsRouter.get("/descending-departuredate", async (_req, res) => {
-  const getSorteDate = await flightsController.getSortByDeparturedate(-1);
+  const getSorteDate = await flightsController.sortByProperty("departure", -1);
   res.json(getSorteDate);
 });
-
 
 // GET ALL FLIGHTS
 flightsRouter.get("/", async (_req, res) => {

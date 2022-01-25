@@ -5,33 +5,16 @@ export const getAllFlights = async () => {
   return await FlightsModel.find({});
 };
 
-// GET ALL AIRPORTS
-export const getAllAirports = async () => {
-  return await FlightsModel.find({});
+// FILTER BY PROPERTY
+
+export const filterByProperty = async (property,value) => {
+  return await FlightsModel.find({ [property]: value});
 };
 
-// DEPARTURE AIRPORT
-export const getFilteredByDepartureAirport = async (airport) => {
-  return await FlightsModel.find({ from: airport });
+//SORT BY PROPERTY
+
+export const sortByProperty = async ( property,order) => {
+  return await FlightsModel.find({}).sort({ [property]: order});
 };
 
-// ARRIVAL AIRPORT
-export const getFilteredByArrivalAirport = async (airport) => {
-  return await FlightsModel.find({ to: airport });
-};
 
-// DEPARTURE COUNTRIES
-export const getFilteredByDepartureCountry = async (country) => {
-  return await FlightsModel.find({ countryFrom: country });
-};
-
-// ARRIVAL COUNTRIES
-export const getFilteredByArrivalCountry = async (country) => {
-  return await FlightsModel.find({ countryTo: country });
-};
-
-//SORT BY DEPARTURE-DATE
-
-export const getSortByDeparturedate = async (num) => {
-  return await FlightsModel.find({}).sort({ departure: num });
-};
