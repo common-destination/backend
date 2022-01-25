@@ -171,7 +171,7 @@ usersRouter.delete("/deleteuser/:id", async (req, res) => {
   if (!userIsInGroup(user, "admins")) {
     res.sendStatus(403);
   } else {
-    const user = await usersController.deleteUserbyAdmins(id);
+    const user = await usersController.deleteUser(id);
     res.json(user);
   }
 });

@@ -45,10 +45,8 @@ export const updateUser = async (id, updateUser) => {
     new: true,
   });
 };
+
 export const deleteUser = async (id) => {
   return await UsersModel.findByIdAndRemove(id);
 };
 
-export const deleteUserbyAdmins = async (id) => {
-  return await UsersModel.findByIdAndRemove(id);
-};
