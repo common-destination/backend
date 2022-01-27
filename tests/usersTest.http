@@ -1,4 +1,4 @@
-@url= http://localhost:7033
+@url= http://localhost:8033
 
 ### READ users 
 GET {{url}}/users

@@ -25,11 +25,11 @@ export const currentUser = async (login) => {
   return await UsersModel.findOne(login);
 };
 
-export const userByUsername = async (username) => {
-  return await UsersModel.findOne({ username: username });
+export const userByUsername = async () => {
+  return await UsersModel.findOne({ username });
 };
 
-export const readOneUserWithUsername = async (username) => {
+export const readOneUserWithUsername = async () => {
   return await UsersModel.find({ username });
  ;
 };

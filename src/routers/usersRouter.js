@@ -84,7 +84,7 @@ usersRouter.post("/login", async (req, res) => {
 // LOGOUT
 usersRouter.get("/logout", async (req, res) => {
   req.session.destroy();
-  const user = await usersController.logoutUser({ login: "anonymousUser" });
+  const user = await usersController.logoutUser({ username: "anonymousUser" });
   res.json(user);
 });
 
@@ -93,7 +93,7 @@ usersRouter.get("/currentuser", async (req, res) => {
   let user = req.session.user;
   // console.log(req.session.user);
   if (!user) {
-    user = await usersController.currentUser({ login: "anonymousUser" });
+    user = await usersController.currentUser({ username: "anonymousUser" });
   }
   res.json(user);
 });
