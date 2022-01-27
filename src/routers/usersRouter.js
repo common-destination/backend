@@ -11,7 +11,6 @@ const userIsInGroup = (user, accessGroup) => {
   return accessGroupArray.includes(accessGroup);
 };
 
-
 // CREATE/SIGNUP
 usersRouter.post("/signup", async (req, res) => {
   const users = await usersController.readAllUsers();
@@ -43,7 +42,9 @@ usersRouter.post("/signup", async (req, res) => {
             res.json({
               savedDBUser,
             });
-            let user = await usersController.loginUser( {username: backendUser.username });
+            let user = await usersController.loginUser({
+              username: backendUser.username,
+            });
             req.session.user = user;
             req.session.save();
             // res.json(user);
@@ -53,8 +54,6 @@ usersRouter.post("/signup", async (req, res) => {
         });
       });
 });
-
-
 
 // LOGIN
 usersRouter.post("/login", async (req, res) => {
@@ -84,7 +83,7 @@ usersRouter.post("/login", async (req, res) => {
 // LOGOUT
 usersRouter.get("/logout", async (req, res) => {
   req.session.destroy();
-  const user = await usersController.logoutUser({ username: "anonymousUser" });
+  const user = await usersController.findOneUser({ username: "anonymousUser" });
   res.json(user);
 });
 
@@ -93,7 +92,7 @@ usersRouter.get("/currentuser", async (req, res) => {
   let user = req.session.user;
   // console.log(req.session.user);
   if (!user) {
-    user = await usersController.currentUser({ username: "anonymousUser" });
+    user = await usersController.findOneUser({ username: "anonymousUser" });
   }
   res.json(user);
 });
@@ -177,4 +176,3 @@ usersRouter.delete("/deleteuser/:id", async (req, res) => {
 });
 
 export { usersRouter };
-
