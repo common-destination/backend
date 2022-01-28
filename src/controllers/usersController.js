@@ -17,12 +17,8 @@ export const loginUser = async (username) => {
   return userArray.length === 0 ? null : userArray[0];
 };
 
-export const logoutUser = async (login) => {
-  return await UsersModel.findOne(login);
-};
-
-export const currentUser = async (login) => {
-  return await UsersModel.findOne(login);
+export const findOneUser = async (username) => {
+  return await UsersModel.findOne(username);
 };
 
 export const userByUsername = async () => {
@@ -34,11 +30,6 @@ export const readOneUserWithUsername = async () => {
  ;
 };
 
-// export const updateUser = async (id, updateFields) => {
-//   return await UsersModel.findByIdAndUpdate(id, updateFields, {
-//     new: true,
-//   });
-// };
 
 export const updateUser = async (id, updateUser) => {
   return await UsersModel.findByIdAndUpdate(id, updateUser, {
