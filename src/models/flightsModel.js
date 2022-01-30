@@ -16,12 +16,12 @@ const flightSchema = new mongoose.Schema(
     day: String,
     month: String,
     price: Number,
-
+    passengerId: String,
   },
-  {
-    versionKey: false,
-    timestamps: true,
-  }
+  // {
+  //   versionKey: false,
+  //   timestamps: true,
+  // }
 );
 
 const FlightsModel = mongoose.model('flight', flightSchema, 'flights');

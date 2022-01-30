@@ -1,5 +1,6 @@
 import "../config.js";
 import express from "express";
+import moment from "moment";
 import * as flightsController from "../controllers/flightsController.js";
 import { airports } from "../data/airports.js";
 const flightsRouter = express.Router();
@@ -31,7 +32,10 @@ flightsRouter.get("/departure-country/:country", async (req, res) => {
 // ARRIVAL COUNTRY
 flightsRouter.get("/arrival-country/:country", async (req, res) => {
   const country = req.params.country;
-  const flights = await flightsController.filterByProperty("countryTo", country);
+  const flights = await flightsController.filterByProperty(
+    "countryTo",
+    country
+  );
   res.json(flights);
 });
 
@@ -161,6 +165,46 @@ flightsRouter.get("/ascending-departuredate", async (_req, res) => {
 flightsRouter.get("/descending-departuredate", async (_req, res) => {
   const getSorteDate = await flightsController.sortByProperty("departure", -1);
   res.json(getSorteDate);
+});
+
+//COMPATIBLE FLIGHTS FOR EVERY PASSENGER
+
+flightsRouter.get("/compatible-flights", async (_req, res) => {
+  let passengers = [
+    {
+      id: "passenger1",
+      airport: "Hamburg",
+      minDepartureDate: moment("2022-01-28 08:02"),
+      maxReturnDate: moment("2022-02-02 12:02"),
+      minimumJourney: 1,
+    },
+    // {
+    //   id: "passenger2",
+    //   airport: "Frankfurt",
+    //   minDepartureDate: moment("2022-01-29T08:02:17+01:00"),
+    //   maxReturnDate: moment("2022-02-05T08:02:17+01:00"),
+    //   maxPrice: 100,
+    //   minimumJourney: 2,
+    // },
+    // {
+    //   id: "passenger3",
+    //   airport: "London",
+    //   minDepartureDate: moment("2022-01-28T08:02:17+01:00"),
+    //   maxReturnDate: moment("2022-02-04T08:02:17+01:00"),
+    //   minimumJourney: 2,
+    // },
+  ];
+
+  const flights = await flightsController.filteredFlights(passengers);
+  console.log(flights.length);
+  res.json(flights);
+});
+
+//GET COMMON DESTINATION D
+
+flightsRouter.get("/common-destination", async (_req, res) => {
+  const flights = await flightsController.getAllFlights();
+  res.json(flights);
 });
 
 // GET ALL FLIGHTS

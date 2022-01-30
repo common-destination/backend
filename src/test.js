@@ -115,16 +115,20 @@ const flights = [
 
 const filteredFlights = () => {
   let result = [];
+  const possibleFlightsPorPassenger = 
   passengers.map((passenger) => {
     flights
       .filter((element) => {
         return (
           element.airportFrom === passenger.airport &&
+          //element.airportTo === passenger.airport
           element.dateIn >= passenger.dateIn &&
           element.dateBack <= passenger.dateBack &&
           element.dateBack - element.dateIn <= passenger.minimumJourney &&
           element.price <= passenger.maxPrice
         );
+
+  
       })
       .map((flight) => {
         flight.totalJourney = flight.dateBack - flight.dateIn;
@@ -177,3 +181,11 @@ const findCommonDestination = () => {
 };
 
 console.log(findCommonDestination());
+
+
+// const today = moment()
+// const tomorrow = moment().add(1, "days").format("yyyy-MM-DD");
+// console.log(today);
+// console.log(tomorrow);
+// const difference = moment("2022-01-28T08:02:17+01:00").diff(moment(), "hours");
+// console.log(difference);
