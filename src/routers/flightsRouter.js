@@ -172,11 +172,11 @@ flightsRouter.get("/descending-departuredate", async (_req, res) => {
 flightsRouter.get("/compatible-flights", async (_req, res) => {
   let passengers = [
     {
-      id: "passenger1",
+      name: "passenger1",
       airport: "Hamburg",
-      minDepartureDate: moment("2022-01-28 08:02"),
-      maxReturnDate: moment("2022-02-02 12:02"),
-      minimumJourney: 1,
+      minDepartureDate: moment("2022-02-01 08:02"),
+      maxReturnDate: moment("2022-02-15 12:02"),
+      minimumStayTime: 4,
     },
     // {
     //   id: "passenger2",
@@ -194,9 +194,7 @@ flightsRouter.get("/compatible-flights", async (_req, res) => {
     //   minimumJourney: 2,
     // },
   ];
-
   const flights = await flightsController.filteredFlights(passengers);
-  console.log(flights.length);
   res.json(flights);
 });
 

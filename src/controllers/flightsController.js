@@ -29,37 +29,52 @@ export const filteredFlights = async (passengers) => {
 
   // all compatible departure and return oneway flights per passenger
   passengers.map((passenger) => {
-    let departureFlights = [];
+    let outboundFlights = [];
     let returnFlights = [];
 
     flights.map((flight) => {
-      flight.passengerId = passenger.id;
       const departureFlightConditions =
         flight.from === passenger.airport &&
         moment(flight.departure) >= passenger.minDepartureDate &&
         moment(flight.departure) < passenger.maxReturnDate;
+
       const returnFlightConditions =
         flight.to === passenger.airport &&
         moment(flight.arrival) <= passenger.maxReturnDate &&
         moment(flight.arrival) > passenger.minDepartureDate;
 
-      if (departureFlightConditions) return departureFlights.push(flight);
+      if (departureFlightConditions) return outboundFlights.push(flight);
       if (returnFlightConditions) return returnFlights.push(flight);
     });
 
-    let passangerBestFlights = [{departureFlights},{returnFlights}];
+    let passangerBestFlightsOneWay = [outboundFlights, returnFlights];
 
-    return compatibleFlights.push(passangerBestFlights);
-    //conditions between departure and return flights too find a roundtrip for each passenger
-    //   [...departureFlights, ...returnFlights].filter((element) => {
-    //     moment(element.departureFlights.departure) <
-    //       moment(element.returnFlights.departure);
-    //   });
+    outboundFlights.forEach((outboundFlight, outboundFlightIndex) => {
+      returnFlights.forEach((returnFlight, returnIndex) => {
+        if (
+          moment(returnFlight.departure) >= moment(outboundFlight.departure)
+        ) {
+          const stayTime = moment(returnFlight.arrival).diff(
+            moment(outboundFlight.departure),
+            "days"
+          );
+          if (stayTime >= passenger.minimumStayTime) {
+            const roundTrip = {
+              _id: `${passenger.name}.${outboundFlightIndex}${returnIndex}`,
+              passengerName: passenger.name,
+              outboundFlight: outboundFlight,
+              returnFlight: returnFlight,
+              price: outboundFlight.price + returnFlight.price,
+              stayTime: stayTime,
+            };
+            console.log(roundTrip);
+          }
+        }
+      });
+    });
+
+    return compatibleFlights.push(passangerBestFlightsOneWay);
   });
-
-  // compatibleFlights.filter((element) => {
-  //   element[0].;
-  // });
 
   return compatibleFlights;
 };

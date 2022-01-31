@@ -16,7 +16,7 @@ const flightSchema = new mongoose.Schema(
     day: String,
     month: String,
     price: Number,
-    passengerId: String,
+
   },
   // {
   //   versionKey: false,
