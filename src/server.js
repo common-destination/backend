@@ -8,7 +8,9 @@ import { flightsRouter } from "./routers/flightsRouter.js";
 import { usersRouter } from "./routers/usersRouter.js";
 
 const app = express();
-const port = process.env.PORT;
+// const port = process.env.PORT;
+const port = process.env.PORT || 3003;
+app.set("trust proxy", 1); // allow / trust Heroku proxy to forward secure cookies
 
 app.use(express.json());
 app.use(
