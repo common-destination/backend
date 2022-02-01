@@ -1,14 +1,7 @@
 import "./config.js";
 import mongoose from "mongoose";
 
-// URINNEN
-// SENSITIVE DATA => never store stuff like this in code
-// connection strings, passwords, secrets
-
-// we need dotenv.config() to be executred BEFOE!
-// const mongoConnectionString = "mongodb://localhost/common_destination";
 const mongoConnectionString = process.env.MONGO_ATLAS;
-// const mongoConnectionString = "mongodb+srv://common-destination:common-destination-prg@cluster0.gr68s.mongodb.net/common-destination-db";
 
 mongoose
   .connect(mongoConnectionString, {
