@@ -177,7 +177,7 @@ const findCommonDestination = () => {
   return result;
 };
 
-console.log(findCommonDestination());
+// console.log(findCommonDestination());
 
 // const today = moment()
 // const tomorrow = moment().add(1, "days").format("yyyy-MM-DD");
