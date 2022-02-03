@@ -205,6 +205,10 @@ flightsRouter.get("/common-destination", async (req, res) => {
   let stayTimeTogether = req.session.stayTimeTogether;
   console.log(passengers);
   console.log(stayTimeTogether);
+
+
+
+  
   res.json(passengers);
 });
 
