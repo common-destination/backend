@@ -1,23 +1,23 @@
 let passengers = [
   {
-    id: 'passenger1',
-    airport: 'hamburg',
+    id: "passenger1",
+    airport: "hamburg",
     dateIn: 21,
     dateBack: 23,
     maxPrice: 200,
     minimumJourney: 1,
   },
   {
-    id: 'passenger2',
-    airport: 'frankfurt',
+    id: "passenger2",
+    airport: "frankfurt",
     dateIn: 21,
     dateBack: 23,
     maxPrice: 100,
     minimumJourney: 2,
   },
   {
-    id: 'passenger3',
-    airport: 'london',
+    id: "passenger3",
+    airport: "london",
     dateIn: 21,
     dateBack: 23,
     maxPrice: 200,
@@ -27,86 +27,86 @@ let passengers = [
 
 const flights = [
   {
-    airportFrom: 'hamburg',
-    airportTo: 'berlin',
+    airportFrom: "hamburg",
+    airportTo: "berlin",
     dateIn: 23,
     dateBack: 23,
     price: 150,
   },
   {
-    airportFrom: 'hamburg',
-    airportTo: 'moscow',
+    airportFrom: "hamburg",
+    airportTo: "moscow",
     dateIn: 22,
     dateBack: 23,
     price: 150,
   },
   {
-    airportFrom: 'hamburg',
-    airportTo: 'paris',
+    airportFrom: "hamburg",
+    airportTo: "paris",
     dateIn: 21,
     dateBack: 22,
     price: 350,
   },
   {
-    airportFrom: 'hamburg',
-    airportTo: 'berlin',
+    airportFrom: "hamburg",
+    airportTo: "berlin",
     dateIn: 22,
     dateBack: 23,
     price: 50,
   },
   {
-    airportFrom: 'frankfurt',
-    airportTo: 'berlin',
+    airportFrom: "frankfurt",
+    airportTo: "berlin",
     dateIn: 21,
     dateBack: 23,
     price: 50,
   },
   {
-    airportFrom: 'frankfurt',
-    airportTo: 'paris',
+    airportFrom: "frankfurt",
+    airportTo: "paris",
     dateIn: 21,
     dateBack: 23,
     price: 850,
   },
   {
-    airportFrom: 'frankfurt',
-    airportTo: 'moscow',
+    airportFrom: "frankfurt",
+    airportTo: "moscow",
     dateIn: 21,
     dateBack: 23,
     price: 5,
   },
   {
-    airportFrom: 'london',
-    airportTo: 'berlin',
+    airportFrom: "london",
+    airportTo: "berlin",
     dateIn: 21,
     dateBack: 23,
     price: 35,
   },
 
   {
-    airportFrom: 'london',
-    airportTo: 'rome',
+    airportFrom: "london",
+    airportTo: "rome",
     dateIn: 21,
     dateBack: 23,
     price: 66,
   },
   {
-    airportFrom: 'london',
-    airportTo: 'rome',
+    airportFrom: "london",
+    airportTo: "rome",
     dateIn: 21,
     dateBack: 23,
     price: 66,
   },
   {
-    airportFrom: 'london',
-    airportTo: 'rome',
+    airportFrom: "london",
+    airportTo: "rome",
     dateIn: 21,
     dateBack: 23,
     price: 66,
   },
   {
-    airportFrom: 'london',
-    airportTo: 'moscow',
+    airportFrom: "london",
+    airportTo: "moscow",
     dateIn: 21,
     dateBack: 23,
     price: 12,
@@ -115,7 +115,6 @@ const flights = [
 
 const filteredFlights = () => {
   let result = [];
-  const possibleFlightsPorPassenger = 
   passengers.map((passenger) => {
     flights
       .filter((element) => {
@@ -127,8 +126,6 @@ const filteredFlights = () => {
           element.dateBack - element.dateIn <= passenger.minimumJourney &&
           element.price <= passenger.maxPrice
         );
-
-  
       })
       .map((flight) => {
         flight.totalJourney = flight.dateBack - flight.dateIn;
@@ -140,7 +137,7 @@ const filteredFlights = () => {
   return result;
 };
 
-// console.log(filteredFlights());
+console.log(filteredFlights());
 
 const findCommonDestination = () => {
   const obj = filteredFlights().reduce((acc, flight) => {
@@ -180,8 +177,7 @@ const findCommonDestination = () => {
   return result;
 };
 
-console.log(findCommonDestination());
-
+// console.log(findCommonDestination());
 
 // const today = moment()
 // const tomorrow = moment().add(1, "days").format("yyyy-MM-DD");

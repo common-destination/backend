@@ -94,7 +94,6 @@ const getFlightsAPI = async () => {
         //first flight
 
         flights.push({
-          flight: "1",
           from: airports[i].name,
           to: airports[j].name,
           countryFrom: airports[i].country,
@@ -115,7 +114,6 @@ const getFlightsAPI = async () => {
         //second flight
 
         flights.push({
-          flight: "2",
           from: airports[j].name,
           to: airports[i].name,
           countryFrom: airports[j].country,

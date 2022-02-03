@@ -22,83 +22,105 @@ export const sortByProperty = async (property, order) => {
 
 //COMPATIBLE FLIGHTS FOR EVERY PASSENGER
 
-export const filteredFlights = async (passengers) => {
+export const compatibleFlights = async (passengers) => {
   let compatibleFlights = [];
-
   const flights = await FlightsModel.find({});
 
   // all compatible departure and return oneway flights per passenger
   passengers.map((passenger) => {
-    let departureFlights = [];
+    let outboundFlights = [];
     let returnFlights = [];
 
     flights.map((flight) => {
-      flight.passengerId = passenger.id;
       const departureFlightConditions =
         flight.from === passenger.airport &&
         moment(flight.departure) >= passenger.minDepartureDate &&
         moment(flight.departure) < passenger.maxReturnDate;
+
       const returnFlightConditions =
         flight.to === passenger.airport &&
         moment(flight.arrival) <= passenger.maxReturnDate &&
         moment(flight.arrival) > passenger.minDepartureDate;
 
-      if (departureFlightConditions) return departureFlights.push(flight);
+      if (departureFlightConditions) return outboundFlights.push(flight);
       if (returnFlightConditions) return returnFlights.push(flight);
     });
 
-    let passangerBestFlights = [{departureFlights},{returnFlights}];
+    // CREATE ROUNDTRIPS FLIGHTS FOR EACH PASSENGER
+    let roundTrips = [];
 
-    return compatibleFlights.push(passangerBestFlights);
-    //conditions between departure and return flights too find a roundtrip for each passenger
-    //   [...departureFlights, ...returnFlights].filter((element) => {
-    //     moment(element.departureFlights.departure) <
-    //       moment(element.returnFlights.departure);
-    //   });
+    outboundFlights.forEach((outboundFlight, outboundFlightIndex) => {
+      returnFlights.forEach((returnFlight, returnIndex) => {
+        if (
+          moment(returnFlight.departure) >= moment(outboundFlight.departure) &&
+          outboundFlight.to === returnFlight.from
+        ) {
+          const stayTime = moment(returnFlight.arrival).diff(
+            moment(outboundFlight.departure),
+            "hours"
+          );
+
+          // CREATE ROUNDTRIP FLIGHT
+          const roundTrip = {
+            _id: `${passenger.name}.${outboundFlightIndex}${returnIndex}`,
+            passengerName: passenger.name,
+            outboundFlight: outboundFlight,
+            returnFlight: returnFlight,
+            totalPrice: outboundFlight.price + returnFlight.price,
+            stayTime: stayTime,
+          };
+          roundTrips.push(roundTrip);
+        }
+      });
+    });
+    return compatibleFlights.push(roundTrips);
   });
 
-  // compatibleFlights.filter((element) => {
-  //   element[0].;
-  // });
+  // compatibleFlights.map(compatibleFlight => compatibleFlight.filter(element => element.outboundFlight.departure ))
 
   return compatibleFlights;
 };
 
 // FIND COMMON DESTINATION
-export const findCommonDestination = async (passengers) => {
-  const obj = filteredFlights().reduce((acc, flight) => {
-    if (acc[flight.airportTo]) {
-      acc[flight.airportTo]++;
-    } else {
-      acc[flight.airportTo] = 1;
-    }
-    return acc;
-  }, {});
-
+export const findCommonDestinations = async (passengers) => {
+  let compatibleFlightsForEachPassenger = await compatibleFlights(passengers);
+  // console.log(compatibleFlightsForEachPassenger);
+  const obj = compatibleFlightsForEachPassenger.map((compatibleFlight) => {
+    return compatibleFlight.reduce((acc, flight) => {
+      // console.log(flight.outboundFlight.to);
+      if (acc[flight.outboundFlight.to]) {
+        acc[flight.outboundFlight.to]++;
+      } else {
+        acc[flight.outboundFlight.to] = 1;
+      }
+      return acc;
+    }, {});
+  });
+  console.log(obj);
   const result = {};
   let besteAirports = [];
-  console.log(obj);
-  Object.entries(obj).forEach((m) => {
+  Object.entries(...obj).forEach((m) => {
     if (m[1] === passengers.length) {
       besteAirports.push(m[0]);
     }
   });
-  besteAirports.forEach((airport) => {
-    const filteredPassengersOnFlights = filteredFlights().filter(
-      (flight) => flight.airportTo === airport
-    );
-    const passengersOnFlights = filteredPassengersOnFlights.map(
-      (flight) => flight.id
-    );
-    let includeInResult = true;
-    for (const passenger of passengers) {
-      if (!passengersOnFlights.includes(passenger.id)) {
-        includeInResult = false;
-      }
-    }
-    if (includeInResult) {
-      result[airport] = filteredPassengersOnFlights;
-    }
-  });
-  return result;
+  console.log(besteAirports);
+  // besteAirports.forEach((airport) => {
+  //   const filteredPassengersOnFlights = filteredFlights().filter(
+  //     (flight) => flight.airportTo === airport
+  //   );
+  //   const passengersOnFlights = filteredPassengersOnFlights.map(
+  //     (flight) => flight.id
+  //   );
+  //   let includeInResult = true;
+  //   for (const passenger of passengers) {
+  //     if (!passengersOnFlights.includes(passenger.id)) {
+  //       includeInResult = false;
+  //     }
+  //   }
+  //   if (includeInResult) {
+  //     result[airport] = filteredPassengersOnFlights;
+  //   }
+  // });
+  // return result;
 };

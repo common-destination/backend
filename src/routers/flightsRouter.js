@@ -3,6 +3,7 @@ import express from "express";
 import moment from "moment";
 import * as flightsController from "../controllers/flightsController.js";
 import { airports } from "../data/airports.js";
+import cookieParser from "cookie-parser";
 const flightsRouter = express.Router();
 
 // DEPARTURE AIRPORT
@@ -50,18 +51,19 @@ flightsRouter.get("/departure-date/:departure", async (req, res) => {
 });
 
 // DEPARTURE => AIRPORT FROM => START => END
-flightsRouter.get("/departure/:airport/:start/:end", async (req, res) => {
+flightsRouter.get("/departure/:airport/:minstart/:maxend", async (req, res) => {
+  //START AND END WITH DAY AND TIME
   const airport = req.params.airport;
   // const date = req.params.date;
-  const start = req.params.start;
-  const end = req.params.end;
+  const minstart = req.params.minstart;
+  const maxend = req.params.maxend;
   const flights = await flightsController.getAllFlights();
   const filteredByDepartureHour = flights.filter(
     (elem) =>
       elem.from === airport &&
       // elem.arrival.slice(0, -6) === date &&
-      elem.departure.slice(0, -6) >= start &&
-      elem.departure.slice(0, -6) <= end
+      elem.departure.slice(0, -6) >= minstart &&
+      elem.departure.slice(0, -6) <= maxend
   );
   res.json(filteredByDepartureHour);
 });
@@ -136,7 +138,7 @@ flightsRouter.get("/max-price/:price", async (req, res) => {
 // });
 
 // GET ALL UNIQUE AIRPORTS
-flightsRouter.get("/airports", async (_req, res) => {
+flightsRouter.get("/airports", async (req, res) => {
   const getSortedAirports = airports.sort((a, b) =>
     a.name.localeCompare(b.name)
   );
@@ -146,7 +148,7 @@ flightsRouter.get("/airports", async (_req, res) => {
 });
 
 // GET ALL UNIQUE COUNTRIES
-flightsRouter.get("/countries", async (_req, res) => {
+flightsRouter.get("/countries", async (req, res) => {
   const getSortedCountries = airports.sort((a, b) =>
     a.country.localeCompare(b.country)
   );
@@ -157,54 +159,57 @@ flightsRouter.get("/countries", async (_req, res) => {
 
 // SORT BY DEPARTURE DATE
 
-flightsRouter.get("/ascending-departuredate", async (_req, res) => {
+flightsRouter.get("/ascending-departuredate", async (req, res) => {
   const getSorteDate = await flightsController.sortByProperty("departure", 1);
   res.json(getSorteDate);
 });
 
-flightsRouter.get("/descending-departuredate", async (_req, res) => {
+flightsRouter.get("/descending-departuredate", async (req, res) => {
   const getSorteDate = await flightsController.sortByProperty("departure", -1);
   res.json(getSorteDate);
 });
 
 //COMPATIBLE FLIGHTS FOR EVERY PASSENGER
 
-flightsRouter.get("/compatible-flights", async (_req, res) => {
-  let passengers = [
+flightsRouter.get("/compatible-flights", async (req, res) => {
+  const passengers = [
     {
-      id: "passenger1",
+      name: "passenger2",
       airport: "Hamburg",
-      minDepartureDate: moment("2022-01-28 08:02"),
-      maxReturnDate: moment("2022-02-02 12:02"),
-      minimumJourney: 1,
+      minDepartureDate: moment("2022-02-01 08:02"),
+      maxReturnDate: moment("2022-02-04 08:02"),
     },
-    // {
-    //   id: "passenger2",
-    //   airport: "Frankfurt",
-    //   minDepartureDate: moment("2022-01-29T08:02:17+01:00"),
-    //   maxReturnDate: moment("2022-02-05T08:02:17+01:00"),
-    //   maxPrice: 100,
-    //   minimumJourney: 2,
-    // },
-    // {
-    //   id: "passenger3",
-    //   airport: "London",
-    //   minDepartureDate: moment("2022-01-28T08:02:17+01:00"),
-    //   maxReturnDate: moment("2022-02-04T08:02:17+01:00"),
-    //   minimumJourney: 2,
-    // },
   ];
-
-  const flights = await flightsController.filteredFlights(passengers);
-  console.log(flights.length);
+  const flights = await flightsController.compatibleFlights(passengers);
   res.json(flights);
 });
 
 //GET COMMON DESTINATION D
 
-flightsRouter.get("/common-destination", async (_req, res) => {
-  const flights = await flightsController.getAllFlights();
-  res.json(flights);
+flightsRouter.post("/passengers-data", async (req, res) => {
+  let passengers = req.body.passengers;
+  let stayTimeTogether = req.body.stayTimeTogether;
+  req.session.passengers = passengers;
+  req.session.stayTimeTogether = stayTimeTogether;
+  req.session.save();
+
+  // const minStayTimeTogether = 2;
+  // time together = smallest return - largest arrival
+  // const flights = await flightsController.findCommonDestinations(passengers);
+  // res.json(flights);
+  res.json(passengers);
+});
+
+flightsRouter.get("/common-destination", async (req, res) => {
+  let passengers = req.session.passengers;
+  let stayTimeTogether = req.session.stayTimeTogether;
+  console.log(passengers);
+  console.log(stayTimeTogether);
+
+
+
+  
+  res.json(passengers);
 });
 
 // GET ALL FLIGHTS
