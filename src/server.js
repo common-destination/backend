@@ -6,6 +6,7 @@ import session from "express-session";
 import cookieParser from "cookie-parser";
 import { flightsRouter } from "./routers/flightsRouter.js";
 import { usersRouter } from "./routers/usersRouter.js";
+import { commonDestinationRouter} from "./routers/commonDestinationRouter.js";
 
 const app = express();
 // const port = process.env.PORT;
@@ -47,6 +48,14 @@ app.use("/users", usersRouter, (req, res) => {
 });
 
 app.use("/flights", flightsRouter, (req, res) => {
+  res.status(404).send({
+    message: "404 page not found",
+    url: req.originalUrl,
+  });
+});
+
+
+app.use("/common-destination", commonDestinationRouter, (req, res) => {
   res.status(404).send({
     message: "404 page not found",
     url: req.originalUrl,
