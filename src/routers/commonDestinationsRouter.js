@@ -35,23 +35,23 @@ commonDestinationsRouter.post("/passengers-data", async (req, res) => {
 });
 
 commonDestinationsRouter.get("/", async (req, res) => {
-  // let passengers = req.session.passengers;
-  const passengers = [
-    {
-      id: "1",
-      airport: "Barcelona",
-      minOutboundDate: "2022-02-08T23:00:00.000Z",
-      maxReturnDate: "2022-02-14T23:00:00.000Z",
-    },
-    {
-      id: "2",
-      airport: "Amsterdam",
-      minOutboundDate: "2022-02-08T23:00:00.000Z",
-      maxReturnDate: "2022-02-14T23:00:00.000Z",
-    },
-  ];
-  // let stayTimeTogether = req.session.stayTimeTogether;
-  let stayTimeTogether = 48;
+  let passengers = req.session.passengers;
+  // const passengers = [
+  //   {
+  //     id: "1",
+  //     airport: "Barcelona",
+  //     minOutboundDate: "2022-02-08T23:00:00.000Z",
+  //     maxReturnDate: "2022-02-14T23:00:00.000Z",
+  //   },
+  //   {
+  //     id: "2",
+  //     airport: "Amsterdam",
+  //     minOutboundDate: "2022-02-08T23:00:00.000Z",
+  //     maxReturnDate: "2022-02-14T23:00:00.000Z",
+  //   },
+  // ];
+  let stayTimeTogether = req.session.stayTimeTogether;
+  // let stayTimeTogether = 48;
   const individualCompatibleFlights =
     await commonDestinationsController.individualCompatibleFlights(passengers);
   let commonDestinations = [];
