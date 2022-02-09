@@ -36,8 +36,8 @@ export const individualCompatibleFlights = async (passengers) => {
           moment(returnFlight.departure) >= moment(outboundFlight.departure) &&
           outboundFlight.to === returnFlight.from
         ) {
-          const stayTime = moment(returnFlight.arrival).diff(
-            moment(outboundFlight.departure),
+          const stayTime = moment(returnFlight.departure).diff(
+            moment(outboundFlight.arrival),
             "hours"
           );
 

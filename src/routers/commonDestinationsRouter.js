@@ -41,13 +41,13 @@ commonDestinationsRouter.get("/", async (req, res) => {
       id: "1",
       airport: "Barcelona",
       minOutboundDate: "2022-02-08T23:00:00.000Z",
-      maxReturnDate: "2022-02-11T23:00:00.000Z",
+      maxReturnDate: "2022-02-14T23:00:00.000Z",
     },
     {
       id: "2",
       airport: "Amsterdam",
       minOutboundDate: "2022-02-08T23:00:00.000Z",
-      maxReturnDate: "2022-02-11T23:00:00.000Z",
+      maxReturnDate: "2022-02-14T23:00:00.000Z",
     },
   ];
   // let stayTimeTogether = req.session.stayTimeTogether;
@@ -56,32 +56,29 @@ commonDestinationsRouter.get("/", async (req, res) => {
     await commonDestinationsController.individualCompatibleFlights(passengers);
   let commonDestinations = [];
   individualCompatibleFlights[0].forEach((firstPassengerFlight) => {
+    individualCompatibleFlights[1].forEach((secondPassengerFlight) => {
+      if (
+        firstPassengerFlight.outboundFlight.to ===
+          secondPassengerFlight.outboundFlight.to &&
+        commonDestinationsController.getTimeTogether(
+          [
+            firstPassengerFlight.outboundFlight.arrival,
+            secondPassengerFlight.outboundFlight.arrival,
+          ],
+          [
+            firstPassengerFlight.returnFlight.departure,
+            secondPassengerFlight.returnFlight.departure,
+          ]
+        ) >= stayTimeTogether
+      ) {
+        const commonDestination = {
+          airport: firstPassengerFlight.outboundFlight.to,
+          passengerFlights: [firstPassengerFlight, secondPassengerFlight],
+        };
 
-
-      individualCompatibleFlights[1].forEach((secondPassengerFlight) => {
-        if (
-          firstPassengerFlight.outboundFlight.to ===
-            secondPassengerFlight.outboundFlight.to &&
-          commonDestinationsController.getTimeTogether(
-            [
-              firstPassengerFlight.outboundFlight.arrival,
-              secondPassengerFlight.outboundFlight.arrival,
-            ],
-            [
-              firstPassengerFlight.returnFlight.departure,
-              secondPassengerFlight.returnFlight.departure,
-            ]
-          )
-        ) {
-          const commonDestination = {
-            airport: firstPassengerFlight.outboundFlight.to,
-            passengerFlights: [firstPassengerFlight, secondPassengerFlight],
-          };
-
-          commonDestinations.push(commonDestination);
-        }
-      });
-   
+        commonDestinations.push(commonDestination);
+      }
+    });
   });
 
   console.log({ passengers });
