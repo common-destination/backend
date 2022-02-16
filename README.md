@@ -87,8 +87,7 @@ styled with **SASS**.
 - [@pierluigibaiano](https://github.com/https://github.com/Pierluigi10)
 <br />
 <br />
-<br />
-<br />
+
 
 ### 🔗 contact
 [![email](https://img.shields.io/badge/gmail-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](mailto:commondestinations@gmail.com)
