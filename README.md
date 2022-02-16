@@ -84,7 +84,7 @@ styled with **SASS**.
 
 - [@giacomotolari](https://github.com/giacomotolari)
 - [@renatkhambazarov](https://github.com/Khambazarov)
-- [@pierluigibaiano](https://github.com/https://github.com/Pierluigi10)
+- [@pierluigibaiano](https://github.com/Pierluigi10)
 <br />
 <br />
 
