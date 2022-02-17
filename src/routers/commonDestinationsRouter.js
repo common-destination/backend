@@ -68,8 +68,9 @@ commonDestinationsRouter.get("/", async (req, res) => {
     minStayTimeTogether
   );
   const commonDestinations = commonDestinationsBuilder.calculate();
-
-  res.json(commonDestinationsBuilder.debug());
+  const debug = commonDestinationsBuilder.debug();
+  console.log(debug);
+  res.json(debug);
   // res.json(commonDestinations);
 });
 

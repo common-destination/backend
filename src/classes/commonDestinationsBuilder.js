@@ -11,10 +11,12 @@ export class CommonDestinationsBuilder {
     this.individualCompatibleFlights = individualCompatibleFlights;
     this.commonDestinations = [];
     this.commonAirports = [];
+    this.orderedPassengerFlights = {};
   }
 
   calculate() {
     this.stepOne_findCommonAirports();
+    this.stepTwo_buildOrderedPassengerFlights();
     return this.commonDestinations;
   }
 
@@ -60,7 +62,21 @@ export class CommonDestinationsBuilder {
     this.commonAirports = [...new Set(this.commonAirports)];
   }
 
+  stepTwo_buildOrderedPassengerFlights() {
+    this.commonAirports.forEach((commonAirport) => {
+      this.orderedPassengerFlights[commonAirport] = {};
+      //   this.passengers.forEach((passenger) => {
+
+      //   });
+    });
+    // console.log(this.orderedPassengerFlights);
+  }
+
   debug() {
-    return { commonAirports: this.commonAirports };
+    console.log(this.orderedPassengerFlights, this.commonAirports);
+    return {
+      commonAirports: this.commonAirports,
+      orderedPassengerFlights: this.orderedPassengerFlights,
+    };
   }
 }
