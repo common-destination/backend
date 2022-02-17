@@ -65,9 +65,7 @@ styled with **SASS**.
   <br />
   <br />
 
-## More info about our project
-
-- [Presentation - Demo](https://prezi.com/view/zLrzjOC3zc5uWvv62cmm/)
+### if you want to know more about our project, watch the [Presentation - Demo](https://prezi.com/view/zLrzjOC3zc5uWvv62cmm/)
 
 <br />
 <br />
