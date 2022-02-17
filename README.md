@@ -57,18 +57,22 @@ styled with **SASS**.
 <br />
 
 
+
+### if you want to know more about our project, watch the [Presentation - Demo](https://prezi.com/view/zLrzjOC3zc5uWvv62cmm/)
+
+<br />
+<br />
+<br />
+
 ## Authors
 
 - [@giacomotolari](https://github.com/giacomotolari)
 - [@renatkhambazarov](https://github.com/Khambazarov)
 - [@pierluigibaiano](https://github.com/Pierluigi10)
   <br />
-  <br />
 
-### if you want to know more about our project, watch the [Presentation - Demo](https://prezi.com/view/zLrzjOC3zc5uWvv62cmm/)
 
-<br />
-<br />
+
 
 ## Contact
 
