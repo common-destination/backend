@@ -11,7 +11,13 @@ const commonDestinationsRouter = express.Router();
 commonDestinationsRouter.get("/compatible-flights", async (req, res) => {
   const passengers = [
     {
-      id: "passenger2",
+      id: "1",
+      airport: "London",
+      minOutboundDate: moment("2022-02-01 08:02"),
+      maxReturnDate: moment("2022-02-04 08:02"),
+    },
+    {
+      id: "2",
       airport: "Hamburg",
       minOutboundDate: moment("2022-02-01 08:02"),
       maxReturnDate: moment("2022-02-04 08:02"),
@@ -59,11 +65,11 @@ commonDestinationsRouter.get("/", async (req, res) => {
     },
   ];
   let minStayTimeTogether = 10;
-  const individualCompatibleFlights =
+  const individualCompatibleTrips =
     await commonDestinationsController.individualCompatibleFlights(passengers);
   const commonDestinationsBuilder = new CommonDestinationsBuilder(
     commonDestinationsController,
-    individualCompatibleFlights,
+    individualCompatibleTrips,
     passengers,
     minStayTimeTogether
   );
@@ -71,7 +77,7 @@ commonDestinationsRouter.get("/", async (req, res) => {
   const debug = commonDestinationsBuilder.debug();
   console.log(debug);
   res.json(debug);
-  // res.json(commonDestinations);
+  // res.json(individualCompatibleTrips);
 });
 
 commonDestinationsRouter.get("/two", async (req, res) => {

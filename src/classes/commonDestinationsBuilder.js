@@ -1,55 +1,54 @@
 export class CommonDestinationsBuilder {
   constructor(
     commonDestinationsController,
-    individualCompatibleFlights,
+    individualCompatibleTrips,
     passengers,
     minStayTimeTogether
   ) {
     this.commonDestinationsController = commonDestinationsController;
     this.passengers = passengers;
     this.minStayTimeTogether = minStayTimeTogether;
-    this.individualCompatibleFlights = individualCompatibleFlights;
+    this.individualCompatibleTrips = individualCompatibleTrips;
     this.commonDestinations = [];
     this.commonAirports = [];
-    this.orderedPassengerFlights = {};
+    this.orderedPassengerTrips = {};
   }
 
   calculate() {
     this.stepOne_findCommonAirports();
-    this.stepTwo_buildOrderedPassengerFlights();
+    this.stepTwo_buildOrderedPassengerTrips();
     return this.commonDestinations;
   }
 
-  flightsAreCompatible(currentAirport, flightA, flightB) {
+  TripsAreCompatible(currentAirport, tripA, tripB) {
     return (
-      (currentAirport === null ||
-        flightA.outboundFlight.to === currentAirport) &&
-      flightA.outboundFlight.to === flightB.outboundFlight.to &&
+      (currentAirport === null || tripA.outboundFlight.to === currentAirport) &&
+      tripA.outboundFlight.to === tripB.outboundFlight.to &&
       this.commonDestinationsController.getTimeTogether(
-        [flightA.outboundFlight.arrival, flightB.outboundFlight.arrival],
-        [flightA.returnFlight.departure, flightB.returnFlight.departure]
+        [tripA.outboundFlight.arrival, tripB.outboundFlight.arrival],
+        [tripA.returnFlight.departure, tripB.returnFlight.departure]
       ) >= this.minStayTimeTogether
     );
   }
 
-  compareFlights(currentIndex, currentAirport = null) {
-    const flights1 = this.individualCompatibleFlights[currentIndex];
-    // console.log(this.individualCompatibleFlights)
-    const flights2 = this.individualCompatibleFlights[currentIndex + 1];
-    const atEnd = this.individualCompatibleFlights.length - currentIndex === 2;
+  compareTrips(currentIndex, currentAirport = null) {
+    const Trips1 = this.individualCompatibleTrips[currentIndex];
+    // console.log(this.individualCompatibleTrips)
+    const Trips2 = this.individualCompatibleTrips[currentIndex + 1];
+    const atEnd = this.individualCompatibleTrips.length - currentIndex === 2;
 
     if (!atEnd) {
-      flights1.forEach((flightA) => {
-        flights2.forEach((flightB) => {
-          if (this.flightsAreCompatible(currentAirport, flightA, flightB)) {
-            this.compareFlights(currentIndex + 1, flightA.outboundFlight.to);
+      Trips1.forEach((tripA) => {
+        Trips2.forEach((tripB) => {
+          if (this.TripsAreCompatible(currentAirport, tripA, tripB)) {
+            this.compareTrips(currentIndex + 1, tripA.outboundFlight.to);
           }
         });
       });
     } else {
-      flights1.forEach((flightA) => {
-        flights2.forEach((flightB) => {
-          if (this.flightsAreCompatible(currentAirport, flightA, flightB)) {
+      Trips1.forEach((tripA) => {
+        Trips2.forEach((tripB) => {
+          if (this.TripsAreCompatible(currentAirport, tripA, tripB)) {
             this.commonAirports.push(currentAirport);
           }
         });
@@ -58,25 +57,43 @@ export class CommonDestinationsBuilder {
   }
 
   stepOne_findCommonAirports() {
-    this.compareFlights(0);
+    this.compareTrips(0);
     this.commonAirports = [...new Set(this.commonAirports)];
   }
 
-  stepTwo_buildOrderedPassengerFlights() {
-    this.commonAirports.forEach((commonAirport) => {
-      this.orderedPassengerFlights[commonAirport] = {};
-      //   this.passengers.forEach((passenger) => {
-
-      //   });
+  getPassengerTripsForAirportAndPassenger(airport, passengerId) {
+    const trips = [];
+    this.individualCompatibleTrips.forEach((passengertripArray) => {
+      passengertripArray.forEach((passengerTrip) => {
+        if (
+          airport === passengerTrip.outboundFlight.to &&
+          passengerTrip.passengerId === passengerId
+        ) {
+          trips.push(passengerTrip);
+        }
+      });
     });
-    // console.log(this.orderedPassengerFlights);
+    return trips;
+  }
+
+  stepTwo_buildOrderedPassengerTrips() {
+    this.commonAirports.forEach((commonAirport) => {
+      this.orderedPassengerTrips[commonAirport] = {};
+      this.passengers.forEach((passenger) => {
+        this.orderedPassengerTrips[commonAirport][passenger.id] =
+          this.getPassengerTripsForAirportAndPassenger(
+            commonAirport,
+            passenger.id
+          );
+      });
+    });
+    // console.log(this.orderedPassengerTrips);
   }
 
   debug() {
-    console.log(this.orderedPassengerFlights, this.commonAirports);
     return {
       commonAirports: this.commonAirports,
-      orderedPassengerFlights: this.orderedPassengerFlights,
+      orderedPassengerTrips: this.orderedPassengerTrips,
     };
   }
 }
