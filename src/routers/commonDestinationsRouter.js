@@ -58,53 +58,19 @@ commonDestinationsRouter.get("/", async (req, res) => {
       maxReturnDate: "2022-02-13T23:00:00.000Z",
     },
   ];
-  let minStayTimeTogether = 30;
+  let minStayTimeTogether = 10;
+  const individualCompatibleFlights =
+    await commonDestinationsController.individualCompatibleFlights(passengers);
   const commonDestinationsBuilder = new CommonDestinationsBuilder(
     commonDestinationsController,
+    individualCompatibleFlights,
     passengers,
     minStayTimeTogether
   );
   const commonDestinations = commonDestinationsBuilder.calculate();
-  // const compareFlights = (currentIndex, currentAirport = null) => {
-  //   const flights1 = individualCompatibleFlights[currentIndex];
-  //   const flights2 = individualCompatibleFlights[currentIndex + 1];
-  //   const atEnd = individualCompatibleFlights.length - currentIndex === 2;
-  //   const flightsAreCompatible = (currentAirport, flightA, flightB) => {
-  //     return (
-  //       (currentAirport === null ||
-  //         flightA.outboundFlight.to === currentAirport) &&
-  //       flightA.outboundFlight.to === flightB.outboundFlight.to &&
-  //       commonDestinationsController.getTimeTogether(
-  //         [flightA.outboundFlight.arrival, flightB.outboundFlight.arrival],
-  //         [flightA.returnFlight.departure, flightB.returnFlight.departure]
-  //       ) >= minStayTimeTogether
-  //     );
-  //   };
 
-  //   if (!atEnd) {
-  //     flights1.forEach((flightA) => {
-  //       flights2.forEach((flightB) => {
-  //         if (flightsAreCompatible(currentAirport, flightA, flightB)) {
-  //           compareFlights(currentIndex + 1, flightA.outboundFlight.to);
-  //         }
-  //       });
-  //     });
-  //   } else {
-  //     flights1.forEach((flightA) => {
-  //       flights2.forEach((flightB) => {
-  //         if (flightsAreCompatible(currentAirport, flightA, flightB)) {
-  //           commonDestinations.push(currentAirport);
-  //         }
-  //       });
-  //     });
-  //   }
-  // };
-
-  // compareFlights(0);
-  // const uniqueCommonDestinations = [...new Set(commonDestinations)];
-
-  // res.json(uniqueCommonDestinations);
-  res.json(commonDestinations);
+  res.json(commonDestinationsBuilder.debug());
+  // res.json(commonDestinations);
 });
 
 commonDestinationsRouter.get("/two", async (req, res) => {
