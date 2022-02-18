@@ -3,7 +3,10 @@ import moment from "moment";
 
 //COMPATIBLE FLIGHTS FOR EVERY PASSENGER
 
-export const individualCompatibleFlights = async (passengers) => {
+export const individualCompatibleFlights = async (
+  passengers,
+  minStayTimeTogether
+) => {
   let individualCompatibleFlights = [];
   const flights = await FlightsModel.find({});
 
@@ -42,28 +45,28 @@ export const individualCompatibleFlights = async (passengers) => {
           );
 
           // CREATE ROUNDTRIP FLIGHT
-          const roundTrip = {
-            _id: `${passenger.id}.${outboundFlightIndex}${returnIndex}`,
-            passengerId: passenger.id,
-            outboundFlight: outboundFlight,
-            returnFlight: returnFlight,
-            totalPrice: outboundFlight.price + returnFlight.price,
-            stayTime: stayTime,
-          };
-          roundTrips.push(roundTrip);
+          if (stayTime >= minStayTimeTogether) {
+            const roundTrip = {
+              _id: `${passenger.id}.${outboundFlightIndex}${returnIndex}`,
+              passengerId: passenger.id,
+              outboundFlight: outboundFlight,
+              returnFlight: returnFlight,
+              totalPrice: outboundFlight.price + returnFlight.price,
+              stayTime: stayTime,
+            };
+
+            roundTrips.push(roundTrip);
+          }
         }
       });
     });
     return individualCompatibleFlights.push(roundTrips);
   });
 
-  // compatibleFlights.map(compatibleFlight => compatibleFlight.filter(element => element.outboundFlight.departure ))
-
   return individualCompatibleFlights;
 };
 
 export const getTimeTogether = (arrivalDates, departureDates) => {
-  
   const earliestReturn = moment(
     departureDates.reduce((a, b) => Math.min(moment(a), moment(b)))
   );
@@ -75,5 +78,5 @@ export const getTimeTogether = (arrivalDates, departureDates) => {
     "hours"
   );
 
-  return timeTogether
+  return timeTogether;
 };
