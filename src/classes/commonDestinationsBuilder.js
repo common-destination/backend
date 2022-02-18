@@ -17,6 +17,7 @@ export class CommonDestinationsBuilder {
   calculate() {
     this.stepOne_findCommonAirports();
     this.stepTwo_buildOrderedPassengerTrips();
+    this.stepThree_buildCommonDestinations();
     return this.commonDestinations;
   }
 
@@ -87,7 +88,10 @@ export class CommonDestinationsBuilder {
           );
       });
     });
-    // console.log(this.orderedPassengerTrips);
+  }
+
+  stepThree_buildCommonDestinations() {
+
   }
 
   debug() {

@@ -75,7 +75,7 @@ commonDestinationsRouter.get("/", async (req, res) => {
   );
   const commonDestinations = commonDestinationsBuilder.calculate();
   const debug = commonDestinationsBuilder.debug();
-  console.log(debug);
+  // console.log(debug);
   res.json(debug);
   // res.json(individualCompatibleTrips);
 });
