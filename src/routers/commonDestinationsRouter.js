@@ -41,44 +41,44 @@ commonDestinationsRouter.post("/passengers-data", async (req, res) => {
   res.json({ passengers, minStayTimeTogether });
 });
 
-// commonDestinationsRouter.get("/", async (req, res) => {
-//   // let passengers = req.session.passengers;
-//   // let minStayTimeTogether = req.session.minStayTimeTogether;
-//   const passengers = [
-//     {
-//       id: "1",
-//       airport: "Barcelona",
-//       minOutboundDate: "2022-02-08T23:00:00.000Z",
-//       maxReturnDate: "2022-02-14T23:00:00.000Z",
-//     },
-//     {
-//       id: "2",
-//       airport: "Amsterdam",
-//       minOutboundDate: "2022-02-08T23:00:00.000Z",
-//       maxReturnDate: "2022-02-14T23:00:00.000Z",
-//     },
-//     {
-//       id: "3",
-//       airport: "London",
-//       minOutboundDate: "2022-02-08T23:00:00.000Z",
-//       maxReturnDate: "2022-02-13T23:00:00.000Z",
-//     },
-//   ];
-//   let minStayTimeTogether = 10;
-//   const individualCompatibleTrips =
-//     await commonDestinationsController.individualCompatibleFlights(passengers);
-//   const commonDestinationsBuilder = new CommonDestinationsBuilder(
-//     commonDestinationsController,
-//     individualCompatibleTrips,
-//     passengers,
-//     minStayTimeTogether
-//   );
-//   const commonDestinations = commonDestinationsBuilder.calculate();
-//   const debug = commonDestinationsBuilder.debug();
-//   // console.log(debug);
-//   res.json(debug);
-//   // res.json(individualCompatibleTrips);
-// });
+commonDestinationsRouter.get("/", async (req, res) => {
+  // let passengers = req.session.passengers;
+  // let minStayTimeTogether = req.session.minStayTimeTogether;
+  const passengers = [
+    {
+      id: "1",
+      airport: "Barcelona",
+      minOutboundDate: "2022-02-08T23:00:00.000Z",
+      maxReturnDate: "2022-02-14T23:00:00.000Z",
+    },
+    {
+      id: "2",
+      airport: "Amsterdam",
+      minOutboundDate: "2022-02-08T23:00:00.000Z",
+      maxReturnDate: "2022-02-14T23:00:00.000Z",
+    },
+    {
+      id: "3",
+      airport: "London",
+      minOutboundDate: "2022-02-08T23:00:00.000Z",
+      maxReturnDate: "2022-02-13T23:00:00.000Z",
+    },
+  ];
+  let minStayTimeTogether = 10;
+  const individualCompatibleTrips =
+    await commonDestinationsController.individualCompatibleFlights(passengers);
+  const commonDestinationsBuilder = new CommonDestinationsBuilder(
+    commonDestinationsController,
+    individualCompatibleTrips,
+    passengers,
+    minStayTimeTogether
+  );
+  const commonDestinations = commonDestinationsBuilder.calculate();
+  const debug = commonDestinationsBuilder.debug();
+  // console.log(debug);
+  res.json(debug);
+  // res.json(individualCompatibleTrips);
+});
 
 commonDestinationsRouter.get("/two", async (req, res) => {
   // let passengers = req.session.passengers;
@@ -104,7 +104,7 @@ commonDestinationsRouter.get("/two", async (req, res) => {
       maxReturnDate: "2022-02-13T23:00:00.000Z",
     },
   ];
-  let minStayTimeTogether = 25;
+  let minStayTimeTogether = 40;
   const individualCompatibleFlights =
     await commonDestinationsController.individualCompatibleFlights(passengers,minStayTimeTogether);
   // let passengerFlights = [];
