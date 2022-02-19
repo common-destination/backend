@@ -2,7 +2,7 @@ import "../config.js";
 import express from "express";
 import moment from "moment";
 import * as commonDestinationsController from "../controllers/commonDestinationController.js";
-// import { CommonDestinationsBuilder } from "../classes/commonDestinationsBuilder.js";
+import { CommonDestinationsBuilder } from "../classes/commonDestinationsBuilder.js";
 
 const commonDestinationsRouter = express.Router();
 
