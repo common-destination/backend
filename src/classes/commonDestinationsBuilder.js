@@ -136,11 +136,11 @@ export class CommonDestinationsBuilder {
       .map((airport) => {
         return {
           airport: airport,
-          commonDestinations: combinations(this.orderedPassengerTrips[airport]),
+          commonDestinationsToAirport: combinations(this.orderedPassengerTrips[airport]),
         };
       })
       .filter(
-        (commonDestination) => commonDestination.commonDestinations.length > 0
+        (element) => element.commonDestinationsToAirport.length > 0
       );
   }
 
