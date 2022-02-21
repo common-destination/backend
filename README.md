@@ -17,20 +17,15 @@ Common Destination is a final project of the web developer course at the Digital
 <br />
 <br />
 
-## Screenshots
-
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
-<br />
-
 > Mobile Version
 
-![Screenshot Page Mobile](./src/images/mobile.png)
+![Screenshot Page Mobile](./src/images/mobile-min.png)
 
 <br />
 
 > Desktop Version
 
-![Screenshot Page Desktop](./src/images/desktop.png)
+![Screenshot Page Desktop](./src/images/desktop-min.png)
 
 <br />
 <br />
@@ -56,8 +51,6 @@ styled with **SASS**.
 <br />
 <br />
 
-
-
 ### if you want to know more about our project, watch the [Presentation - Demo](https://prezi.com/view/zLrzjOC3zc5uWvv62cmm/)
 
 <br />
@@ -71,9 +64,6 @@ styled with **SASS**.
 - [@pierluigibaiano](https://github.com/Pierluigi10)
   <br />
 
-
-
-
 ## Contact
 
 [![email](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:commondestinations@gmail.com)
@@ -85,10 +75,3 @@ styled with **SASS**.
 [![Pierluigi](https://img.shields.io/badge/Pierluigi-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://www.linkedin.com/in/pierluigi-baiano/)
 [![Giacomo](https://img.shields.io/badge/Giacomo-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://www.linkedin.com/in/giacomo-tolari/)
 [![Renat](https://img.shields.io/badge/Renat-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://www.linkedin.com/in/renat-khambazarov)
-
-
-
-
-
-
-
