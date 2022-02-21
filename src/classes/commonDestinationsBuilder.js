@@ -95,7 +95,6 @@ export class CommonDestinationsBuilder {
     const combinations = (obj) => {
       const result = [];
       const keys = Object.keys(obj);
-
       const max = keys.length - 1;
       const recursivCombinations = (level, arr = null) => {
         let key = keys[level];
@@ -110,10 +109,22 @@ export class CommonDestinationsBuilder {
               return trip.returnFlight.departure;
             });
 
+            const groupPrice = arr2.reduce((acc, trip) => {
+              return (acc += trip.totalPrice);
+            }, 0);
+
             this.commonDestinationsController.getTimeTogether(
               arrivalDates,
               departureDates
-            ) >= this.minStayTimeTogether && result.push([...arr2]);
+            ) >= this.minStayTimeTogether &&
+              result.push({
+                timeTogether: this.commonDestinationsController.getTimeTogether(
+                  arrivalDates,
+                  departureDates
+                ),
+                groupPrice,
+                trips: [...arr2],
+              });
           }
         });
       };
@@ -123,10 +134,19 @@ export class CommonDestinationsBuilder {
 
     this.commonDestinations = this.commonAirports
       .map((airport) => {
-        return combinations(this.orderedPassengerTrips[airport]);
+        return {
+          airport: airport,
+          commonDestinations: combinations(this.orderedPassengerTrips[airport]),
+        };
       })
-      .filter((commonDestination) => commonDestination.length > 0);
+      .filter(
+        (commonDestination) => commonDestination.commonDestinations.length > 0
+      );
   }
+
+  // .filter(
+  //   (commonDestination) => commonDestination.length > 0
+  // ),
 
   stepThree_buildCommonDestinationsObject() {
     // this.commonDestinationsObject = {}
