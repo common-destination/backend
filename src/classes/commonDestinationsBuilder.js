@@ -12,12 +12,14 @@ export class CommonDestinationsBuilder {
     this.commonDestinations = [];
     this.commonAirports = [];
     this.orderedPassengerTrips = {};
+    this.commonDestinationsObject = {};
   }
 
   calculate() {
     this.stepOne_findCommonAirports();
     this.stepTwo_buildOrderedPassengerTrips();
     this.stepThree_buildCommonDestinations();
+    this.stepThree_buildCommonDestinationsObject();
     return this.commonDestinations;
   }
 
@@ -34,7 +36,6 @@ export class CommonDestinationsBuilder {
 
   compareTrips(currentIndex, currentAirport = null) {
     const Trips1 = this.individualCompatibleTrips[currentIndex];
-    // console.log(this.individualCompatibleTrips)
     const Trips2 = this.individualCompatibleTrips[currentIndex + 1];
     const atEnd = this.individualCompatibleTrips.length - currentIndex === 2;
 
@@ -50,7 +51,7 @@ export class CommonDestinationsBuilder {
       Trips1.forEach((tripA) => {
         Trips2.forEach((tripB) => {
           if (this.TripsAreCompatible(currentAirport, tripA, tripB)) {
-            this.commonAirports.push(currentAirport);
+            this.commonAirports.push(tripA.outboundFlight.to);
           }
         });
       });
@@ -91,13 +92,52 @@ export class CommonDestinationsBuilder {
   }
 
   stepThree_buildCommonDestinations() {
+    const combinations = (obj) => {
+      const result = [];
+      const keys = Object.keys(obj);
 
+      const max = keys.length - 1;
+      const recursivCombinations = (level, arr = null) => {
+        let key = keys[level];
+        obj[key].forEach((elm) => {
+          let arr2 = !arr ? [elm] : [...arr, elm];
+          if (level < max) recursivCombinations(level + 1, arr2);
+          else {
+            const arrivalDates = arr2.map((trip) => {
+              return trip.outboundFlight.arrival;
+            });
+            const departureDates = arr2.map((trip) => {
+              return trip.returnFlight.departure;
+            });
+
+            this.commonDestinationsController.getTimeTogether(
+              arrivalDates,
+              departureDates
+            ) >= this.minStayTimeTogether && result.push([...arr2]);
+          }
+        });
+      };
+      recursivCombinations(0);
+      return result;
+    };
+
+    this.commonDestinations = this.commonAirports
+      .map((airport) => {
+        return combinations(this.orderedPassengerTrips[airport]);
+      })
+      .filter((commonDestination) => commonDestination.length > 0);
+  }
+
+  stepThree_buildCommonDestinationsObject() {
+    // this.commonDestinationsObject = {}
   }
 
   debug() {
     return {
       commonAirports: this.commonAirports,
       orderedPassengerTrips: this.orderedPassengerTrips,
+      commonDestinations: this.commonDestinations,
+      // commonDestinationsObj: this.commonDestinationsObj,
     };
   }
 }
