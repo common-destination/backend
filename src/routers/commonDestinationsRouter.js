@@ -2,9 +2,33 @@ import "../config.js";
 import express from "express";
 import moment from "moment";
 import * as commonDestinationsController from "../controllers/commonDestinationController.js";
+import * as usersController from "../controllers/usersController.js";
 import { CommonDestinationsBuilder } from "../classes/commonDestinationsBuilder.js";
+import UsersModel from "../models/usersModel.js";
+import mongoose from "mongoose";
 
 const commonDestinationsRouter = express.Router();
+
+commonDestinationsRouter.patch("/favorite-trips/:id", async (req, res) => {
+  const users = usersController.readAllUsers();
+  const id = req.params.id;
+  const user = await UsersModel.findById(id);
+  const favoriteTrips = req.body.favoriteTrips;
+
+  await UsersModel.findOneAndUpdate(
+    { _id: new mongoose.Types.ObjectId(id) },
+    { $push: { favoriteTrips: [favoriteTrips] } },
+    { new: true }
+  );
+
+  // users.favoriteTrips.forEach((favoriteTrip) => {
+  //   favoriteTrip.find((element) => element === username) || userName === "anonymousUser"
+  //     ? poem.likes
+  //     : poem.likes.push(userName);
+  // });
+  req.session.user = user;
+  // res.status(200).json({ likes: poem.likes });
+});
 
 commonDestinationsRouter.get("/compatible-flights", async (req, res) => {
   const passengers = [
