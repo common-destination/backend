@@ -42,7 +42,6 @@ commonDestinationsRouter.post("/passengers-data", async (req, res) => {
 commonDestinationsRouter.get("/", async (req, res) => {
   let passengers = req.session.passengers;
   let stayTimeTogether = req.session.stayTimeTogether;
-  console.log(passengers);
 
   // const passengers = [
   //   {
