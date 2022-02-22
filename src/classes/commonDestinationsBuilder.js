@@ -12,14 +12,12 @@ export class CommonDestinationsBuilder {
     this.commonDestinations = [];
     this.commonAirports = [];
     this.orderedPassengerTrips = {};
-    this.commonDestinationsObject = {};
   }
 
   calculate() {
     this.stepOne_findCommonAirports();
     this.stepTwo_buildOrderedPassengerTrips();
     this.stepThree_buildCommonDestinations();
-    this.stepThree_buildCommonDestinationsObject();
     return this.commonDestinations;
   }
 
@@ -136,20 +134,12 @@ export class CommonDestinationsBuilder {
       .map((airport) => {
         return {
           airport: airport,
-          commonDestinationsToAirport: combinations(this.orderedPassengerTrips[airport]),
+          commonDestinationsToAirport: combinations(
+            this.orderedPassengerTrips[airport]
+          ),
         };
       })
-      .filter(
-        (element) => element.commonDestinationsToAirport.length > 0
-      );
-  }
-
-  // .filter(
-  //   (commonDestination) => commonDestination.length > 0
-  // ),
-
-  stepThree_buildCommonDestinationsObject() {
-    // this.commonDestinationsObject = {}
+      .filter((element) => element.commonDestinationsToAirport.length > 0);
   }
 
   debug() {
@@ -157,7 +147,6 @@ export class CommonDestinationsBuilder {
       commonAirports: this.commonAirports,
       orderedPassengerTrips: this.orderedPassengerTrips,
       commonDestinations: this.commonDestinations,
-      // commonDestinationsObj: this.commonDestinationsObj,
     };
   }
 }
