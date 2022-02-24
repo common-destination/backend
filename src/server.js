@@ -6,7 +6,7 @@ import session from "express-session";
 import cookieParser from "cookie-parser";
 import { flightsRouter } from "./routers/flightsRouter.js";
 import { usersRouter } from "./routers/usersRouter.js";
-import { commonDestinationsRouter} from "./routers/commonDestinationsRouter.js";
+import { commonDestinationsRouter } from "./routers/commonDestinationsRouter.js";
 
 const app = express();
 // const port = process.env.PORT;
@@ -40,6 +40,10 @@ app.use(
 
 app.use(cookieParser());
 
+app.use("/", (req, res) => {
+  res.status(404).send("WELCOME TO COMMON DESTINATION");
+});
+
 app.use("/users", usersRouter, (req, res) => {
   res.status(404).send({
     message: "404 page not found",
@@ -53,7 +57,6 @@ app.use("/flights", flightsRouter, (req, res) => {
     url: req.originalUrl,
   });
 });
-
 
 app.use("/common-destinations", commonDestinationsRouter, (req, res) => {
   res.status(404).send({
