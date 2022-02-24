@@ -111,15 +111,15 @@ export class CommonDestinationsBuilder {
               return (acc += trip.totalPrice);
             }, 0);
 
-            this.commonDestinationsController.getTimeTogether(
-              arrivalDates,
-              departureDates
-            ) >= this.minStayTimeTogether &&
+            const timeTogether =
+              this.commonDestinationsController.getTimeTogether(
+                arrivalDates,
+                departureDates
+              );
+            timeTogether >= this.minStayTimeTogether &&
               result.push({
-                timeTogether: this.commonDestinationsController.getTimeTogether(
-                  arrivalDates,
-                  departureDates
-                ),
+                _id: `${groupPrice}${timeTogether}${arr2.length}`,
+                timeTogether,
                 groupPrice,
                 trips: [...arr2],
               });
