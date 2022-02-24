@@ -3,8 +3,26 @@ import express from "express";
 import moment from "moment";
 import * as commonDestinationsController from "../controllers/commonDestinationController.js";
 import { CommonDestinationsBuilder } from "../classes/commonDestinationsBuilder.js";
+import UsersModel from "../models/usersModel.js";
+import mongoose from "mongoose";
 
 const commonDestinationsRouter = express.Router();
+
+commonDestinationsRouter.patch("/favorite-trips/:id", async (req, res) => {
+  const id = req.params.id;
+  const user = await UsersModel.findById(id);
+  const favoriteTrips = req.body.favoriteTrips;
+  const isANewBookMark = user.favoriteTrips.some(
+    (favoriteTrip) => favoriteTrip._id === favoriteTrips._id
+  );
+  !isANewBookMark &&
+    (await UsersModel.findOneAndUpdate(
+      { _id: new mongoose.Types.ObjectId(id) },
+      { $push: { favoriteTrips: [favoriteTrips] } },
+      { new: true }
+    ));
+  req.session.user = user;
+});
 
 commonDestinationsRouter.get("/compatible-flights", async (req, res) => {
   const passengers = [
@@ -42,7 +60,6 @@ commonDestinationsRouter.post("/passengers-data", async (req, res) => {
 commonDestinationsRouter.get("/", async (req, res) => {
   let passengers = req.session.passengers;
   let stayTimeTogether = req.session.stayTimeTogether;
-
   // const passengers = [
   //   {
   //     id: "1",

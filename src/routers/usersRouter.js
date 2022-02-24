@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import express from "express";
 import * as usersController from "../controllers/usersController.js";
 
+
 const saltRounds = 8;
 
 const usersRouter = express.Router();
@@ -28,6 +29,7 @@ usersRouter.post("/signup", async (req, res) => {
             email: frontendUser.email,
             hash,
             accessGroups: "loggedInUsers",
+            favoriteTrips: [],
           };
 
           const isNewUser = users.find(
@@ -36,7 +38,6 @@ usersRouter.post("/signup", async (req, res) => {
               element.email === backendUser.email
           );
 
-          console.log(isNewUser);
           if (isNewUser === undefined) {
             const savedDBUser = await usersController.createUser(backendUser);
             res.json({

@@ -35,8 +35,8 @@ export let airports = [
     passengersInMillionPerYear: 49,
   },
   {
-    name: "Freising",
-    country: "Germany",
+    name: "Madrid",
+    country: "Spain",
     passengersInMillionPerYear: 47,
   },
   {
@@ -112,37 +112,37 @@ export let airports = [
   {
     name: "Helsinki",
     country: "Finland",
-    passengersInMillionPerYear: 21,
+    passengersInMillionPerYear: 22,
   },
   {
     name: "Saint Petersburg",
     country: "Russia",
-    passengersInMillionPerYear: 19,
+    passengersInMillionPerYear: 21,
   },
   {
     name: "Warsaw",
     country: "Poland",
-    passengersInMillionPerYear: 18,
+    passengersInMillionPerYear: 20,
   },
   {
     name: "Prague",
     country: "Czech Republic",
-    passengersInMillionPerYear: 17,
+    passengersInMillionPerYear: 19,
   },
   {
     name: "Hamburg",
     country: "Germany",
-    passengersInMillionPerYear: 17,
+    passengersInMillionPerYear: 19,
   },
   {
     name: "Budapest",
     country: "Hungary",
-    passengersInMillionPerYear: 16,
+    passengersInMillionPerYear: 18,
   },
   {
     name: "Stuttgart",
     country: "Germany",
-    passengersInMillionPerYear: 12,
+    passengersInMillionPerYear: 17,
   },
 ];
 
