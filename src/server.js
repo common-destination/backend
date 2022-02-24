@@ -40,10 +40,6 @@ app.use(
 
 app.use(cookieParser());
 
-app.use("/", (req, res) => {
-  res.status(404).send("WELCOME TO COMMON DESTINATION");
-});
-
 app.use("/users", usersRouter, (req, res) => {
   res.status(404).send({
     message: "404 page not found",
@@ -65,4 +61,7 @@ app.use("/common-destinations", commonDestinationsRouter, (req, res) => {
   });
 });
 
+app.use("/", (req, res) => {
+  res.status(404).send("WELCOME TO COMMON DESTINATION");
+});
 app.listen(port, () => console.log(`http://localhost:${port}`));
