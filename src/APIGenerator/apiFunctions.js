@@ -61,7 +61,7 @@ const purchasingSeason = (dailydate) => {
 const flightDurationString = (flightDuration) => {
   const hours = Math.floor(flightDuration);
   const flightDurationInMinutes = (flightDuration - hours) * 60;
-  const minutes = Math.round(flightDurationInMinutes);
+  const minutes = Math.ceil(flightDurationInMinutes);
   return `${hours} ${hours === 1 ? "hour" : "hours"} and ${minutes} ${
     minutes === 1 ? "minute" : "minutes"
   }`;
