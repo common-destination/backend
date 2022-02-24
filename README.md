@@ -10,7 +10,7 @@ Common Destination is a final project of the web developer course at the Digital
 
 <br />
 
-### [Backend](https://backend-commondestination.herokuapp.com/) deployed at Heroku
+### [Backend](https://backendcommondestination.herokuapp.com/) deployed at Heroku
 
 ### [Frontend](https://commondestination.netlify.app/) deployed at Netlify
 
