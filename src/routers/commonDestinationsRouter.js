@@ -53,7 +53,6 @@ commonDestinationsRouter.post("/passengers-data", async (req, res) => {
   req.session.passengers = passengers;
   req.session.stayTimeTogether = stayTimeTogether;
   req.session.save();
-
   res.json({ passengers, stayTimeTogether });
 });
 

@@ -23,6 +23,7 @@
     "geolib": "^3.3.3",
     "moment": "^2.29.1",
     "moment-random": "^1.1.0",
+    "moment-timezone": "^0.5.34",
     "mongoose": "^6.0.13",
     "node-open-geocoder": "^4.0.1"
   },

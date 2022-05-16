@@ -35,8 +35,8 @@ export let airports = [
     passengersInMillionPerYear: 49,
   },
   {
-    name: "Madrid",
-    country: "Spain",
+    name: "Manchester",
+    country: "UK",
     passengersInMillionPerYear: 47,
   },
   {
