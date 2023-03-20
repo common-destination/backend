@@ -1,7 +1,7 @@
 import "./config.js";
 import mongoose from "mongoose";
 
-const mongoConnectionString = process.env.MONGO_ATLAS;
+const mongoConnectionString = process.env.MONGO_URI;
 
 mongoose
   .connect(mongoConnectionString, {

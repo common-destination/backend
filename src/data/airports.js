@@ -74,11 +74,11 @@ export let airports = [
     country: "Spain",
     passengersInMillionPerYear: 29,
   },
-  {
-    name: "Milan",
-    country: "Italy",
-    passengersInMillionPerYear: 28,
-  },
+  // {
+  //   name: "Milan",
+  //   country: "Italy",
+  //   passengersInMillionPerYear: 28,
+  // },
   {
     name: "Oslo",
     country: "Norway",
@@ -104,21 +104,17 @@ export let airports = [
     country: "Germany",
     passengersInMillionPerYear: 25,
   },
-  {
-    name: "Berlin",
-    country: "Germany",
-    passengersInMillionPerYear: 24,
-  },
+  // {
+  //   name: "Berlin",
+  //   country: "Germany",
+  //   passengersInMillionPerYear: 24,
+  // },
   {
     name: "Helsinki",
     country: "Finland",
     passengersInMillionPerYear: 22,
   },
-  {
-    name: "Saint Petersburg",
-    country: "Russia",
-    passengersInMillionPerYear: 21,
-  },
+
   {
     name: "Warsaw",
     country: "Poland",
@@ -139,13 +135,7 @@ export let airports = [
     country: "Hungary",
     passengersInMillionPerYear: 18,
   },
-  {
-    name: "Stuttgart",
-    country: "Germany",
-    passengersInMillionPerYear: 17,
-  },
+
 ];
 
-airports.map((airport) => {
-  airport.range = Math.round(airport.passengersInMillionPerYear / 10);
-});
+airports.map((airport) => airport.range = Math.round(airport.passengersInMillionPerYear / 10));

@@ -12,6 +12,7 @@ const userIsInGroup = (user, accessGroup) => {
   return accessGroupArray.includes(accessGroup);
 };
 
+
 // CREATE/SIGNUP
 usersRouter.post("/signup", async (req, res) => {
   const users = await usersController.readAllUsers();
